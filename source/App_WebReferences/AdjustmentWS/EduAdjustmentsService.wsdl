@@ -325,10 +325,10 @@
   </wsdl:binding>
   <wsdl:service name="EduAdjustmentsService">
     <wsdl:port name="EduAdjustmentsServiceSoap" binding="tns:EduAdjustmentsServiceSoap">
-      <soap:address location="http://localhost:2060/EduAdjustmentsService.asmx" />
+      <soap:address location="http://localhost:6305/EduAdjustmentsService.asmx" />
     </wsdl:port>
     <wsdl:port name="EduAdjustmentsServiceSoap12" binding="tns:EduAdjustmentsServiceSoap12">
-      <soap12:address location="http://localhost:2060/EduAdjustmentsService.asmx" />
+      <soap12:address location="http://localhost:6305/EduAdjustmentsService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
