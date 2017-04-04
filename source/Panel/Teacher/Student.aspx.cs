@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Panel_Teacher_Student : System.Web.UI.Page
 {
+    public string idSTD;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -26,8 +27,8 @@ public partial class Panel_Teacher_Student : System.Web.UI.Page
             {
                 GridViewDiscplines.DataSource = DisciplinesServices.GetStudent(id);
             }
-                 
 
+            idSTD = MemberService.GetUserPart(id).ID;
             
             GridViewDiscplines.DataBind();
             if (GridViewDiscplines.Rows.Count == 0)

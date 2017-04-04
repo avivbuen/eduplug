@@ -5,7 +5,7 @@
 <!-- Wanna see somthing fun? Open the head tag! -->
 <head runat="server">
     <Avivnet:Intersense runat="server" ID="sense1" />
-    <title>Interschool</title>
+    <title>EduPlug - Interactive school online | אדופלאג בית ספר אינטראקטיבי אונליין</title>
     <link href="~/Content/graphics/img/favicon.png" rel="icon" runat="server" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

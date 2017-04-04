@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -76,6 +77,8 @@ public partial class Panel_Teacher_Grade : System.Web.UI.Page
                 Date= DateTime.ParseExact(Exam_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)
             };
             ExamService.Add(exm, ((tGrade)Session["tgCur"]).ID);
+            Thread.Sleep(100);
+            ScoreService.ResetScores(ExamService.GetExamID(exm));
             Exam_Name.Text = "";
             Exam_Date.Text = "";
             Exam_Precent.Text = "";

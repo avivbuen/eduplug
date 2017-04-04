@@ -8673,3 +8673,36 @@ span.badge.static {
     color: #63818f; }
 
 /*# sourceMappingURL=materialize.css.map */
+.mark {
+    padding: 0;
+    background: #f1c40f;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.sorting {
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+}
+
+table.dataTable.table-condensed .sorting:after, table.dataTable.table-condensed .sorting_asc:after, table.dataTable.table-condensed .sorting_desc:after {
+    top: 6px;
+    left: 6px;
+}
+
+table.dataTable thead .sorting:after {
+    opacity: 0.2;
+    content: "";
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "";
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "";
+}

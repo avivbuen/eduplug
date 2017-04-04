@@ -41,3 +41,8 @@
   :
   :System.Exception: Request format is unrecognized for URL unexpectedly ending in '/$metadata'. URL:http://localhost:19329/Services/TimeTableService.asmx/$metadata
 -------------------------------
+
+ AVIVNET Log Entry : 22:53:59 יום שלישי 04 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Teacher/Grade.aspx?gid=11
+-------------------------------

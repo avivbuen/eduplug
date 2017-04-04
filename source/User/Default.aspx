@@ -29,7 +29,7 @@
                         <br />
                         <asp:RequiredFieldValidator ID="rfv_User_ID" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_ID" runat="server" ErrorMessage="הכנס תעודת זהות">*</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="refv_User_ID" Display="Dynamic" ValidationExpression="^[0-9]{9}$" EnableClientScript="true" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_ID" runat="server" ErrorMessage="תעודת זהות לא תקינה">*</asp:RegularExpressionValidator>
-                        <asp:TextBox ID="User_ID" runat="server" placeholder="תעודת זהות" CssClass="tbbox disablecopypaste" MaxLength="9"></asp:TextBox>
+                        <asp:TextBox ID="User_ID" runat="server"  placeholder="תעודת זהות" CssClass="tbbox disablecopypaste" MaxLength="9"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfv_User_Password" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_Password" runat="server" ErrorMessage="הכנס סיסמה">*</asp:RequiredFieldValidator>
                         <asp:TextBox ID="User_Password" runat="server" placeholder="סיסמה" CssClass="tbbox" TextMode="Password"></asp:TextBox>
                         <input type="submit" class="sbmBtn log" value="כניסה" />

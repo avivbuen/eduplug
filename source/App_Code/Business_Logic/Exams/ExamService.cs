@@ -54,6 +54,15 @@ public static class ExamService
         }
         return null;
     }
+    public static int GetExamID(Exam exm)
+    {
+        DataTable dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsExamTitle='" + exm.Title + "' AND nhsTeacherID="+exm.TeacherID+" AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
+        if (dt.Rows.Count == 1)
+        {
+            return int.Parse(dt.Rows[0]["nhsExamID"].ToString().Trim());
+        }
+        return -1;
+    }
     public static bool Delete(int eid)
     {
         return Connect.InsertUpdateDelete("DELETE FROM nhsScores WHERE nhsExamID=" + eid) && Connect.InsertUpdateDelete("DELETE FROM nhsExams WHERE nhsExamID=" + eid);

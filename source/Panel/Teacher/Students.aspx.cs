@@ -85,7 +85,7 @@ public partial class Panel_Teacher_Students : System.Web.UI.Page
         if (e.CommandName == "AssessT")
         {
             int uid = int.Parse(e.CommandArgument.ToString());
-            Response.Redirect("~/User/Student.aspx?sid=" + uid);
+            Response.Redirect("~/Panel/Teacher/Student.aspx?sid=" + uid);
         }
 
         if (e.CommandName == "AdjustT")

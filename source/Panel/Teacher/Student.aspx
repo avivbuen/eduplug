@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script src="../../Content/js/JsBarcode.all.min.js"></script>
     <div id="studentDet">
         <div  style="float:right; width:100%; text-align:right;">
             <div id="logo-place"></div>
@@ -37,6 +38,7 @@
                 <asp:Literal ID="LiteralEmptyScores" runat="server"></asp:Literal>
             </div>
         </div>
+        <svg id="ean-13" style="text-align:center;"></svg>
     </div>
     <div class="fixed-action-btn" style="right:auto; left:23px">
         <a class="btn-floating btn-large red" onclick="PrintPage()">
@@ -44,6 +46,7 @@
         </a>
     </div>
     <script>
+        JsBarcode("#ean-13", "<%= idSTD%>");
         function PrintPage() {
             var prtContent = document.getElementById("studentDet");
             var WinPrint = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');

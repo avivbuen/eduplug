@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 public partial class Panel_Teacher_Adjustments : System.Web.UI.Page
 {
     protected string script;
+    public string idSTD;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (MemberService.GetCurrent().Auth != MemberClearance.Teacher)
@@ -24,7 +25,7 @@ public partial class Panel_Teacher_Adjustments : System.Web.UI.Page
                 script = "alert('זה לא תלמיד. אתה מועבר חזרה. רק לתלמידים יש התאמות');location='Members.aspx'";//Showing message;
                 return;
             }
-                
+            idSTD = mem.ID;
             Fill(mem.ID);
         }
         catch (Exception ex)

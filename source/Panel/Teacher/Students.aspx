@@ -5,30 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="../../Content/css/table.css" rel="stylesheet" />
     <script src="../../Content/js/jquery.dataTables.min.js"></script>
-    <style>
-        .mark {
-            padding: 0;
-            background: #f1c40f;
-        }
-
-        .clickable {
-            cursor: pointer;
-        }
-
-        .sorting {
-            text-rendering: optimizeLegibility;
-            -webkit-font-feature-settings: 'liga';
-            -moz-font-feature-settings: 'liga';
-            font-feature-settings: 'liga';
-        }
-
-        table.dataTable.table-condensed .sorting:after, table.dataTable.table-condensed .sorting_asc:after, table.dataTable.table-condensed .sorting_desc:after {
-            top: 6px;
-            left: 6px;
-        }
-
-
-    </style>
     <div style="text-align: center">
         <div id="tableUsers">
             <div class="table-responsive-vertical shadow-z-1" style="direction: rtl">
@@ -38,14 +14,9 @@
                             <th class="clickable">תמונה</th>
                             <th>שם</th>
                             <th>מייל</th>
-                            <th>תעודת זהות</th>
                             <th>מגדר</th>
                             <th>תאריך לידה</th>
-              
-                            <th>גיל</th>
                             <th>עיר מגורים</th>
-                      
-                            <th>שכבה</th>
                             <th>פעולות</th>
                         </tr>
                     </thead>
@@ -59,16 +30,11 @@
                                     <td data-title="מייל">
                                         <a href="mailto:<%#Eval("nhsMail") %>"><%#Eval("nhsMail") %></a>
                                     </td>
-                                   
                                     <td data-title="מגדר"><%#CastGender(Eval("nhsGender")) %></td>
                                     <td data-title="תאריך לידה"><%#Eval("nhsBorn","{0:dd/MM/yyyy}") %></td>
-                                   
-                                    <td data-title="גיל"><%#CastAge(Eval("nhsBorn")) %></td>
                                     <td data-title="עיר מגורים"><%#Eval("nhsCity") %></td>
-                     
-                                    <td data-title="שכבה"><%#CastGPART(Eval("nhsGradeID"),Eval("nhsType")) %></td>
                                     <td data-title="">
-                                        <asp:LinkButton ID="btnAssessment" runat="server" Style="color: black" CommandName="AssessT" OnClientClick="return confirm('בטוח שברצונך למחוק')"
+                                        <asp:LinkButton ID="btnAssessment" runat="server" Style="color: black" CommandName="AssessT"
                                             CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">assessment</i></asp:LinkButton>
                                         <asp:LinkButton ID="btnAdjust" runat="server" Style="color: black" CommandName="AdjustT"
                                             CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">face</i></asp:LinkButton></td>

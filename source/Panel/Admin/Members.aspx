@@ -8,41 +8,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="../../Content/css/table.css" rel="stylesheet" />
     <script src="../../Content/js/jquery.dataTables.min.js"></script>
-    <style>
-        .mark {
-            padding: 0;
-            background: #f1c40f;
-        }
-
-        .clickable {
-            cursor: pointer;
-        }
-
-        .sorting {
-            text-rendering: optimizeLegibility;
-            -webkit-font-feature-settings: 'liga';
-            -moz-font-feature-settings: 'liga';
-            font-feature-settings: 'liga';
-        }
-
-        table.dataTable.table-condensed .sorting:after, table.dataTable.table-condensed .sorting_asc:after, table.dataTable.table-condensed .sorting_desc:after {
-            top: 6px;
-            left: 6px;
-        }
-
-        table.dataTable thead .sorting:after {
-            opacity: 0.2;
-            content: "sort";
-        }
-
-        table.dataTable thead .sorting_asc:after {
-            content: "\e155";
-        }
-
-        table.dataTable thead .sorting_desc:after {
-            content: "\e156";
-        }
-    </style>
     <div style="text-align: center">
         <div id="tableUsers">
             <div class="table-responsive-vertical shadow-z-1" style="direction: rtl">
