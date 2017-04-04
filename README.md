@@ -1,2 +1,3 @@
-# eduplug
-EduPlug - A school managing app
+## EduPlug - A school managing app
+
+http://eduplug.co.il
