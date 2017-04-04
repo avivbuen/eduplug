@@ -1,0 +1,43 @@
+
+ AVIVNET Log Entry : 22:42:35 יום חמישי 23 מרץ 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:19329/User/Register.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 22:45:41 יום חמישי 23 מרץ 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:19329/User/Register.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 23:01:13 יום חמישי 23 מרץ 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:19329/Panel/Admin/AddTgrade.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 10:39:03 יום שישי 24 מרץ 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:1560/Panel/Student/Disciplines.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 11:04:40 יום שישי 24 מרץ 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:1560/Panel/Admin/Lessons.aspx?tgid=30
+-------------------------------
+
+ AVIVNET Log Entry : 20:49:42 יום שישי 24 מרץ 2017
+  :
+  :System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 80.244.168.44:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\6052a59e\9822b7c9\App_WebReferences.l35_4yhx.1.cs:line 47
+   at CitiesService.updateDB() in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 17:10:36 יום רביעי 29 מרץ 2017
+  :
+  :System.Exception: Request format is unrecognized for URL unexpectedly ending in '/$metadata'. URL:http://localhost:19329/Services/TimeTableService.asmx/$metadata
+-------------------------------

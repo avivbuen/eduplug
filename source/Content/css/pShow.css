@@ -1,0 +1,154 @@
+﻿#pShow {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.ccol_2 figure {
+    width: 49%;
+    margin-right: 1%;
+}
+
+    .ccol_2 figure:nth-child(2) {
+        margin-right: 0;
+    }
+
+.ccol_3 figure {
+    width: 32%;
+    margin-right: 1%;
+}
+
+    .ccol_3 figure:nth-child(3) {
+        margin-right: 0;
+    }
+
+.ccol_4 figure {
+    width: 90%;
+    max-width: 300px;
+    margin-right: 1%;
+}
+
+    .ccol_4 figure:nth-child(4) {
+        margin-right: 0;
+    }
+
+.ccol_5 figure {
+    width: 19%;
+    margin-right: 1%;
+}
+
+    .ccol_5 figure:nth-child(5) {
+        margin-right: 0;
+    }
+
+#ccol figure:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+div#ccol figure {
+    direction: rtl;
+    display: inline-block;
+    background: #FEFEFE;
+    border: 2px solid #FAFAFA;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    margin: 0 0px 15px;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    padding: 15px;
+    padding-bottom: 5px;
+    background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+    opacity: 1;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+    div#ccol figure img {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 15px;
+        margin-bottom: 5px;
+    }
+
+    div#ccol figure figcaption {
+        font-size: .9rem;
+        color: #444;
+        line-height: 1.5;
+        height: 60px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+    }
+
+a.button {
+    padding: 10px;
+    background: #0066ff;
+    margin: 10px;
+    max-width: 800px;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    transition: all 1s linear;
+    text-decoration: none;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    border-bottom: 3px solid #003380;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+    a.button:hover {
+        background: #1a75ff;
+        border-bottom: 3px solid #0066ff;
+        color: #f1f2f3;
+    }
+
+@media screen and (max-width: 960px) {
+    #ccol figure {
+        width: 24%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #ccol figure {
+        width: 32%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #ccol figure {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #ccol figure {
+        width: 100%;
+    }
+}
+
+.image {
+    position: relative;
+    width: 100%; /* for IE 6 */
+    cursor: pointer;
+}
+
+figure h2 {
+    position: absolute;
+    font-size: 300%;
+    top: 15%;
+    left: -45%;
+    width: 100%;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+not supported by any browser */
+}

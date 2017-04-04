@@ -1,0 +1,123 @@
+<?xml version="1.0" standalone="yes"?>
+<EduEntries>
+  <EntryPoint>
+    <VisitorIP>31.154.81.54</VisitorIP>
+    <VisitorCountry>Israel</VisitorCountry>
+    <VisitorISP>Orange Israel</VisitorISP>
+    <VistServerTime>2017-02-28 23:09:51</VistServerTime>
+    <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
+    <VisitorOS>חלונות 10</VisitorOS>
+    <UserID>149</UserID>
+    <Rev>True</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>5.178.78.78</VisitorIP>
+    <VisitorCountry>Sweden</VisitorCountry>
+    <VisitorISP>GleSYS Internet Services AB</VisitorISP>
+    <VistServerTime>2017-02-28 23:16:42</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>True</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>173.208.58.138</VisitorIP>
+    <VisitorCountry>United States</VisitorCountry>
+    <VisitorISP>Nobis Technology Grou</VisitorISP>
+    <VistServerTime>2017-02-28 23:16:59</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>True</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>168.1.92.52</VisitorIP>
+    <VisitorCountry>Australia</VisitorCountry>
+    <VisitorISP>SoftLayer Technologies</VisitorISP>
+    <VistServerTime>2017-02-28 23:17:19</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>204.187.14.73</VisitorIP>
+    <VisitorCountry>Canada</VisitorCountry>
+    <VisitorISP>Gossamer Threads</VisitorISP>
+    <VistServerTime>2017-02-28 23:18:01</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>True</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>54.247.85.238</VisitorIP>
+    <VisitorCountry>Ireland</VisitorCountry>
+    <VisitorISP>Amazon Technologies</VisitorISP>
+    <VistServerTime>2017-02-28 23:19:04</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>54.241.10.123</VisitorIP>
+    <VisitorCountry>United States</VisitorCountry>
+    <VisitorISP>Amazon Technologies</VisitorISP>
+    <VistServerTime>2017-02-28 23:19:05</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>54.252.100.99</VisitorIP>
+    <VisitorCountry>Australia</VisitorCountry>
+    <VisitorISP>Amazon Technologies</VisitorISP>
+    <VistServerTime>2017-02-28 23:19:10</VistServerTime>
+    <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
+    <VisitorOS>UNIX</VisitorOS>
+    <UserID>-1</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>מקומי על מערכת חלונות 10</VisitorIP>
+    <VisitorCountry>מקומי</VisitorCountry>
+    <VisitorISP>מקומי</VisitorISP>
+    <VistServerTime>2017-03-01 18:16:03</VistServerTime>
+    <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
+    <VisitorOS>חלונות 10</VisitorOS>
+    <UserID>149</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>מקומי על מערכת חלונות 7</VisitorIP>
+    <VisitorCountry>מקומי</VisitorCountry>
+    <VisitorISP>מקומי</VisitorISP>
+    <VistServerTime>2017-03-03 8:33:24</VistServerTime>
+    <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
+    <VisitorOS>חלונות 7</VisitorOS>
+    <UserID>149</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>127.0.0.1</VisitorIP>
+    <VisitorCountry>מקומי</VisitorCountry>
+    <VisitorISP>Unknown ISP</VisitorISP>
+    <VistServerTime>2017-03-03 9:10:35</VistServerTime>
+    <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
+    <VisitorOS>חלונות 7</VisitorOS>
+    <UserID>180</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>מקומי על מערכת 5.0 אנדרואיד</VisitorIP>
+    <VisitorCountry>מקומי</VisitorCountry>
+    <VisitorISP>מקומי</VisitorISP>
+    <VistServerTime>2017-03-24 6:09:38</VistServerTime>
+    <VisitorDeviceFamily>Android</VisitorDeviceFamily>
+    <VisitorOS>5.0 אנדרואיד</VisitorOS>
+    <UserID>149</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
+</EduEntries>

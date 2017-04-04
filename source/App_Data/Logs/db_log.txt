@@ -1,0 +1,128 @@
+
+ AVIVNET Log Entry : 07:53:05 יום שישי 17 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in INSERT INTO statement.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+-------------------------------
+
+ AVIVNET Log Entry : 07:54:10 יום שישי 17 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in INSERT INTO statement.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+-------------------------------
+
+ AVIVNET Log Entry : 07:54:56 יום שישי 17 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in INSERT INTO statement.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= Insert into test
+-------------------------------
+
+ AVIVNET Log Entry : 23:36:47 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (14,0,'יא''')
+-------------------------------
+
+ AVIVNET Log Entry : 23:40:23 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (15,0,'יב''')
+-------------------------------
+
+ AVIVNET Log Entry : 23:46:13 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (16,0,'יא''')
+-------------------------------
+
+ AVIVNET Log Entry : 23:49:59 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (17,0,'יא''')
+-------------------------------
+
+ AVIVNET Log Entry : 23:58:39 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (18,0,'יב''')
+-------------------------------
+
+ AVIVNET Log Entry : 23:59:22 יום חמישי 23 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (19,0,'יב''')
+-------------------------------
+
+ AVIVNET Log Entry : 00:00:39 יום שישי 24 מרץ 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'nhsTeacherGrades'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (1,0,'י''')
+-------------------------------

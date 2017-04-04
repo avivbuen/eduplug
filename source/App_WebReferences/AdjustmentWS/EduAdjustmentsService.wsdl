@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.eduplug.co.il/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.eduplug.co.il/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.eduplug.co.il/">
+      <s:element name="GetAdjustmentsTypes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAdjustmentsTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdjustmentsTypesResult" type="tns:ArrayOfAdjustment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAdjustment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Adjustment" nillable="true" type="tns:Adjustment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Adjustment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAdjustmentsStudent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdjustmentsStudentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdjustmentsStudentResult" type="tns:ArrayOfAdjustment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddStudent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="adid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddStudentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddStudentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAdjustmentToStudent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="adid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAdjustmentToStudentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddAdjustmentToStudentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdjustmentsStudentJSON">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdjustmentsStudentJSONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdjustmentsStudentJSONResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllStudents">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllStudentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllStudentsResult" type="tns:ArrayOfMember" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMember">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Member" nillable="true" type="tns:Member" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Member">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllStudentsJSON">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllStudentsJSONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllStudentsJSONResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAdjustmentsTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsTypes" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentsTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentsStudentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsStudent" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentsStudentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsStudentResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddStudentSoapIn">
+    <wsdl:part name="parameters" element="tns:AddStudent" />
+  </wsdl:message>
+  <wsdl:message name="AddStudentSoapOut">
+    <wsdl:part name="parameters" element="tns:AddStudentResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAdjustmentToStudentSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAdjustmentToStudent" />
+  </wsdl:message>
+  <wsdl:message name="AddAdjustmentToStudentSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAdjustmentToStudentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentsStudentJSONSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsStudentJSON" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentsStudentJSONSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentsStudentJSONResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStudentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllStudents" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStudentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStudentsJSONSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllStudentsJSON" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStudentsJSONSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllStudentsJSONResponse" />
+  </wsdl:message>
+  <wsdl:portType name="EduAdjustmentsServiceSoap">
+    <wsdl:operation name="GetAdjustmentsTypes">
+      <wsdl:input message="tns:GetAdjustmentsTypesSoapIn" />
+      <wsdl:output message="tns:GetAdjustmentsTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudent">
+      <wsdl:input message="tns:GetAdjustmentsStudentSoapIn" />
+      <wsdl:output message="tns:GetAdjustmentsStudentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddStudent">
+      <wsdl:input message="tns:AddStudentSoapIn" />
+      <wsdl:output message="tns:AddStudentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAdjustmentToStudent">
+      <wsdl:input message="tns:AddAdjustmentToStudentSoapIn" />
+      <wsdl:output message="tns:AddAdjustmentToStudentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudentJSON">
+      <wsdl:input message="tns:GetAdjustmentsStudentJSONSoapIn" />
+      <wsdl:output message="tns:GetAdjustmentsStudentJSONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudents">
+      <wsdl:input message="tns:GetAllStudentsSoapIn" />
+      <wsdl:output message="tns:GetAllStudentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudentsJSON">
+      <wsdl:input message="tns:GetAllStudentsJSONSoapIn" />
+      <wsdl:output message="tns:GetAllStudentsJSONSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EduAdjustmentsServiceSoap" type="tns:EduAdjustmentsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAdjustmentsTypes">
+      <soap:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudent">
+      <soap:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsStudent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStudent">
+      <soap:operation soapAction="http://ws.eduplug.co.il/AddStudent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAdjustmentToStudent">
+      <soap:operation soapAction="http://ws.eduplug.co.il/AddAdjustmentToStudent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudentJSON">
+      <soap:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsStudentJSON" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudents">
+      <soap:operation soapAction="http://ws.eduplug.co.il/GetAllStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudentsJSON">
+      <soap:operation soapAction="http://ws.eduplug.co.il/GetAllStudentsJSON" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EduAdjustmentsServiceSoap12" type="tns:EduAdjustmentsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAdjustmentsTypes">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudent">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsStudent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStudent">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/AddStudent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAdjustmentToStudent">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/AddAdjustmentToStudent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentsStudentJSON">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/GetAdjustmentsStudentJSON" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudents">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/GetAllStudents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStudentsJSON">
+      <soap12:operation soapAction="http://ws.eduplug.co.il/GetAllStudentsJSON" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EduAdjustmentsService">
+    <wsdl:port name="EduAdjustmentsServiceSoap" binding="tns:EduAdjustmentsServiceSoap">
+      <soap:address location="http://localhost:2060/EduAdjustmentsService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="EduAdjustmentsServiceSoap12" binding="tns:EduAdjustmentsServiceSoap12">
+      <soap12:address location="http://localhost:2060/EduAdjustmentsService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

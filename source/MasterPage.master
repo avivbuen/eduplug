@@ -1,0 +1,30 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<!-- FROM EDUPLUG.CO.IL -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Wanna see somthing fun? Open the head tag! -->
+<head runat="server">
+    <Avivnet:Intersense runat="server" ID="sense1" />
+    <title>Interschool</title>
+    <link href="~/Content/graphics/img/favicon.png" rel="icon" runat="server" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+    <%-- For testing purposes use site.css, after done > code review > minfy > back to site.min.css --%>
+    <link href="~/Content/framework/Site.css" rel="stylesheet" runat="server" />
+</head>
+<body style="background: #eeeded; ">
+    <form id="MasterForm" runat="server">
+        <!-- Top Navigation -->
+        <Avivnet:TopNav ID="TopNav_Main" runat="server" />
+        <!-- Side Navigation -->
+        <Avivnet:SideNav ID="SideNav_Main" runat="server" />
+        <!-- UI Loader -->
+        <Avivnet:UILoader runat="server" ID="UILoader_Main" />
+        <!-- Content -->
+        <div style="margin-top: 5px;">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
