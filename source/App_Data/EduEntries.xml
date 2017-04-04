@@ -120,4 +120,14 @@
     <UserID>149</UserID>
     <Rev>False</Rev>
   </EntryPoint>
+  <EntryPoint>
+    <VisitorIP>מקומי על מערכת 6.0 אנדרואיד</VisitorIP>
+    <VisitorCountry>מקומי</VisitorCountry>
+    <VisitorISP>מקומי</VisitorISP>
+    <VistServerTime>2017-04-04 23:10:35</VistServerTime>
+    <VisitorDeviceFamily>Android</VisitorDeviceFamily>
+    <VisitorOS>6.0 אנדרואיד</VisitorOS>
+    <UserID>159</UserID>
+    <Rev>False</Rev>
+  </EntryPoint>
 </EduEntries>
