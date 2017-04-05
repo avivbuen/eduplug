@@ -46,3 +46,28 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Teacher/Grade.aspx?gid=11
 -------------------------------
+
+ AVIVNET Log Entry : 20:34:58 יום רביעי 05 אפריל 2017
+  :
+  :System.Net.WebException: לא היתה אפשרות לפענח את השם המרוחק: 'www.loveburn.com'
+   ב-  System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   ב-  System.Net.HttpWebRequest.GetRequestStream()
+   ב-  System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   ב-  Population.WebServiceCities.GetAllCitiesFromIsrael() ב- c:\Users\Salon-PC\AppData\Local\Temp\Temporary ASP.NET Files\vs\6727a5ce\9e2621cc\App_WebReferences.phhifkk-.1.cs:שורה 47
+   ב-  CitiesService.updateDB() ב- c:\Users\Salon-PC\Desktop\pAviv\source\App_Code\Business_Logic\City\CitiesService.cs:שורה 68
+-------------------------------
+
+ AVIVNET Log Entry : 21:09:21 יום רביעי 05 אפריל 2017
+  :
+  :System.Exception: המערכת התריעה על חריג מסוג 'System.Web.HttpUnhandledException'. URL:http://localhost:60909/Panel/Admin/Allowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 21:10:48 יום רביעי 05 אפריל 2017
+  :
+  :System.Exception: תג השרת אינו מעוצב כהלכה. URL:http://localhost:60909/Panel/Admin/Allowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 21:16:34 יום רביעי 05 אפריל 2017
+  :
+  :System.Exception: המערכת התריעה על חריג מסוג 'System.Web.HttpUnhandledException'. URL:http://localhost:60909/Panel/Admin/Allowed.aspx
+-------------------------------
