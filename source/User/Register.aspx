@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <Avivnet:Intersense runat="server" ID="Intersense" />
-    <title>EduPlug</title>
+    <title>EduPlug - Interactive school online | אדופלאג בית ספר אינטראקטיבי אונליין</title>
     <link href="../Content/css/connect.css" rel="stylesheet" />
     <script src="../Content/js/jquery.js"></script>
     <script src="../Content/js/framework.js"></script>
