@@ -86,3 +86,58 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 15:09:53 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:37 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: The process cannot access the file 'F:\Projects\Project10\source\App_Data\Logs\db_log.txt' because it is being used by another process. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:37 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Object reference not set to an instance of an object. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:37 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Object reference not set to an instance of an object. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:38 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: The process cannot access the file 'F:\Projects\Project10\source\App_Data\Logs\db_log.txt' because it is being used by another process. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:38 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Object reference not set to an instance of an object. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 15:12:45 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: The process cannot access the file 'F:\Projects\Project10\source\App_Data\Logs\db_log.txt' because it is being used by another process. URL:http://localhost:6304/SYSTEM/SysAuth.ashx
+-------------------------------
+
+ AVIVNET Log Entry : 17:35:41 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 18:52:55 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 18:59:39 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 19:03:01 יום חמישי 06 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------

@@ -11,7 +11,7 @@
             </div>
         </div>
     </a>
-    <a href="~/Panel/Admin/AddAllow.aspx" runat="server">
+    <a href="~/Panel/Admin/ImportAllowed.aspx" runat="server">
         <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 20px 0px 0px; padding: 0px 0px 0 0px; width: 100%; max-width: 200px; max-height: 100px;">
             <div class="collection-header orange white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
                 <h4 style="line-height: 90%; margin: 0px 0px 0px 0px; padding: 5px 10px 5px 0px; font-size: 37px;"><i class="material-icons" style="font-size: 40px;">cloud_upload</i>&nbsp; &nbsp;יבא</h4>

@@ -31,7 +31,8 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
                 if (MemberService.Login(id, pass, true))
                 {
                     Member m = MemberService.GetCurrent();
-                    string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'" + MessagesService.GetUnreaed(m.UserID) + "'}";
+                    //string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'" + MessagesService.GetUnreaed(m.UserID) + "'}";
+                    string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'0'}";
                     context.Response.Write(json.Replace((char)39, (char)34));//Returning json to JavaScript on master page
                 }
                 else

@@ -12,7 +12,11 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (IsPostBack && FileUploadExcel.PostedFile != null)
+        HandleFile();
+    }
+    protected void HandleFile()
+    {
+        if (IsPostBack && FileUploadExcel.PostedFile != null&&DropDownFam.SelectedValue!="-1")
         {
             if (FileUploadExcel.PostedFile.FileName.Length > 0)
             {
@@ -25,7 +29,18 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
                     if (valFunc.Item2)
                     {
                         LiteralRespIcon.Text = "done";
-                        PanelUpload.Visible = false;
+                        int[] indexs = new int[3];
+                        int indFname = 0;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if(valFunc.Item3!=i&& int.Parse(DropDownFam.SelectedValue)!=i)
+                            {
+                                indFname = i;
+                                break;
+                            }
+                        }
+                        int count = MemberService.AddAllowed(dt, valFunc.Item3, indFname, int.Parse(DropDownFam.SelectedValue));
+                        LiteralResp.Text += " " + (dt.Rows.Count - count)  + " כבר קיימים " + count.ToString();
                     }
                     else
                     {
@@ -38,8 +53,6 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
                     LiteralRespIcon.Text = "close";
                 }
             }
-
-
         }
     }
 
@@ -88,13 +101,16 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
         {
             if (!CheckIDNo(dr[indNum].ToString()))
             {
-                return new Tuple<string, bool, int>("קיימות תעודות זהות לא תקינות", false, indNum);
+                return new Tuple<string, bool, int>("תעודות זהות לא תקינות", false, indNum);
             }
         }
-        return new Tuple<string, bool, int>("תקין", true, indNum);
+        if (int.Parse(DropDownFam.SelectedValue) == indNum)
+            return new Tuple<string, bool, int>("עמודת המשפחה מכילה מספרים", false, indNum);
+        return new Tuple<string, bool, int>("הועלה", true, indNum);
     }
     static bool CheckIDNo(string strID)
     {
+        strID = strID.Replace("'", "");
         int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
         int count = 0;
 
@@ -118,6 +134,7 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
     public string GetCellType(string data)
     {
         double n;
+        data = data.Replace("'", "");
         bool isNumeric = double.TryParse(data, out n);
         if (isNumeric)
             return "num";
@@ -130,12 +147,14 @@ public static class ExcelPackageExtensions
     {
         ExcelWorksheet workSheet = package.Workbook.Worksheets.First();
         DataTable table = new DataTable();
+        int t = 0;
         foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
         {
-            table.Columns.Add(firstRowCell.Text);
+            t++;
+            table.Columns.Add("T"+t);
         }
 
-        for (var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
+        for (var rowNumber = 1; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
         {
             var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
             var newRow = table.NewRow();

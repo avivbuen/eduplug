@@ -4,26 +4,47 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div style="direction: rtl">
-        <h3>הוראות להעלת קובץ: </h3>
+        
+        <h3><a href="Allowed.aspx"><i class="material-icons">navigate_next</i></a> הוראות להעלת קובץ: </h3>
         <ul style="list-style-type: circle;">
-            <li>על הקובץ להיות בעל טופס אחד</li>
-            <li>הקובץ יכיל שלושה עמודות - שם פרטי, שם משפחה, תעודת זהות</li>
-            <li>(xlsx) הקובץ חייב להיות בפורמט אקסל חדש</li>
+            <li>- על הקובץ להיות בעל טופס אחד </li>
+            <li>- הקובץ יכיל שלושה עמודות - שם פרטי, שם משפחה, תעודת זהות</li>
+            <li>- הקובץ חייב להיות בפורמט אקסל חדש(xlsx)</li>
         </ul>
         <a href="../../Content/ipi.xlsx">קובץ דוגמא</a>
+        <br /><hr />
+         <b>בחר מספר העמודה המכילה את שם המשפחה!</b>
+        <asp:DropDownList ID="DropDownFam" runat="server" CssClass="browser-default drpdwnFam">
+             <asp:ListItem Text="בחר מספר עמודה" Value="-1"></asp:ListItem>
+            <asp:ListItem Text="1" Value="0"></asp:ListItem>
+            <asp:ListItem Text="2" Value="1"></asp:ListItem>
+            <asp:ListItem Text="3" Value="2"></asp:ListItem>
+        </asp:DropDownList>
+        <br /><br /><br />
     </div>
     <asp:Panel ID="PanelUpload" runat="server">
-        <div class="wrapper">
+        <div class="wrapper" >
             <div class="file-upload">
-                <asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" />
-                <span style="font-size: 15px">
-                    <asp:Literal ID="LiteralResp" runat="server" Text="העלה קובץ אקסל"></asp:Literal></span>
+                <asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" disabled />
+                <span style="font-size: 15px">העלה קובץ אקסל</span>
                 <i class="material-icons text-accent-4" style="font-size: 50px">
                     <asp:Literal ID="LiteralRespIcon" runat="server" Text="file_upload"></asp:Literal></i>
             </div>
         </div>
+        <div>
+            <asp:Literal ID="LiteralResp" runat="server" Text=""></asp:Literal></div>
         <script>
             $(".fileLoader").change(function () { this.form.submit(); });
+            $(".drpdwnFam").change(function () {
+                var val = $('.drpdwnFam option:selected').text();
+                if (val != "בחר מספר עמודה")
+                {
+                    $(".fileLoader").removeAttr("disabled");
+                }
+                else {
+                    $(".fileLoader").attr("disabled",true);
+                }
+            });
         </script>
     </asp:Panel>
     <style>

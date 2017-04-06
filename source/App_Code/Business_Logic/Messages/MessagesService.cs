@@ -110,7 +110,9 @@ public static class MessagesService
     public static int GetUnreaedCount(int uid)
     {
         if (uid == 0) return 0;
-        return int.Parse(Connect.GetObject("SELECT COUNT(*) FROM nhsMessages WHERE nhsMessageReciver=" + uid + " AND nhsMessageRead=NO AND (nhsActive<> ':" + uid + ":' OR nhsActive IS NULL)").ToString());
+        object obj = Connect.GetObject("SELECT COUNT(*) FROM nhsMessages WHERE nhsMessageReciver=" + uid + " AND nhsMessageRead=NO AND (nhsActive<> ':" + uid + ":' OR nhsActive IS NULL)");
+        if (obj == null) return 0;
+        return int.Parse(obj.ToString());
     }
     public static List<Message> GetUnreaed(int uid)
     {

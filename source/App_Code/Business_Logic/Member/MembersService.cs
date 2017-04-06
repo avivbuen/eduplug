@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Web;
 
@@ -485,6 +487,46 @@ public static class MemberService
     public static bool AddAllowed(string fname,string lname,string id,string type)
     {
         return Connect.InsertUpdateDelete("INSERT INTO nhsAllowed (nhsFirstName,nhsLastName,nhsID,nhsActive,nhsType) VALUES ('"+fname+"','"+lname+"','"+id+"',NO,'"+type+"')");
+    }
+    public static int AddAllowed(DataTable dt,int indID,int indFname,int indLname)
+    {
+        try
+        {
+            DataTable dtWS = dt;
+            DataTable dtAll = Connect.GetData("SELECT * FROM nhsAllowed ORDER BY nhsID", "nhsAllowed");
+            OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+            con.Open();
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "INSERT INTO nhsAllowed(nhsFirstName,nhsLastName,nhsID,nhsActive,nhsType) VALUES(@FNAME,@LNAME,@ID,NO,'s')";
+            cmd.Parameters.Add("@FNAME", OleDbType.VarWChar, 255);
+            cmd.Parameters.Add("@LNAME", OleDbType.VarWChar, 255);
+            cmd.Parameters.Add("@ID", OleDbType.VarWChar, 255);
+            int count = dt.Rows.Count;
+            OleDbTransaction transaction = con.BeginTransaction();
+            cmd.Transaction = transaction;
+            for (int i = 0; i < dtWS.Rows.Count; i++)
+            {
+                string id = dtWS.Rows[i][indID].ToString();
+                bool exists = dtAll.AsEnumerable().Where(x => x.Field<string>("nhsID").Equals(id)).Count() > 0;//Using lambda to check if exsits
+                if (!exists)
+                {
+                    count--;
+                    cmd.Parameters[0].Value = dtWS.Rows[i][indFname].ToString();
+                    cmd.Parameters[1].Value = dtWS.Rows[i][indLname].ToString();
+                    cmd.Parameters[2].Value = dtWS.Rows[i][indID].ToString();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            transaction.Commit();
+            con.Close();
+            return count;
+        }
+        catch (Exception ex)
+        {
+            Problem.Log(ex);
+            return 0;
+        }
     }
     /// <summary>
     /// Gets all the users from the following grade
