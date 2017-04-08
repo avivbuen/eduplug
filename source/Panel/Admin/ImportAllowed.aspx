@@ -25,7 +25,7 @@
     <asp:Panel ID="PanelUpload" runat="server">
         <div class="wrapper" >
             <div class="file-upload">
-                <asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" disabled />
+                <asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" disabled="disabled" accept=".xlsx" />
                 <span style="font-size: 15px">העלה קובץ אקסל</span>
                 <i class="material-icons text-accent-4" style="font-size: 50px">
                     <asp:Literal ID="LiteralRespIcon" runat="server" Text="file_upload"></asp:Literal></i>
@@ -35,6 +35,15 @@
             <asp:Literal ID="LiteralResp" runat="server" Text=""></asp:Literal></div>
         <script>
             $(".fileLoader").change(function () { this.form.submit(); });
+            $(function () {
+                var val = $('.drpdwnFam option:selected').text();
+                if (val != "בחר מספר עמודה") {
+                    $(".fileLoader").removeAttr("disabled");
+                }
+                else {
+                    $(".fileLoader").attr("disabled", true);
+                }
+            });
             $(".drpdwnFam").change(function () {
                 var val = $('.drpdwnFam option:selected').text();
                 if (val != "בחר מספר עמודה")

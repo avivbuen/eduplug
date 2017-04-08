@@ -52,12 +52,12 @@ public static class DisciplinesServices
     }
     public static DataTable GetStudent(int uid,DateTime date)
     {
-        DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND dsm.nhsDate > #"+Converter.GetTimeShortForDataBase(date)+ "# ORDER BY dsm.nhsDate DESC", "nhsDisciplinesMembers");
+        DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName, tg.nhsTeacherID AS teacherId, ls.nhsHour AS dHour FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND dsm.nhsDate > #"+Converter.GetTimeShortForDataBase(date)+ "# ORDER BY dsm.nhsDate DESC", "nhsDisciplinesMembers");
         return dt;
     }
     public static DataTable GetStudent(int uid,int tgid)
     {
-        DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND tg.nhsTgradeID="+tgid, "nhsDisciplinesMembers");
+        DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName, tg.nhsTeacherID AS teacherId, ls.nhsHour AS dHour FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND tg.nhsTgradeID="+tgid, "nhsDisciplinesMembers");
         return dt;
     }
     public static void ResetLesson(int lessonID, DateTime date)

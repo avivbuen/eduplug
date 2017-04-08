@@ -16,7 +16,7 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
     }
     protected void HandleFile()
     {
-        if (IsPostBack && FileUploadExcel.PostedFile != null&&DropDownFam.SelectedValue!="-1")
+        if (IsPostBack && FileUploadExcel.PostedFile != null && DropDownFam.SelectedValue != "-1")
         {
             if (FileUploadExcel.PostedFile.FileName.Length > 0)
             {
@@ -33,14 +33,14 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
                         int indFname = 0;
                         for (int i = 0; i < 3; i++)
                         {
-                            if(valFunc.Item3!=i&& int.Parse(DropDownFam.SelectedValue)!=i)
+                            if (valFunc.Item3 != i && int.Parse(DropDownFam.SelectedValue) != i)
                             {
                                 indFname = i;
                                 break;
                             }
                         }
                         int count = MemberService.AddAllowed(dt, valFunc.Item3, indFname, int.Parse(DropDownFam.SelectedValue));
-                        LiteralResp.Text += " " + (dt.Rows.Count - count)  + " כבר קיימים " + count.ToString();
+                        LiteralResp.Text += " " + (dt.Rows.Count - count) + " כבר קיימים " + count.ToString();
                     }
                     else
                     {
@@ -151,7 +151,7 @@ public static class ExcelPackageExtensions
         foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
         {
             t++;
-            table.Columns.Add("T"+t);
+            table.Columns.Add("T" + t);
         }
 
         for (var rowNumber = 1; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
@@ -160,7 +160,19 @@ public static class ExcelPackageExtensions
             var newRow = table.NewRow();
             foreach (var cell in row)
             {
-                newRow[cell.Start.Column - 1] = cell.Text;
+                try
+                {
+                    if ((cell.Start.Column - 1) < workSheet.Dimension.End.Column)
+                        newRow[cell.Start.Column - 1] = cell.Text;
+                    else
+                        return new DataTable();
+                }
+                catch (System.IndexOutOfRangeException e)
+                {
+                    return new DataTable();
+                    
+                }
+
             }
             table.Rows.Add(newRow);
         }

@@ -23,7 +23,7 @@
         <br />
         <br />
         <h4>רשימת מוזמנים להרשמה</h4>
-        <asp:GridView ID="GridViewUsers" runat="server" OnDataBound="GridViewUsers_DataBinding" AutoGenerateColumns="False" OnPageIndexChanging="GridViewUsers_PageIndexChanging" OnRowCommand="GridViewUsers_RowCommand" CssClass="datatables-table table table-hover">
+        <asp:GridView ID="GridViewUsers" runat="server"  OnDataBound="GridViewUsers_DataBinding" AutoGenerateColumns="False" OnPageIndexChanging="GridViewUsers_PageIndexChanging" OnRowCommand="GridViewUsers_RowCommand" CssClass="datatables-table table table-hover">
             <Columns>
                 <asp:TemplateField HeaderText="שם">
                     <ItemTemplate>

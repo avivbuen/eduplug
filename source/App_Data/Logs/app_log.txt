@@ -141,3 +141,28 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 13:08:31 שבת 08 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:15:48 שבת 08 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:35:29 שבת 08 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:36:54 שבת 08 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:42:58 שבת 08 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
+-------------------------------

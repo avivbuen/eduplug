@@ -663,3 +663,11 @@
         background-color: #ffccbc;
     }
 }
+.sorting, .sorting_asc, .sorting_desc {
+    cursor: pointer;
+
+}
+    .sorting::after {
+        content: 'sort';
+        font-family: 'Material Icons';
+    }

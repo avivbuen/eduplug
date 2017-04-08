@@ -56,4 +56,10 @@ public partial class Panel_Admin_Tgrades : System.Web.UI.Page
             Fill();
         }
     }
+
+    protected void GridViewTgrades_DataBinding(object sender, EventArgs e)
+    {
+        //GridViewTgrades.HeaderRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+        GridViewTgrades.HeaderRow.TableSection = TableRowSection.TableHeader;
+    }
 }

@@ -3,15 +3,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script src="../../Content/js/jquery.dataTables.min.js"></script>
+    <h2 style="text-align:center; direction:rtl">כיתות:</h2>
     <a href="~/Panel/Admin/AddTgrade.aspx" runat="server">
-        <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 500px">
-            <div class="collection-header green white-text" style="border-radius: 0px;">
-                <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size: 40px;">add</i>&nbsp; &nbsp;הוספת כיתה</h4>
+        <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0; width: 100%; max-width: 200px; max-height: 100px;">
+            <div class="collection-header green white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
+                <h4 style="line-height: 90%; margin: 0px 0px 0px 0px; padding: 5px 0px 5px 0px; font-size: 37px;"><i class="material-icons" style="font-size: 40px;">add</i>&nbsp; &nbsp;חדש</h4>
             </div>
         </div>
     </a>
-    <div dir="rtl" style="max-width: 400px; text-align: center; margin: 0 auto; box-shadow: -1px 1px 5px 0px; background: #fff; padding: 30px;">
-        <asp:GridView ID="GridViewTgrades" PageSize="10" DataKeyNames="ID" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="GridViewTgrades_PageIndexChanging" OnRowCommand="GridViewTgrades_RowCommand" CssClass="highlight" AllowPaging="True">
+    <br />
+    <link href="../../Content/css/table.css" rel="stylesheet" />
+    <div class="table-responsive-vertical shadow-z-1" style="direction: rtl; text-align: center;">
+        <br />
+        <br />
+        
+        <asp:GridView ID="GridViewTgrades" DataKeyNames="ID" OnDataBound="GridViewTgrades_DataBinding" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="GridViewTgrades_PageIndexChanging" OnRowCommand="GridViewTgrades_RowCommand" CssClass="datatables-table table table-hover">
             <Columns>
                 <asp:TemplateField HeaderText="שם מקצוע">
                     <ItemTemplate>
@@ -47,19 +54,15 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
-            <PagerTemplate>
-                <div style="text-align: center;">
-                    <asp:LinkButton ID="First" CommandName="Page" CommandArgument="First" runat="server" Text="<<" />
-                    <asp:LinkButton ID="Prev" CommandName="Page" CommandArgument="Prev" runat="server" Text="<" />
-                    &nbsp;
-                    <% Response.Write(GridViewTgrades.PageIndex + 1);%> מתוך <% Response.Write(GridViewTgrades.PageCount); %>
-                    &nbsp;
-                    <asp:LinkButton ID="Next" CommandName="Page" CommandArgument="Next" runat="server" Text=">" />
-                    <asp:LinkButton ID="Last" CommandName="Page" CommandArgument="Last" runat="server" Text=">>" />
-                </div>
-            </PagerTemplate>
         </asp:GridView>
-        <asp:Label ID="LabelEmpty" runat="server" Text=""></asp:Label>
     </div>
+    <asp:Label ID="LabelEmpty" runat="server" Text=""></asp:Label>
+    
+    <script>
+        $('.datatables-table').DataTable({
+            // Enable mark.js search term highlighting
+            mark: true
+        });
+    </script>
 </asp:Content>
 

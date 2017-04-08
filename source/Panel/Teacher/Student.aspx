@@ -18,6 +18,7 @@
                 <Columns>
                     <asp:BoundField DataField="lName" HeaderText="שיעור"></asp:BoundField>
                     <asp:BoundField DataField="dName" HeaderText="הערה"></asp:BoundField>
+                    <asp:BoundField DataField="dHour" HeaderText="שעה"></asp:BoundField>
                     <asp:BoundField DataField="dDate" DataFormatString="{0: dd/MM/yyyy}" HeaderText="תאריך"></asp:BoundField>
                 </Columns>
             </asp:GridView>
