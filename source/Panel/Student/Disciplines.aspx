@@ -3,15 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    
-        <style>
-            table, th, td {
-                border: solid 1px !important;
-            }
-        </style>
-        <div id="GridViewDiscplines_tbl" style="border: groove; direction: rtl; float: right; margin-top: 0px; width: 100%; background:#fff">
-            <h5 style="font-weight: 600; text-align: center;">הערות משמעת</h5>
-            <asp:GridView ID="GridViewDiscplines" CssClass="bordered" runat="server" AutoGenerateColumns="False" Style="width: 100%">
+        <link href="../../Content/css/table.css" rel="stylesheet" />
+    <script src="../../Content/js/jquery.dataTables.min.js"></script>
+     <h2 style="text-align:center; direction:rtl">הערות משמעת</h2>
+
+    <div class="table-responsive-vertical shadow-z-1" style="direction: rtl; text-align: center;">
+            <asp:GridView ID="GridViewDiscplines" OnDataBound="GridViewDiscplines_DataBound" CssClass="datatables-table table table-hover" runat="server" AutoGenerateColumns="False">
                 <Columns>
                     <asp:TemplateField HeaderText="#">
                         <ItemTemplate>
@@ -33,5 +30,11 @@
                 <asp:Literal ID="LiteralEmptyDiscplines" runat="server"></asp:Literal>
             </div>
         </div>
+        <script>
+        $('.datatables-table').DataTable({
+            // Enable mark.js search term highlighting
+            mark: true
+        });
+    </script>
 </asp:Content>
 

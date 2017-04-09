@@ -17,7 +17,6 @@
     <div class="table-responsive-vertical shadow-z-1" style="direction: rtl; text-align: center;">
         <br />
         <br />
-        
         <asp:GridView ID="GridViewTgrades" DataKeyNames="ID" OnDataBound="GridViewTgrades_DataBinding" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="GridViewTgrades_PageIndexChanging" OnRowCommand="GridViewTgrades_RowCommand" CssClass="datatables-table table table-hover">
             <Columns>
                 <asp:TemplateField HeaderText="שם מקצוע">

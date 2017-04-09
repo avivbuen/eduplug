@@ -14,4 +14,9 @@ public partial class Panel_Student_Disciplines : System.Web.UI.Page
         GridViewDiscplines.DataSource = DisciplinesServices.GetStudent(MemberService.GetCurrent().UserID);
         GridViewDiscplines.DataBind();
     }
+
+    protected void GridViewDiscplines_DataBound(object sender, EventArgs e)
+    {
+        GridViewDiscplines.HeaderRow.TableSection = TableRowSection.TableHeader;
+    }
 }
