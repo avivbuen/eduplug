@@ -38,7 +38,7 @@
     <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
     <VisitorOS>UNIX</VisitorOS>
     <UserID>-1</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>204.187.14.73</VisitorIP>
@@ -58,7 +58,7 @@
     <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
     <VisitorOS>UNIX</VisitorOS>
     <UserID>-1</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>54.241.10.123</VisitorIP>
@@ -68,7 +68,7 @@
     <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
     <VisitorOS>UNIX</VisitorOS>
     <UserID>-1</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>54.252.100.99</VisitorIP>
@@ -78,7 +78,7 @@
     <VisitorDeviceFamily>Unknown Family</VisitorDeviceFamily>
     <VisitorOS>UNIX</VisitorOS>
     <UserID>-1</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>מקומי על מערכת חלונות 10</VisitorIP>
@@ -88,7 +88,7 @@
     <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
     <VisitorOS>חלונות 10</VisitorOS>
     <UserID>149</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>מקומי על מערכת חלונות 7</VisitorIP>
@@ -98,7 +98,7 @@
     <VisitorDeviceFamily>MS-Windows</VisitorDeviceFamily>
     <VisitorOS>חלונות 7</VisitorOS>
     <UserID>149</UserID>
-    <Rev>False</Rev>
+    <Rev>True</Rev>
   </EntryPoint>
   <EntryPoint>
     <VisitorIP>127.0.0.1</VisitorIP>

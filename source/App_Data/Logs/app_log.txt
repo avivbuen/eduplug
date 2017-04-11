@@ -166,3 +166,137 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ImportAllowed.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 15:04:22 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A socket operation was attempted to an unreachable network 80.244.168.44:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:04:41 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:04:47 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:08:42 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:10:14 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:14:10 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:14:28 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 15:14:56 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: The remote name could not be resolved: 'www.loveburn.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 18:02:28 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A socket operation was attempted to an unreachable network 80.244.168.44:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.thavfbir.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 18:05:51 יום שלישי 11 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Tgrades.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 18:18:36 יום שלישי 11 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ChangeTable.aspx?tgid=11
+-------------------------------
+
+ AVIVNET Log Entry : 18:43:28 יום שלישי 11 אפריל 2017
+  :
+  :System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 80.244.168.44:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.dzruh_fk.1.cs:line 47
+   at CitiesService.updateDB() in f:\Projects\Project10\source\App_Code\Business_Logic\City\CitiesService.cs:line 68
+-------------------------------
+
+ AVIVNET Log Entry : 19:03:57 יום שלישי 11 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\Panel\Admin\ChangeTable.aspx(43): error CS1061: 'ASP.panel_admin_changetable_aspx' does not contain a definition for 'Change_Date_TextChanged' and no extension method 'Change_Date_TextChanged' accepting a first argument of type 'ASP.panel_admin_changetable_aspx' could be found (are you missing a using directive or an assembly reference?) URL:http://localhost:6304/Panel/Admin/ChangeTable.aspx?tgid=12
+-------------------------------
+
+ AVIVNET Log Entry : 19:04:11 יום שלישי 11 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\Panel\Admin\ChangeTable.aspx(64): error CS1061: 'ASP.panel_admin_changetable_aspx' does not contain a definition for 'AddButtonChange_Click' and no extension method 'AddButtonChange_Click' accepting a first argument of type 'ASP.panel_admin_changetable_aspx' could be found (are you missing a using directive or an assembly reference?) URL:http://localhost:6304/Panel/Admin/ChangeTable.aspx?tgid=12
+-------------------------------
+
+ AVIVNET Log Entry : 22:09:22 יום שלישי 11 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ChangeTable.aspx?tgid=10
+-------------------------------

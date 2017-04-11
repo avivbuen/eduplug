@@ -12,8 +12,10 @@
                 border: solid 1px !important;
             }
         </style>
+       
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+                 <h2><asp:Label ID="LabelName" runat="server" Text="Label"></asp:Label></h2>
                 <ul class="collection with-header" style="direction: rtl; float: right; border: 0px; margin-top: 0px; width: 100%; max-width: 500px">
                     <li class="collection-header orange white-text" style="border-radius: 0px;">
                         <h4><i class="material-icons">access_time</i> שיעורים</h4>
@@ -61,7 +63,7 @@
                                     <asp:RequiredFieldValidator ID="rfv_Lesson_Hour" runat="server" ControlToValidate="Lesson_Hour" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר שעה">*</asp:RequiredFieldValidator>
                                     <asp:DropDownList ID="Lesson_Hour" runat="server" CssClass="browser-default" Visible="false">
                                         <asp:ListItem Text="בחר שעה..." Value="-1"></asp:ListItem>
-                
+
                                     </asp:DropDownList>
 
                                 </div>
@@ -77,7 +79,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <a href="Tgrades.aspx">חזור לכל הכיתות מקצועות</a>
 
 </asp:Content>

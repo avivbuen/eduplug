@@ -21,6 +21,7 @@ public partial class Panel_Admin_Lessons : System.Web.UI.Page
         tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
         if (t == null) Response.Redirect("~/");
         Session["ltgCur"] = t;
+        LabelName.Text = t.Name;
         ListViewLessons.DataSource = LessonService.GetLessons(t.ID);
         ListViewLessons.DataBind();
         if (ListViewLessons.Items.Count == 0)

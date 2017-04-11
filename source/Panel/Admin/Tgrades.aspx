@@ -3,8 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <script src="../../Content/js/jquery.dataTables.min.js"></script>
-    <h2 style="text-align:center; direction:rtl">כיתות:</h2>
+    <h2 style="text-align: center; direction: rtl">כיתות:</h2>
     <a href="~/Panel/Admin/AddTgrade.aspx" runat="server">
         <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0; width: 100%; max-width: 200px; max-height: 100px;">
             <div class="collection-header green white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
@@ -34,6 +33,12 @@
                         <%#tGradeService.GetPartGrade((int)Eval("ID")) %>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="שינוי מערכת">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btnChange" runat="server" CommandName="ChangeT"
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" Style="color: black"><i class="material-icons">change_history</i></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="עריכה">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButtonDel" runat="server" CommandName="EditT"
@@ -56,7 +61,7 @@
         </asp:GridView>
     </div>
     <asp:Label ID="LabelEmpty" runat="server" Text=""></asp:Label>
-    
+
     <script>
         $('.datatables-table').DataTable({
             // Enable mark.js search term highlighting

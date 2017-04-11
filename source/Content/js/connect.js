@@ -1,4 +1,5 @@
 ﻿
+var preventLoginOffline = true;
 $('.message a').click(function () {//Switching views Register/Login
     location = "Register.aspx";
 });
@@ -7,27 +8,32 @@ $("form").submit(function (event) {
     event.preventDefault();//Preventing Post-Back
     if (Page_ClientValidate("LoginValidationGroup")) {//Validating the basics
         var url = "../../System/SysAuth.ashx";//Server validation page path
-        $.ajax({//Calling the server in order to validate
-            url: url,
-            data: { id: getUserid(), pass: getPass() },//Sending the credentials
-            type: "POST",
-            success: function (data) {//Got response
-                var user = JSON.parse(data);
-                if (user.fname == "non" && user.lname == "non") {
-                    $(".errorCode").html(wrong[Math.floor((Math.random() * (wrong.length-1)))]);
-                } else {
-                    $("#username").html(user.fname + " " + user.lname);
-                    $('.login-form').css("display", "none");//Hiding the login form
-                    $('.checkmark').css("display", "block");//showing the success with name
-                    window.setTimeout(function () {//Start of timeout message
-                        window.location.href = '';//Redirect to area of the user
-                    }, 3000);//The timeout is to wait 3 second before redirect to dashboard
+        if (navigator.onLine||(!preventLoginOffline)) {
+            $.ajax({//Calling the server in order to validate
+                url: url,
+                data: { id: getUserid(), pass: getPass() },//Sending the credentials
+                type: "POST",
+                success: function (data) {//Got response
+                    var user = JSON.parse(data);
+                    if (user.fname == "non" && user.lname == "non") {
+                        $(".errorCode").html(wrong[Math.floor((Math.random() * (wrong.length - 1)))]);
+                    } else {
+                        $("#username").html(user.fname + " " + user.lname);
+                        $('.login-form').css("display", "none");//Hiding the login form
+                        $('.checkmark').css("display", "block");//showing the success with name
+                        window.setTimeout(function () {//Start of timeout message
+                            window.location.href = '';//Redirect to area of the user
+                        }, 3000);//The timeout is to wait 3 second before redirect to dashboard
+                    }
+                },
+                error: function (reponse) {//Did not get response or damaged one
+                    console.log("Avivnet System Error (Ajax) :" + reponse);//Log the error to the console for debug and easy troubleshooting
                 }
-            },
-            error: function (reponse) {//Did not get response or damaged one
-                console.log("Avivnet System Error (Ajax) :" + reponse);//Log the error to the console for debug and easy troubleshooting
-            }
-        });
+            });
+        }
+        else if(preventLoginOffline) {
+            $(".errorCode").html("אין חיבור אינטרנט");
+        }
     }
 });
 function LoadCurrentUser() {

@@ -139,14 +139,20 @@ public static class LessonService
         }
         return GetDataTime(dt);
     }
-    private static List<LessonChange> GetChanges(int lid)
+    public static bool CancelChange(int changeID)
     {
+        return Connect.InsertUpdateDelete("DELETE FROM nhsLessonChanges WHERE nhsLessonChangeID=" + changeID);
+    }
+    public static List<LessonChange> GetChanges(int lid)
+    {
+            
         DataTable dt = Connect.GetData("SELECT * FROM nhsLessonChanges WHERE nhsLessonID=" + lid, "nhsLessonChanges");
         List<LessonChange> changeTable = new List<LessonChange>();
         foreach (DataRow dr in dt.Rows)
         {
             LessonChange change = new LessonChange()
             {
+                ID = int.Parse(dr["nhsLessonChangeID"].ToString()),
                 ChangeType = ((LessonChangeType)(char.Parse(dr["nhsLessonChangeType"].ToString()))),
                 Date = DateTime.Parse(dr["nhsDate"].ToString().Trim()),
                 Message = dr["nhsMessage"].ToString().Trim(),
@@ -236,5 +242,26 @@ public static class LessonService
             return true;
         }
         return false;  
+    }
+    public static bool AddChange(LessonChange change)
+    {
+        return Connect.InsertUpdateDelete("INSERT INTO nhsLessonChanges (nhsLessonChangeType,nhsLessonID,nhsMessage,nhsDate) VALUES('" + Converter.GetChangeType(change.ChangeType) + "'," + change.LessonID + ",'" + change.Message + "',#" + Converter.GetTimeShortForDataBase(change.Date) + "#)");
+    }
+    public static Lesson GetLesson(int tgid,int hour,int day)
+    {
+        DataTable dt = Connect.GetData("SELECT tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TgradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsHour=" + hour + " AND nhsDay="+day+ " AND tg.nhsTgradeID="+tgid+" AND nhsActive=YES", "nhsLessons");
+        if (dt.Rows.Count == 0)
+            return null;
+        DataRow dr = dt.Rows[0];
+        Lesson lesson = new Lesson()
+        {
+            Name = dr["LessonName"].ToString(),
+            Day = int.Parse(dr["nhsDay"].ToString()),
+            Hour = int.Parse(dr["nhsHour"].ToString()),
+            ID = int.Parse(dr["LessonID"].ToString()),
+            TeacherID = int.Parse(dr["TeacherID"].ToString()),
+            Changes = GetChanges(int.Parse(dr["LessonID"].ToString()))
+        };
+        return lesson;
     }
 }

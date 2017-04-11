@@ -50,6 +50,24 @@ public static class Converter
         }
         return "f";
     }
+    public static string GetChangeType(LessonChangeType change)
+    {
+        switch (change)
+        {
+            case LessonChangeType.Cancel:
+                return "c";
+            case LessonChangeType.Fill:
+                return "f";
+            case LessonChangeType.Test:
+                return "t";
+            case LessonChangeType.FinalTest:
+                return "b";
+            case LessonChangeType.Unknown:
+                return "u";
+            default:
+                return "u";
+        }
+    }
     public static string GetGender(MemberGender gen)
     {
         switch (gen)

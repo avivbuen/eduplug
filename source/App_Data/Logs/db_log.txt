@@ -16718,3 +16718,16 @@
    at Connect.GetObject(String SqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 54
  QUERY= SELECT COUNT(*) FROM nhsMessages WHERE nhsMessageReciver=149 AND nhsMessageRead=NO AND (nhsActive<> ':149:' OR nhsActive IS NULL)
 -------------------------------
+
+ AVIVNET Log Entry : 18:06:10 יום שלישי 11 אפריל 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): The record cannot be deleted or changed because table 'nhsLessons' includes related records.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String SqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM nhsTeacherGrades WHERE nhsTgradeID=12
+-------------------------------

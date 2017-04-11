@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class LessonChange
 {
+    public int ID { get; set; }
     public int LessonID { get; set; }
     public DateTime Date { get; set; }
     public LessonChangeType ChangeType { get; set; }

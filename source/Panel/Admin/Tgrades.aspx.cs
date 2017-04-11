@@ -42,6 +42,12 @@ public partial class Panel_Admin_Tgrades : System.Web.UI.Page
             GridViewRow row = GridViewTgrades.Rows[index];
             Response.Redirect("~/Panel/Admin/EditTgrade.aspx?tgid=" + int.Parse(GridViewTgrades.DataKeys[row.RowIndex].Value.ToString()));
         }
+        if (e.CommandName == "ChangeT")
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GridViewTgrades.Rows[index];
+            Response.Redirect("~/Panel/Admin/ChangeTable.aspx?tgid=" + int.Parse(GridViewTgrades.DataKeys[row.RowIndex].Value.ToString()));
+        }
         if (e.CommandName == "LessonEdit")
         {
             int index = Convert.ToInt32(e.CommandArgument);

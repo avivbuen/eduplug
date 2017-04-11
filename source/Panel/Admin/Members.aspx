@@ -7,7 +7,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="../../Content/css/table.css" rel="stylesheet" />
-    <script src="../../Content/js/jquery.dataTables.min.js"></script>
     <h2 style="text-align:center; direction:rtl">משתמשים</h2>
     <div style="text-align: center">
         <div id="tableUsers">
