@@ -59,8 +59,7 @@ public static class MemberService
                 GradeID = int.Parse(dr["nhsGradeID"].ToString()),
                 City = CitiesService.GetCity(int.Parse(dr["nhsCityID"].ToString().Trim())),
                 Majors = MajorsService.GetUserMajors(int.Parse(dr["nhsUserID"].ToString())),
-                Active= Convert.ToBoolean(dr["nhsActive"].ToString().Trim()),
-                Phone = dr["nhsPhone"].ToString().Trim()
+                Active= Convert.ToBoolean(dr["nhsActive"].ToString().Trim())
             };
             Members.Add(c);
         }
@@ -137,8 +136,7 @@ public static class MemberService
                 GradeID = int.Parse(dt.Rows[0]["nhsGradeID"].ToString()),
                 City = CitiesService.GetCity(int.Parse(dt.Rows[0]["nhsCityID"].ToString().Trim())),
                 Majors = MajorsService.GetUserMajors(int.Parse(dt.Rows[0]["nhsUserID"].ToString())),
-                Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim()),
-                Phone = dt.Rows[0]["nhsPhone"].ToString().Trim()
+                Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim())
             };
             HttpContext.Current.Session["Member"] = m;
             if (HttpContext.Current.Application["Members"]==null)
@@ -187,8 +185,7 @@ public static class MemberService
                 GradeID = int.Parse(dt.Rows[0]["nhsGradeID"].ToString()),
                 City = CitiesService.GetCity(int.Parse(dt.Rows[0]["nhsCityID"].ToString().Trim())),
                 Majors = MajorsService.GetUserMajors(int.Parse(dt.Rows[0]["nhsUserID"].ToString())),
-                Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim()),
-                Phone = dt.Rows[0]["nhsPhone"].ToString().Trim()
+                Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim())
             };
             HttpContext.Current.Session["Member"] = m;
             if (HttpContext.Current.Application["Members"] == null)
@@ -248,7 +245,7 @@ public static class MemberService
     /// <summary>
     /// Template for inserting a new member into the DB
     /// </summary>
-    private const string FullInsertTemplate = "INSERT INTO nhsMembers (nhsFirstName,nhsLastName,nhsPass,nhsType,nhsMail,nhsID,nhsGender,nhsGradeID,nhsPicture,nhsBorn,nhsDateRegister,nhsCityID,nhsActive,nhsPhone) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',{11},Yes,'{12}')";
+    private const string FullInsertTemplate = "INSERT INTO nhsMembers (nhsFirstName,nhsLastName,nhsPass,nhsType,nhsMail,nhsID,nhsGender,nhsGradeID,nhsPicture,nhsBorn,nhsDateRegister,nhsCityID,nhsActive) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',{11},Yes)";
     /// <summary>
     /// Adds a user - ALL FIELDS MUST NOT BE EMPTY!
     /// </summary>
@@ -408,8 +405,7 @@ public static class MemberService
             GradeID = int.Parse(dt.Rows[0]["nhsGradeID"].ToString()),
             City = CitiesService.GetCity(int.Parse(dt.Rows[0]["nhsCityID"].ToString().Trim())),
             Majors = MajorsService.GetUserMajors(int.Parse(dt.Rows[0]["nhsUserID"].ToString())),
-            Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim()),
-            Phone = dt.Rows[0]["nhsPhone"].ToString().Trim()
+            Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim())
         };
         return m;
     }
@@ -437,8 +433,7 @@ public static class MemberService
             RegisterationDate = DateTime.Parse(dt.Rows[0]["nhsDateRegister"].ToString()),
             PicturePath = dt.Rows[0]["nhsPicture"].ToString(),
             GradeID = int.Parse(dt.Rows[0]["nhsGradeID"].ToString()),
-            Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim()),
-            Phone = dt.Rows[0]["nhsPhone"].ToString().Trim()
+            Active = Convert.ToBoolean(dt.Rows[0]["nhsActive"].ToString().Trim())
         };
         return m;
     }
@@ -554,8 +549,7 @@ public static class MemberService
                 GradeID = int.Parse(dr["nhsGradeID"].ToString()),
                 City = CitiesService.GetCity(int.Parse(dr["nhsCityID"].ToString().Trim())),
                 Majors = MajorsService.GetUserMajors(int.Parse(dr["nhsUserID"].ToString())),
-                Active = Convert.ToBoolean(dr["nhsActive"].ToString().Trim()),
-                Phone = dr["nhsPhone"].ToString().Trim()
+                Active = Convert.ToBoolean(dr["nhsActive"].ToString().Trim())
             };
             Members.Add(c);
         }
