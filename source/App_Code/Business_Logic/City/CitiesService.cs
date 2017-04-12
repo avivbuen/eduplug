@@ -13,6 +13,10 @@ using Population;
 /// </summary>
 public static class CitiesService
 {
+    /// <summary>
+    /// Get all cities
+    /// </summary>
+    /// <returns>List(City) of all cities</returns>
     public static List<City> GetAll()
     {
         List<City> cities = new List<City>();
@@ -28,11 +32,19 @@ public static class CitiesService
         }
         return cities.OrderBy(x => x.Name).ToList();
     }
+    /// <summary>
+    /// Get all cities in datatable
+    /// </summary>
+    /// <returns>DataTable</returns>
     public static DataTable GetAllDT()
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsCities", "nhsCities");
         return dt;
     }
+    /// <summary>
+    /// Get all cities in DataSet
+    /// </summary>
+    /// <returns>DataSet</returns>
     public static DataSet GetAllDS()
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsCities", "nhsCities");
@@ -40,20 +52,35 @@ public static class CitiesService
         ds.Tables.Add(dt);
         return ds;
     }
-    public static City GetCity(int majorID)
+    /// <summary>
+    /// Get city by id
+    /// </summary>
+    /// <param name="cityID">The id of the city</param>
+    /// <returns>City</returns>
+    public static City GetCity(int cityID)
     {
-        DataTable dt = Connect.GetData("SELECT * FROM nhsCities WHERE nhsCityID=" + majorID, "nhsCities");
+        DataTable dt = Connect.GetData("SELECT * FROM nhsCities WHERE nhsCityID=" + cityID, "nhsCities");
         return new City() { ID = int.Parse(dt.Rows[0]["nhsCityID"].ToString().Trim()), Name = dt.Rows[0]["nhsCity"].ToString().Trim() };
     }
+    /// <summary>
+    /// Add a new city
+    /// </summary>
+    /// <param name="c">City</param>
+    /// <returns>success</returns>
     public static bool Add(City c)
     {
         return Connect.InsertUpdateDelete("INSERT INTO nhsCities (nhsCity) VALUES('" + c.Name + "')");
     }
+    /// <summary>
+    /// Updates city from service
+    /// </summary>
     public static void UpdateCities()
     {
         updateDB();
     }
-
+    /// <summary>
+    /// Updates city from service 
+    /// </summary>
     private static void updateDB()
     {
         try

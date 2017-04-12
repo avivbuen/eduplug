@@ -5,21 +5,10 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for State
+/// Deals with txt log
 /// </summary>
 public static class State
 {
-    public static void SaveAction(string action)
-    {
-        //AddLogApp(action);
-    }
-    private static void AddLogApp(string error)
-    {
-        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/App_Data/Logs/app_log.txt")))
-        {
-            Log(error, w);
-        }
-    }
     /// <summary>
     /// Logs to file
     /// </summary>

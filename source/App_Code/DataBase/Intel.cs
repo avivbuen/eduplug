@@ -6,7 +6,7 @@ using System.Net;
 using System.Web;
 using System.Data;
 /// <summary>
-/// Summary description for Intel
+/// Gathers intelligence on client and system, also provides help to ui
 /// </summary>
 public static class Intel
 {
@@ -26,6 +26,9 @@ public static class Intel
         }
         return url;
     }
+    /// <summary>
+    /// Redirects the user to his panel
+    /// </summary>
     public static void Redirect()
     {
         HttpResponse Response = HttpContext.Current.Response;
@@ -67,6 +70,12 @@ public static class Intel
             return "מקומי על מערכת " + GetUserPlatform();
         return VisitorsIPAddr;
     }
+    /// <summary>
+    /// Mark an entry as reviewed
+    /// </summary>
+    /// <param name="ip">IP of entry</param>
+    /// <param name="state">Rev/NoRev</param>
+    /// <returns>success</returns>
     public static bool MarkRev(string ip,bool state)
     {
         string dataDir = HttpContext.Current.Server.MapPath("~/App_Data");//The file directory
@@ -99,6 +108,10 @@ public static class Intel
         }
         return false;
     }
+    /// <summary>
+    /// Gets all the entries
+    /// </summary>
+    /// <returns>All the entries</returns>
     public static DataTable GetEduSense()
     {
         string dataDir = HttpContext.Current.Server.MapPath("~/App_Data");//The file directory
@@ -258,6 +271,11 @@ public static class Intel
 
         return version;
     }
+    /// <summary>
+    /// Delete entry
+    /// </summary>
+    /// <param name="ip">IP</param>
+    /// <returns>success</returns>
     public static bool DeleteVisit(string ip)
     {
         string dataDir = HttpContext.Current.Server.MapPath("~/App_Data");//The file directory
@@ -412,6 +430,10 @@ public static class Intel
             return "Unknown ISP";
         }
     }
+    /// <summary>
+    /// Gets entries locations for graph
+    /// </summary>
+    /// <returns>Dictionary(string, object) of locations</returns>
     public static Dictionary<string, object> GetLocations()
     {
         DataTable dt = GetEduSense();

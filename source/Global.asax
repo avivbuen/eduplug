@@ -31,7 +31,7 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
-        State.SaveAction("SESSION START: ID "+ Session.SessionID);
+        //State.SaveAction("SESSION START: ID "+ Session.SessionID);
     }
 
     void Session_End(object sender, EventArgs e)
@@ -41,6 +41,6 @@
         // is set to InProc in the Web.config file. If session mode is set to StateServer 
         // or SQLServer, the event is not raised.
         MemberService.Logout();
-        State.SaveAction("SESSION END: ID "+ Session.SessionID);
+        //State.SaveAction("SESSION END: ID "+ Session.SessionID);
     }
 </script>

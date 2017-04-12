@@ -41,7 +41,16 @@ public class Message
     /// State
     /// </summary>
     public string State { get; set; }
+    /// <summary>
+    /// The name of the reciver
+    /// </summary>
     public string ReciverName { get; set; }
+    /// <summary>
+    /// The name of the sender
+    /// </summary>
     public string SenderName { get; set; }
+    /// <summary>
+    /// Guest
+    /// </summary>
     public bool Guest { get; set; }
 }

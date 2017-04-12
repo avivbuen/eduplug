@@ -4,11 +4,17 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for LessonGroup
+/// LessonGroup
 /// </summary>
 public class LessonGroup
 {
+    /// <summary>
+    /// The lessons
+    /// </summary>
     public List<Lesson> lessons;
+    /// <summary>
+    /// CTOR
+    /// </summary>
     public LessonGroup()
     {
         lessons = new List<Lesson>();

@@ -12,6 +12,9 @@ using System.Web.Configuration;
 /// </summary>
 public static class Connect
 {
+    /// <summary>
+    /// Counts the queries that excuted for the page loaded
+    /// </summary>
     public static int QueriesCount;
     /// <summary>
     ///  Return's Result For The SQL Query(DataTable Object)

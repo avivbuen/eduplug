@@ -8,10 +8,14 @@ using System.Data.OleDb;
 using System.Configuration;
 
 /// <summary>
-/// Summary description for tGradeService
+/// tGradeService
 /// </summary>
 public static class tGradeService
 {
+    /// <summary>
+    /// Gets all the tgrades
+    /// </summary>
+    /// <returns></returns>
     public static List<tGrade> GetAll()
     {
         List<tGrade> grades = new List<tGrade>();
@@ -28,10 +32,20 @@ public static class tGradeService
         }
         return grades;
     }
+    /// <summary>
+    /// Removes tgrade by id
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <returns></returns>
     public static bool Remove(int tgid)
     {
         return Connect.InsertUpdateDelete("DELETE FROM nhsLearnGroups WHERE nhsTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM nhsExams WHERE nhsTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM nhsTeacherGrades WHERE nhsTgradeID=" + tgid);
     }
+    /// <summary>
+    /// Get id by obj
+    /// </summary>
+    /// <param name="grd">tGrade OBJ</param>
+    /// <returns></returns>
     public static int GetID(tGrade grd)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsTeacherGrades WHERE nhsTeacherID=" + grd.TeacherID + " AND nhsTgradeName='" + grd.Name + "' AND nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsTeacherGrades");
@@ -41,6 +55,11 @@ public static class tGradeService
         }
         return int.Parse(dt.Rows[0]["nhsTgradeID"].ToString().Trim());
     }
+    /// <summary>
+    /// Add new tGrade to DB
+    /// </summary>
+    /// <param name="grd">tGrade</param>
+    /// <returns></returns>
     public static bool Add(tGrade grd)
     {
         int count = (int)Connect.GetObject("SELECT COUNT(*) FROM nhsTeacherGrades WHERE nhsTeacherID=" + grd.TeacherID + " AND nhsTgradeName='" + grd.Name + "'");
@@ -60,6 +79,12 @@ public static class tGradeService
         }
         return Connect.InsertUpdateDelete("INSERT INTO nhsTeacherGrades(nhsTeacherID,nhsTgradeName,nhsColor, nhsDate) VALUES(" + grd.TeacherID + ",'" + grd.Name + "','" + str + "', #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
     }
+    /// <summary>
+    /// Add students to tgarde
+    /// </summary>
+    /// <param name="tgid">Tgrade ID</param>
+    /// <param name="students">List of students</param>
+    /// <returns></returns>
     public static bool AddStudents(int tgid, List<Member> students)
     {
         List<Member> all = GetStudents(tgid);
@@ -75,20 +100,36 @@ public static class tGradeService
         }
         return true;
     }
+    /// <summary>
+    /// Add student to tgarde
+    /// </summary>
     public static bool AddStudent(int tgid, Member student)
     {
         Connect.InsertUpdateDelete("INSERT INTO nhsLearnGroups(nhsTgradeID,nhsStudentID,nhsDate) VALUES(" + tgid + "," + student.UserID + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
         return true;
     }
+    /// <summary>
+    /// Add student to tgarde
+    /// </summary>
     public static bool AddStudent(int tgid, int uid)
     {
         Connect.InsertUpdateDelete("INSERT INTO nhsLearnGroups(nhsTgradeID,nhsStudentID,nhsDate) VALUES(" + tgid + "," + uid + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
         return true;
     }
+    /// <summary>
+    /// Update tgrade
+    /// </summary>
+    /// <param name="tg"></param>
+    /// <returns></returns>
     public static bool Update(tGrade tg)
     {
         return Connect.InsertUpdateDelete("UPDATE nhsTeacherGrades SET nhsTeacherID=" + tg.TeacherID + ",nhsTgradeName='" + tg.Name + "',nhsDate = #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# WHERE nhsTgradeID=" + tg.ID);
     }
+    /// <summary>
+    /// Get part grade of tgarde
+    /// </summary>
+    /// <param name="tgid">tgrade id</param>
+    /// <returns></returns>
     public static string GetPartGrade(int tgid)
     {
         DataTable dt = Connect.GetData("SELECT grade.nhsGradeName AS GradeName FROM nhsMembers AS m, nhsGrades AS grade, nhsLearnGroups AS lg WHERE lg.nhsStudentID = m.nhsUserID AND grade.nhsGradeID = m.nhsGradeID AND lg.nhsTgradeID=" + tgid, "nhsLearnGroup");
@@ -99,6 +140,11 @@ public static class tGradeService
         string gname = dt.Rows[0]["GradeName"].ToString();
         return GetPartGrade(gname);
     }
+    /// <summary>
+    /// Get part grade
+    /// </summary>
+    /// <param name="gname">grade</param>
+    /// <returns></returns>
     public static string GetPartGrade(string gname)
     {
         if (gname.Contains("ז'"))
@@ -127,6 +173,11 @@ public static class tGradeService
         }
         return "";
     }
+    /// <summary>
+    /// Get tgrade by id
+    /// </summary>
+    /// <param name="tgid">tGrade id</param>
+    /// <returns></returns>
     public static tGrade Get(int tgid)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsTeacherGrades WHERE nhsTgradeID=" + tgid, "nhsTeacherGrades");
@@ -142,6 +193,11 @@ public static class tGradeService
         };
         return c;
     }
+    /// <summary>
+    /// Get tgrades of teacher
+    /// </summary>
+    /// <param name="tid"></param>
+    /// <returns></returns>
     public static List<tGrade> GetTeacherTgrades(int tid)
     {
         List<tGrade> grades = new List<tGrade>();
@@ -158,10 +214,20 @@ public static class tGradeService
         }
         return grades;
     }
+    /// <summary>
+    /// Get student count of tgrade
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <returns></returns>
     public static int GetStudentCount(int tgid)
     {
         return (int)Connect.GetObject("SELECT COUNT(*) FROM nhsLearnGroups WHERE nhsTgradeID=" + tgid);
     }
+    /// <summary>
+    /// Get students of tgrade
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <returns></returns>
     public static List<Member> GetStudents(int tgid)
     {
         List<Member> mems = new List<Member>();
@@ -177,6 +243,11 @@ public static class tGradeService
         }
         return mems;
     }
+    /// <summary>
+    /// Get the major of tgrade
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <returns></returns>
     public static int GetMajor(int tgid)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsMajorsTgrades WHERE nhsTgradeID=" + tgid, "nhsMajorsTgrades");

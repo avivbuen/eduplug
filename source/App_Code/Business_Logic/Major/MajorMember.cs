@@ -4,32 +4,17 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-///  MajorMember
+///  Major Member
 /// </summary>
 public class MajorMember
 {
-    private int userID;
-    private int majorID;
-    public int UserID
-    {
-        get
-        {
-            return this.userID;
-        }
-        set
-        {
-            this.userID = value;
-        }
-    }
-    public int MajorID
-    {
-        get
-        {
-            return this.majorID;
-        }
-        set
-        {
-            this.majorID = value;
-        }
-    }
+    /// <summary>
+    /// The user id of the user
+    /// </summary>
+    public int UserID { get; set; }
+    /// <summary>
+    /// The major id
+    /// </summary>
+    public int MajorID { get; set; }
+
 }

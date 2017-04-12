@@ -16,6 +16,12 @@ public static class Security
 public static int SALT_SIZE = 32;//Salt size
 public static int HASH_SIZE = 64;//Hash size
 public static int PBKDF2_TTT = 512;//Hashing Iteration Count
+
+/// <summary>
+/// Encryption creator
+/// </summary>
+/// <param name="password">string to encrypt</param>
+/// <returns></returns>
 public static string CreateHash(string password)
 {
     //Generate random salt

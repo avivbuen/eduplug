@@ -5,10 +5,14 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for AdjustmentService
+/// AdjustmentService
 /// </summary>
 public static class AdjustmentService
 {
+    /// <summary>
+    /// Get all adjustments
+    /// </summary>
+    /// <returns></returns>
     public static List<Adjustment> GetAll()
     {
         List<Adjustment> adjustments = new List<Adjustment>();
@@ -24,6 +28,11 @@ public static class AdjustmentService
         }
         return adjustments.OrderBy(x => x.ID).ToList();
     }
+    /// <summary>
+    /// Get students adjustments
+    /// </summary>
+    /// <param name="sid"></param>
+    /// <returns></returns>
     public static List<Adjustment> GetStudent(string sid)
     {
         List<Adjustment> adjustments = new List<Adjustment>();
@@ -39,6 +48,12 @@ public static class AdjustmentService
         }
         return adjustments.OrderBy(x => x.ID).ToList();
     }
+    /// <summary>
+    /// Add adjustment to student
+    /// </summary>
+    /// <param name="sid"></param>
+    /// <param name="adid"></param>
+    /// <returns></returns>
     public static string Add(string sid, int adid)
     {
         if (sid.Trim() == "" || sid.Trim().Length < 8)

@@ -12,6 +12,11 @@ using System.Web;
 /// </summary>
 public static class MemberService
 {
+    /// <summary>
+    /// Get allowed by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static Member GetAllowed(string id)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsAllowed WHERE nhsID='" + id + "'","nhsAllowed");
@@ -256,7 +261,7 @@ public static class MemberService
         char status = Converter.GetClearnce(m.Auth)[0];
         char gen = Converter.GetGender(m.Gender)[0];
         //pass = pass.Replace("'", "''");
-        Connect.InsertUpdateDelete(string.Format(FullInsertTemplate, m.FirstName, m.LastName, Security.CreateHash(pass), status, m.Mail, m.ID, gen, m.GradeID, m.PicturePath, Converter.GetTimeReadyForDataBase(m.BornDate), Converter.GetFullTimeReadyForDataBase(), m.City.ID,m.Phone));
+        Connect.InsertUpdateDelete(string.Format(FullInsertTemplate, m.FirstName, m.LastName, Security.CreateHash(pass), status, m.Mail, m.ID, gen, m.GradeID, m.PicturePath, Converter.GetTimeReadyForDataBase(m.BornDate), Converter.GetFullTimeReadyForDataBase(), m.City.ID));
         int userID = GetUID(m.ID);
         foreach (Major maj in m.Majors)
         {
@@ -300,6 +305,11 @@ public static class MemberService
         DataTable dt2 = Connect.GetData("SELECT * FROM nhsMembers WHERE (nhsFirstName='" + fname + "' AND nhsLastName='" + lname + "' AND nhsID='" + iuid + "')", "nhsMembers");
         return (dt1.Rows.Count == 1)&& (dt2.Rows.Count == 0);
     }
+    /// <summary>
+    /// Check if allowed exsit
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static bool ExsitsAllowed(string id)
     {
         DataTable dt1 = Connect.GetData("SELECT * FROM nhsAllowed WHERE nhsID='" + id + "'", "nhsAllowed");
@@ -483,6 +493,14 @@ public static class MemberService
     {
         return Connect.InsertUpdateDelete("INSERT INTO nhsAllowed (nhsFirstName,nhsLastName,nhsID,nhsActive,nhsType) VALUES ('"+fname+"','"+lname+"','"+id+"',NO,'"+type+"')");
     }
+    /// <summary>
+    /// Adds a member to invite list(those who are allowed to register)
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="indID"></param>
+    /// <param name="indFname"></param>
+    /// <param name="indLname"></param>
+    /// <returns></returns>
     public static int AddAllowed(DataTable dt,int indID,int indFname,int indLname)
     {
         try
@@ -614,6 +632,12 @@ public static class MemberService
         }
         return "";
     }
+    /// <summary>
+    /// Get free hours of a teacher
+    /// </summary>
+    /// <param name="teacherId"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
     public static List<int> GetFreeHours(int teacherId,int day)
     {
         DataTable dt = Connect.GetData("SELECT nhsHour FROM nhsLessons,nhsTeacherGrades AS tg WHERE tg.nhsTgradeID=nhsLessons.nhsTgradeID AND tg.nhsTeacherID=" + teacherId + " AND nhsLessons.nhsDay=" + day + "  AND nhsActive=YES", "nhsLessons");
@@ -632,6 +656,11 @@ public static class MemberService
         }
         return hours;
     }
+    /// <summary>
+    /// Get students of a teacher
+    /// </summary>
+    /// <param name="tid"></param>
+    /// <returns></returns>
     public static DataTable GetStudents(int tid)
     {
         DataTable dt = Connect.GetData("SELECT DISTINCT nhsUserID, * FROM nhsMembers,nhsCities,nhsLearnGroups,nhsTeacherGrades WHERE nhsLearnGroups.nhsStudentID=nhsMembers.nhsUserID AND nhsCities.nhsCityID=nhsMembers.nhsCityID AND nhsMembers.nhsActive=Yes AND nhsTeacherGrades.nhsTgradeID=nhsLearnGroups.nhsTgradeID AND nhsTeacherGrades.nhsTeacherID=" + tid + "AND nhsTeacherGrades.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsTeacherGrades.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsMembers");

@@ -6,11 +6,13 @@ using System.Web;
 using System.Configuration;
 
 /// <summary>
-/// Summary description for LessonService
+/// LessonService
 /// </summary>
 public static class LessonService
 {
+    //Days in week
     public static int DaysInWeek = int.Parse(ConfigurationManager.AppSettings["DaysInWeek"].ToString());
+    //Lessons in day
     public static int LessonsInDay = int.Parse(ConfigurationManager.AppSettings["LessonsInDay"].ToString());
     /// <summary>
     /// Gets all the lessons for the following id.
@@ -57,6 +59,11 @@ public static class LessonService
         };
         return lesson;
     }
+    /// <summary>
+    /// Get all students in lesson
+    /// </summary>
+    /// <param name="lid">Lesson id</param>
+    /// <returns></returns>
     public static List<Member> GetAllStudents(int lid)
     {
         DataTable dt = Connect.GetData("SELECT nhsFirstName,nhsLastName,nhsUserID FROM nhsMembers AS student,nhsLearnGroups AS lgrps,nhsTeacherGrades AS tg, nhsLessons WHERE lgrps.nhsTgradeID = tg.nhsTgradeID AND lgrps.nhsStudentID=student.nhsUserID AND tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsLessonID=" + lid, "nhsMembers");
@@ -89,15 +96,29 @@ public static class LessonService
         }
         return row;
     }
+    /// <summary>
+    /// Gets lessons by teacher
+    /// </summary>
+    /// <param name="tid"></param>
     /// <returns></returns>
     private static DataTable GetLessonsByTeacher(int tid)
     {
         return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TgradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND tg.nhsTeacherID=" + tid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive=YES", "nhsLessons");
     }
+    /// <summary>
+    /// Gets lessons by student
+    /// </summary>
+    /// <param name="tid"></param>
+    /// <returns></returns>
     private static DataTable GetLessonsByStudent(int sid)
     {
         return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TgradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons, nhsLearnGroups WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsLearnGroups.nhsTgradeID = tg.nhsTgradeID  AND nhsLearnGroups.nhsStudentID=" + sid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive=YES", "nhsLessons");
     }
+    /// <summary>
+    /// Gets lessons by GradePart
+    /// </summary>
+    /// <param name="tid"></param>
+    /// <returns></returns>
     private static DataTable GetLessonsByGradePart(string gradePart)
     {
         return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, lsons.nhsLessonID AS LessonID, lsons.nhsTgradeID AS TgradeID, lsons.nhsDay AS nhsDay, lsons.nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsLessons AS lsons INNER JOIN nhsTeacherGrades AS tg ON tg.nhsTgradeID = lsons.nhsTgradeID WHERE tg.nhsTgradeID IN( SELECT grp.nhsTgradeID FROM (nhsLearnGroups grp INNER JOIN nhsMembers AS mem ON mem.nhsUserID = grp.nhsStudentID) INNER JOIN nhsGrades AS grd ON mem.nhsGradeID = grd.nhsGradeID WHERE grd.nhsGradeName LIKE '%" + gradePart + "%' AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#) AND nhsActive=YES", "nhsLessons");
@@ -139,10 +160,20 @@ public static class LessonService
         }
         return GetDataTime(dt);
     }
+    /// <summary>
+    /// Cancel change
+    /// </summary>
+    /// <param name="changeID"></param>
+    /// <returns></returns>
     public static bool CancelChange(int changeID)
     {
         return Connect.InsertUpdateDelete("DELETE FROM nhsLessonChanges WHERE nhsLessonChangeID=" + changeID);
     }
+    /// <summary>
+    /// Get the changes of a lesson
+    /// </summary>
+    /// <param name="lid">Lesson id</param>
+    /// <returns></returns>
     public static List<LessonChange> GetChanges(int lid)
     {
             
@@ -162,6 +193,11 @@ public static class LessonService
         }
         return changeTable;
     }
+    /// <summary>
+    /// Get time table - helper method
+    /// </summary>
+    /// <param name="dt">DataTable</param>
+    /// <returns></returns>
     private static List<LessonGroup[]> GetDataTime(DataTable dt)
     {
         LessonGroup[,] lessons = new LessonGroup[LessonsInDay, DaysInWeek];//Array that stores the time table
@@ -200,6 +236,11 @@ public static class LessonService
 
         return lessData;//Returning the new struct
     }
+    /// <summary>
+    /// Gets all the lessons of a tGrade
+    /// </summary>
+    /// <param name="tgid">tgrade id</param>
+    /// <returns></returns>
     public static List<Lesson> GetLessons(int tgid)
     {
         DataTable dt = Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TgradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND tg.nhsTgradeID=" + tgid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive = YES", "nhsLessons");
@@ -220,14 +261,27 @@ public static class LessonService
         }
         return lessons;
     }
+    /// <summary>
+    /// Delete lesson
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <param name="day"></param>
+    /// <param name="hour"></param>
+    /// <returns></returns>
     public static bool DeleteLesson(int tgid, int day, int hour)
     {
         return Connect.InsertUpdateDelete("UPDATE nhsLessons SET nhsActive=NO WHERE nhsTgradeID=" + tgid + " AND nhsDay=" + day + " AND nhsHour=" + hour);
     }
+    /// <summary>
+    /// Delete lesson
+    /// </summary>
     public static bool DeleteLesson(int lid)
     {
         return Connect.InsertUpdateDelete("UPDATE nhsLessons SET nhsActive=NO WHERE nhsLessonID=" + lid);
     }
+    /// <summary>
+    /// Add lesson to db
+    /// </summary>
     public static bool Add(Lesson lsn)
     {
         tGrade t = tGradeService.Get(lsn.TeacherGradeID);
@@ -243,10 +297,22 @@ public static class LessonService
         }
         return false;  
     }
+    /// <summary>
+    /// Add new change to lesson
+    /// </summary>
+    /// <param name="change"></param>
+    /// <returns></returns>
     public static bool AddChange(LessonChange change)
     {
         return Connect.InsertUpdateDelete("INSERT INTO nhsLessonChanges (nhsLessonChangeType,nhsLessonID,nhsMessage,nhsDate) VALUES('" + Converter.GetChangeType(change.ChangeType) + "'," + change.LessonID + ",'" + change.Message + "',#" + Converter.GetTimeShortForDataBase(change.Date) + "#)");
     }
+    /// <summary>
+    /// Get lesson by params
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <param name="hour"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
     public static Lesson GetLesson(int tgid,int hour,int day)
     {
         DataTable dt = Connect.GetData("SELECT tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TgradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsHour=" + hour + " AND nhsDay="+day+ " AND tg.nhsTgradeID="+tgid+" AND nhsActive=YES", "nhsLessons");

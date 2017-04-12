@@ -5,10 +5,14 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for Problem
+/// Logging errors and track to txt files
 /// </summary>
 public static class Problem
 {
+    /// <summary>
+    /// Log an Exception
+    /// </summary>
+    /// <param name="ex">Exception occured in system</param>
     public static void Log(Exception ex)
     {
         if (ex is HttpException)
@@ -40,6 +44,10 @@ public static class Problem
             AddLogApp(ex.ToString() + "\r\n QUERY= " + dataQuery);
         }
     }
+    /// <summary>
+    /// Save the error to app log
+    /// </summary>
+    /// <param name="error">Error content</param>
     private static void AddLogApp(string error)
     {
         using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/App_Data/Logs/app_log.txt")))
@@ -47,6 +55,10 @@ public static class Problem
             Log(error, w);
         }
     }
+    /// <summary>
+    /// Save the error to DB log
+    /// </summary>
+    /// <param name="error">Error content</param>
     private static void AddLogDB(string error)
     {
         using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/App_Data/Logs/db_log.txt")))
@@ -54,6 +66,10 @@ public static class Problem
             Log(error, w);
         }
     }
+    /// <summary>
+    /// Save the error to UI log
+    /// </summary>
+    /// <param name="error">Error content</param>
     private static void AddLogUI(string error)
     {
         using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/App_Data/Logs/ui_log.txt")))

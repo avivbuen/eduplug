@@ -114,6 +114,11 @@ public static class MessagesService
         if (obj == null) return 0;
         return int.Parse(obj.ToString());
     }
+    /// <summary>
+    /// Get unread messages of user
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <returns></returns>
     public static List<Message> GetUnreaed(int uid)
     {
         List<Message> messages = new List<Message>();

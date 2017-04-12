@@ -86,7 +86,6 @@ public class Member
     /// The user state active/not active
     /// </summary>
     public bool Active { get; set; }
-    public string Phone { get; set; }
     //END GET/SET 
 
 }

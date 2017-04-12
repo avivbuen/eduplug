@@ -94,8 +94,7 @@ public partial class User_Register : System.Web.UI.Page
             PicturePath = picture,
             GradeID = int.Parse(User_Section.SelectedValue.Trim()),
             City = CitiesService.GetCity(int.Parse(User_City.SelectedValue.Trim())),
-            Majors = mjrs,
-            Phone = ""
+            Majors = mjrs
         };
         MemberService.Add(mem, User_Password.Text.Trim());//Adding the member with the password - it will be hashed by the business logic.
         MemberService.UpdateAllowed(int.Parse(User_ID.Text.Trim()));//Updating that the user have registered.

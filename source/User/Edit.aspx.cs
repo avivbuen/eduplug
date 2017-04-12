@@ -165,7 +165,7 @@ public partial class User_Edit : System.Web.UI.Page
             List<Major> _Majors = new List<Major>();
             foreach (ListItem it in User_Majors.Items)
                 if (it.Selected)
-                    _Majors.Add(MajorsService.GetMajor(int.Parse(it.Value.Trim())));
+                    _Majors.Add(MajorsService.Get(int.Parse(it.Value.Trim())));
 
             //Create a 'new' member
             Member m = new Member()

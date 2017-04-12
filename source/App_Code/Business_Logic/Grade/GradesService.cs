@@ -8,6 +8,10 @@ using System.Data;
 /// </summary>
 public static class GradesService
 {
+    /// <summary>
+    /// Gets all the grades
+    /// </summary>
+    /// <returns></returns>
     public static List<Grade> GetAll()
     {
         List<Grade> grades = new List<Grade>();
@@ -23,11 +27,19 @@ public static class GradesService
         }
         return grades;
     }
+    /// <summary>
+    /// Gets all the grades - DataTable
+    /// </summary>
+    /// <returns>DataTable</returns>
     public static DataTable GetAllDT()
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsGrades", "nhsGrades");
         return dt;
     }
+    /// <summary>
+    /// Gets all the grades - DataSet
+    /// </summary>
+    /// <returns>DataSet</returns>
     public static DataSet GetAllDS()
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsGrades", "nhsGrades");
@@ -35,6 +47,11 @@ public static class GradesService
         ds.Tables.Add(dt);
         return ds;
     }
+    /// <summary>
+    /// Get grade by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static Grade Get(int id)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsGrades WHERE nhsGradeID="+id, "nhsGrades");

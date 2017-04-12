@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for tGrade
+/// Teacher Grade Structure
 /// </summary>
 public class tGrade : Grade
 {

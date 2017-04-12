@@ -12,12 +12,6 @@ using System.Web.Script.Serialization;
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]
 public class EduAdjustmentsService : System.Web.Services.WebService {
-
-    public EduAdjustmentsService () {
-
-        //Uncomment the following line if using designed components 
-        //InitializeComponent(); 
-    }
     /// <summary>
     /// Gets all the adjustments types
     /// </summary>

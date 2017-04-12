@@ -5,10 +5,14 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for ExamService
+/// ExamService
 /// </summary>
 public static class ExamService
 {
+    /// <summary>
+    /// Get all exams
+    /// </summary>
+    /// <returns>List of Exams</returns>
     public static List<Exam> GetAll()
     {
         List<Exam> Exams = new List<Exam>();
@@ -28,6 +32,12 @@ public static class ExamService
         }
         return Exams;
     }
+    /// <summary>
+    /// Add new exam
+    /// </summary>
+    /// <param name="exm">Exam obj</param>
+    /// <param name="tgid">Teacher grade id</param>
+    /// <returns>success</returns>
     public static bool Add(Exam exm, int tgid)
     {
         if (exm.Date < EduSysDate.GetStart() || exm.Date > EduSysDate.GetEnd())
@@ -36,6 +46,11 @@ public static class ExamService
             return false;
         return Connect.InsertUpdateDelete("INSERT INTO nhsExams (nhsTeacherID,nhsExamDate,nhsPrecent,nhsTgradeID,nhsExamTitle,nhsYearPart) VALUES (" + exm.TeacherID + ",#" + Converter.GetTimeShortForDataBase(exm.Date) + "#," + exm.Precent + "," + tgid + ",'" + exm.Title + "','" + EduSysDate.GetYearPart(exm.Date) + "')");
     }
+    /// <summary>
+    /// Get exam by id
+    /// </summary>
+    /// <param name="eid">Exam id</param>
+    /// <returns>Exam</returns>
     public static Exam GetExam(int eid)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsExamID=" + eid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
@@ -54,6 +69,11 @@ public static class ExamService
         }
         return null;
     }
+    /// <summary>
+    /// Get exam id by exam object
+    /// </summary>
+    /// <param name="exm">Exam</param>
+    /// <returns></returns>
     public static int GetExamID(Exam exm)
     {
         DataTable dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsExamTitle='" + exm.Title + "' AND nhsTeacherID="+exm.TeacherID+" AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
@@ -63,10 +83,20 @@ public static class ExamService
         }
         return -1;
     }
+    /// <summary>
+    /// Delete exam
+    /// </summary>
+    /// <param name="eid"></param>
+    /// <returns></returns>
     public static bool Delete(int eid)
     {
         return Connect.InsertUpdateDelete("DELETE FROM nhsScores WHERE nhsExamID=" + eid) && Connect.InsertUpdateDelete("DELETE FROM nhsExams WHERE nhsExamID=" + eid);
     }
+    /// <summary>
+    /// Get precent left of teacher grade - irelavent
+    /// </summary>
+    /// <param name="tgid"></param>
+    /// <returns></returns>
     public static int PrecentLeft(int tgid)
     {
         int count = int.Parse(Connect.GetObject("SELECT COUNT (*) FROM nhsExams WHERE nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#").ToString());
@@ -79,6 +109,12 @@ public static class ExamService
         if (str == "") return 100;
         return 100 - int.Parse(str);
     }
+    /// <summary>
+    /// Get precent left of teacher grade 
+    /// </summary>
+    /// <param name="tgid">teacher grade id</param>
+    /// /// <param name="yearPart">year part</param>
+    /// <returns></returns>
     public static int PrecentLeft(int tgid,string yearPart)
     {
         object obj = Connect.GetObject("SELECT COUNT (*) FROM nhsExams WHERE nhsYearPart='" + yearPart + "' AND nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#");
@@ -93,6 +129,11 @@ public static class ExamService
         if (str == "") return 100;
         return 100 - int.Parse(str);
     }
+    /// <summary>
+    /// Get exams by tgrade id
+    /// </summary>
+    /// <param name="tgid">Teacher grade id</param>
+    /// <returns></returns>
     public static List<Exam> GetExamsByTgradeID(int tgid)
     {
         List<Exam> Exams = new List<Exam>();
@@ -112,6 +153,12 @@ public static class ExamService
         }
         return Exams;
     }
+    /// <summary>
+    /// Get exams by tgrade id
+    /// </summary>
+    /// <param name="tgid">Teacher grade id</param>
+    /// <param name="yearPart">Year part</param>
+    /// <returns></returns>
     public static List<Exam> GetExamsByTgradeID(int tgid,string yearPart)
     {
         List<Exam> Exams = new List<Exam>();
@@ -131,6 +178,10 @@ public static class ExamService
         }
         return Exams;
     }
+    /// <summary>
+    /// Update exam in DB
+    /// </summary>
+    /// <param name="exam">Exam</param>
     public static bool Update(Exam exam)
     {
         return Connect.InsertUpdateDelete("UPDATE nhsExams SET nhsExamTitle='" + exam.Title + "',nhsExamDate=#" + Converter.GetTimeShortForDataBase(exam.Date) + "#,nhsPrecent=" + exam.Precent + " WHERE nhsExamID=" + exam.ID);
