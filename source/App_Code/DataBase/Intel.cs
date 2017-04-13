@@ -35,19 +35,19 @@ public static class Intel
         switch (MemberService.GetCurrent().Auth)
         {
             case MemberClearance.Guest:
-                Response.Redirect("~/User");
+                Response.Redirect("~/User", false);
                 break;
             case MemberClearance.Student:
-                Response.Redirect("~/Panel/Student");
+                Response.Redirect("~/Panel/Student",false);
                 break;
             case MemberClearance.Teacher:
-                Response.Redirect("~/Panel/Teacher");
+                Response.Redirect("~/Panel/Teacher", false);
                 break;
             case MemberClearance.Admin:
-                Response.Redirect("~/Panel/Admin");
+                Response.Redirect("~/Panel/Admin", false);
                 break;
             default:
-                Response.Redirect("~/User");
+                Response.Redirect("~/User", false);
                 break;
         }
     }

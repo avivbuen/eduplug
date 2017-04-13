@@ -39,8 +39,8 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
                 {
                     string emptyJson = "{'fname':'non','lname':'non'}";//Empty json user
                     context.Response.Write(emptyJson.Replace((char)39, (char)34));//Returning the empty json
-                    context.Response.End();//Cutting the response and ending it
-                    return;//Cutting the method(No reason to do that now, but just to make sure)
+                    //context.Response.End();//Cutting the response and ending it
+                    context.ApplicationInstance.CompleteRequest();
                 }
                 return;
             }
@@ -54,21 +54,22 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
                 Member m = MemberService.GetCurrent();
                 string[] f = { m.FirstName, m.LastName, m.Mail, m.UserID.ToString(), m.PicturePath, ((char)m.Auth).ToString(), MessagesService.GetUnreaedCount(m.UserID).ToString(), MemberService.GetGreeting(MemberService.GetCurrent()) };
                 context.Response.Write(FormStr(strTemplate, f).Replace((char)39, (char)34));
-                context.Response.End();
-                return;
+                //context.Response.End();
+                context.ApplicationInstance.CompleteRequest();
             }
             else if (context.Request.Form["nada"] != null)
             {
                 context.Response.Write(emptyUser);
-                context.Response.End();
-                return;
+                //context.Response.End();
+                context.ApplicationInstance.CompleteRequest();
             }
             else
             {
                 context.Response.Redirect("~/");
-                context.Response.End();
-                return;
+                //context.Response.End();
+                context.ApplicationInstance.CompleteRequest();
             }
+
         }
         catch (ThreadAbortException ex)
         {
