@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.SessionState;
 using System.Net;
 using System.Threading;
+using Business_Logic.Members;
+using Business_Logic.Messages;
 
 public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
 {
@@ -73,6 +75,7 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
         }
         catch (ThreadAbortException ex)
         {
+                ex.HelpLink = "http://avivnet.com";
             return;
         }
     }

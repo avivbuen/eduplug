@@ -5,6 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Lessons;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
 public partial class InterTrack_Teacher_Default : System.Web.UI.Page
 {
@@ -15,7 +20,7 @@ public partial class InterTrack_Teacher_Default : System.Web.UI.Page
         TimeTableWeek.DataSource = LessonService.GetTimeTable(MemberService.GetCurrent().UserID, MemberClearance.Teacher);
         TimeTableWeek.TableFor = MemberClearance.Teacher;
         TimeTableWeek.DataBind();
-        ListViewGrades.DataSource = tGradeService.GetTeacherTgrades(MemberService.GetCurrent().UserID);
+        ListViewGrades.DataSource = TeacherGradeService.GetTeacherTeacherGrades(MemberService.GetCurrent().UserID);
         ListViewGrades.DataBind();
     }
    /* public string CastColor(object color)
@@ -37,23 +42,23 @@ public partial class InterTrack_Teacher_Default : System.Web.UI.Page
         }
         else
         {
-            return "onclick=location='GradeShow.aspx?gid="+tgid.ToString()+"';  class='clickableCell' data-tooltip='שכבה " + tGradeService.GetPartGrade((int)tgid) + "";
+            return "onclick=location='GradeShow.aspx?gid="+tgid.ToString()+"';  class='clickableCell' data-tooltip='שכבה " + TeacherGradeService.GetParTeacherGrade((int)tgid) + "";
         }
     }*/
-    //protected void DataListGrades_EditCommand(object source, DataListCommandEventArgs e)
+    //protected void DataLisTeacherGrades_EditCommand(object source, DataListCommandEventArgs e)
     //{
-    //    DataListGrades.EditItemIndex = e.Item.ItemIndex;
-    //    DataListGrades.DataBind();
+    //    DataLisTeacherGrades.EditItemIndex = e.Item.ItemIndex;
+    //    DataLisTeacherGrades.DataBind();
 
     //}
-    //protected void DataListGrades_ItemDataBound(object sender, DataListItemEventArgs e)
+    //protected void DataLisTeacherGrades_ItemDataBound(object sender, DataListItemEventArgs e)
     //{
     //    if (e.Item.ItemType == ListItemType.EditItem)
     //    {
     //        ListBox lbStudents = (ListBox)(e.Item.FindControl("ListBoxStudents"));//Get the students list control of the current item
     //        ListBox lbExams = (ListBox)(e.Item.FindControl("ListBoxExams"));//Get the student list control of the current item
-    //        List<Member> students = tGradeService.GetStudents(int.Parse(DataListGrades.DataKeys[e.Item.ItemIndex].ToString()));//Gets all the students from DB
-    //        List<Exam> exams = ExamService.GetExamByTgradeID(int.Parse(DataListGrades.DataKeys[e.Item.ItemIndex].ToString()));
+    //        List<Member> students = TeacherGradeService.GetStudents(int.Parse(DataLisTeacherGrades.DataKeys[e.Item.ItemIndex].ToString()));//Gets all the students from DB
+    //        List<Exam> exams = ExamService.GetExamByTeacherGradeID(int.Parse(DataLisTeacherGrades.DataKeys[e.Item.ItemIndex].ToString()));
 
     //        /* Filling the students */
     //        if (students.Count == 0)
@@ -63,7 +68,7 @@ public partial class InterTrack_Teacher_Default : System.Web.UI.Page
     //        }
     //        else
     //        {
-    //            lbStudents.DataSource = tGradeService.GetStudents(int.Parse(DataListGrades.DataKeys[e.Item.ItemIndex].ToString()));
+    //            lbStudents.DataSource = TeacherGradeService.GetStudents(int.Parse(DataLisTeacherGrades.DataKeys[e.Item.ItemIndex].ToString()));
     //            lbStudents.DataTextField = "Name";
     //            lbStudents.DataValueField = "UserID";
     //            lbStudents.DataBind();
@@ -78,7 +83,7 @@ public partial class InterTrack_Teacher_Default : System.Web.UI.Page
     //        }
     //        else
     //        {
-    //            lbExams.DataSource = tGradeService.GetStudents(int.Parse(DataListGrades.DataKeys[e.Item.ItemIndex].ToString()));
+    //            lbExams.DataSource = TeacherGradeService.GetStudents(int.Parse(DataLisTeacherGrades.DataKeys[e.Item.ItemIndex].ToString()));
     //            lbExams.DataTextField = "Name";
     //            lbExams.DataValueField = "UserID";
     //            lbExams.DataBind();
@@ -92,17 +97,17 @@ public partial class InterTrack_Teacher_Default : System.Web.UI.Page
 
     //}
 
-    //protected void DataListGrades_UpdateCommand(object source, DataListCommandEventArgs e)
+    //protected void DataLisTeacherGrades_UpdateCommand(object source, DataListCommandEventArgs e)
     //{
-    //    DataListGrades.EditItemIndex = -1;
-    //    DataListGrades.DataBind();
+    //    DataLisTeacherGrades.EditItemIndex = -1;
+    //    DataLisTeacherGrades.DataBind();
     //}
 
-    //protected void DataListGrades_ItemCommand(object source, DataListCommandEventArgs e)
+    //protected void DataLisTeacherGrades_ItemCommand(object source, DataListCommandEventArgs e)
     //{
     //    if (e.CommandName=="AddStudents")
     //    {
-    //        int key = int.Parse(DataListGrades.DataKeys[e.Item.ItemIndex].ToString());
+    //        int key = int.Parse(DataLisTeacherGrades.DataKeys[e.Item.ItemIndex].ToString());
     //        Response.Redirect("~/InterTrack/Teacher/AddStudents.aspx?id="+key);
     //    }
     //}

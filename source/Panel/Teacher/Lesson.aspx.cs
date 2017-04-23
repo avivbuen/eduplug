@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Disciplines;
+using Business_Logic.Lessons;
+using Business_Logic.Members;
 
 public partial class Panel_Teacher_Lesson : System.Web.UI.Page
 {
@@ -33,7 +37,7 @@ public partial class Panel_Teacher_Lesson : System.Web.UI.Page
                 return;
             }
             Lesson lesson = LessonService.GetLesson(lid);
-            List<LessonChange> changes = lesson.Changes.Where(x => x.Date == date && x.LessonID == lesson.ID).ToList();
+            List<LessonChange> changes = lesson.Changes.Where(x => x.Date == date && x.LessonId == lesson.Id).ToList();
             if (changes.Count > 0)
             {
                 foreach (LessonChange change in changes)
@@ -49,13 +53,13 @@ public partial class Panel_Teacher_Lesson : System.Web.UI.Page
                     }
                 }
             }
-            selected = DisciplinesServices.GetSelected(lesson.ID, date);
+            selected = DisciplinesServices.GetSelected(lesson.Id, date);
             if (lesson == null)
             {
                 Response.Redirect("~/Default.aspx");
             }
             Session["LessonDedit1"] = date;
-            Session["LessonDedit2"] = lesson.ID;
+            Session["LessonDedit2"] = lesson.Id;
             LabelDate.Text = date.ToShortDateString();
             LabelHour.Text = "שעה " + lesson.Hour.ToString();
             LabelTitle.Text = lesson.Name;
@@ -64,7 +68,7 @@ public partial class Panel_Teacher_Lesson : System.Web.UI.Page
             ListViewTypes.DataBind();
             if (!IsPostBack)
             {
-                ListViewStudents.DataSource = LessonService.GetAllStudents(lesson.ID);
+                ListViewStudents.DataSource = LessonService.GetAllStudents(lesson.Id);
                 ListViewStudents.DataBind();
             }
             LabelResponse.Text = "";
@@ -103,7 +107,7 @@ public partial class Panel_Teacher_Lesson : System.Web.UI.Page
             CheckBox cb = (CheckBox)dtp.FindControl("CheckBoxItem");
             int DataTypeID = (int)((ListView)e.Item.FindControl("ListViewTypes")).DataKeys[dtp.DataItemIndex].Value;
             int UserID = (int)(ListViewStudents.DataKeys[e.Item.DataItemIndex].Value);
-            if (selected.Where(x => x.DisciplinesID == DataTypeID && x.StudentID == UserID).Count() >= 1)
+            if (selected.Where(x => x.DisciplinesId == DataTypeID && x.StudentId == UserID).Count() >= 1)
             {
                 cb.Checked = true;
             }

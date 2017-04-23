@@ -4,6 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Lessons;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
 public partial class Panel_Admin_Lessons : System.Web.UI.Page
 {
@@ -18,11 +23,11 @@ public partial class Panel_Admin_Lessons : System.Web.UI.Page
     {
         if (Request.QueryString["tgid"] == null || Request.QueryString["tgid"].ToString() == "")
             Response.Redirect("~/");
-        tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
+        TeacherGrade t = TeacherGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
         if (t == null) Response.Redirect("~/");
         Session["ltgCur"] = t;
         LabelName.Text = t.Name;
-        ListViewLessons.DataSource = LessonService.GetLessons(t.ID);
+        ListViewLessons.DataSource = LessonService.GetLessons(t.Id);
         ListViewLessons.DataBind();
         if (ListViewLessons.Items.Count == 0)
             LabelLessonsEmpty.Visible = true;
@@ -62,9 +67,9 @@ public partial class Panel_Admin_Lessons : System.Web.UI.Page
     protected void Lesson_Day_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Session["ltgCur"] == null) Response.Redirect("~/");
-        tGrade tg = (tGrade)Session["ltgCur"];
+        TeacherGrade tg = (TeacherGrade)Session["ltgCur"];
         Lesson_Hour.Items.Clear();
-        List<int> hours = MemberService.GetFreeHours(tg.TeacherID,int.Parse(Lesson_Day.SelectedValue));
+        List<int> hours = MemberService.GetFreeHours(tg.TeacherId,int.Parse(Lesson_Day.SelectedValue));
         Lesson_Hour.Items.Add(new ListItem("בחר שעה...", "-1"));
         foreach (int hour in hours)
         {
@@ -82,7 +87,7 @@ public partial class Panel_Admin_Lessons : System.Web.UI.Page
                 Response.Redirect("~/");
             Lesson lesson = new Lesson()
             {
-                TeacherGradeID = int.Parse(Request.QueryString["tgid"].ToString().Trim()),
+                TeacherGradeId = int.Parse(Request.QueryString["tgid"].ToString().Trim()),
                 Day = int.Parse(Lesson_Day.SelectedValue),
                 Hour = int.Parse(Lesson_Hour.SelectedValue)
             };

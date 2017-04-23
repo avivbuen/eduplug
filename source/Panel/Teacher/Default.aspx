@@ -4,48 +4,31 @@
     <link href="../../Content/css/college.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <a href="~/Messages/Compose.aspx" runat="server">
-        <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-            <div class="collection-header light-green darken-2 white-text" style="border-radius: 0px;">
-                <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size: 40px;">add</i>&nbsp; &nbsp;הודעה חדשה</h4>
-            </div>
-        </div>
+    <a href="~/Messages/Compose.aspx" runat="server" class="panelBox light-green darken-2 white-text">
+        <h4><i class="material-icons">add</i> הודעה חדשה</h4>
     </a>
-    <a href="~/Panel/Teacher/Students.aspx" runat="server">
-        <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-            <div class="collection-header purple white-text" style="border-radius: 0px;">
-                <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size: 40px;">face</i>&nbsp; &nbsp תלמידים</h4>
-            </div>
-        </div>
+    <a href="~/Panel/Teacher/Students.aspx" runat="server" class="panelBox purple white-text">
+        <h4><i class="material-icons">face</i> תלמידים</h4>
     </a>
-    <a href="~/Messages" runat="server">
-        <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-            <div class="collection-header red accent-3 white-text" style="border-radius: 0px;">
-                <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size: 40px;">speaker_notes</i>&nbsp; &nbsp הודעות</h4>
-            </div>
-        </div>
+    <a href="~/Messages" runat="server" class="panelBox red accent-3 white-text">
+        <h4><i class="material-icons">speaker_notes</i> הודעות</h4>
     </a>
-    <a href="~/Panel/Teacher/TimeTable.aspx" runat="server">
-        <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-            <div class="collection-header cyan darken-1 white-text" style="border-radius: 0px;">
-                <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size: 40px;">access_time</i>&nbsp; &nbsp;מערכת שעות</h4>
-            </div>
-        </div>
+    <a href="~/Panel/Teacher/TimeTable.aspx" runat="server" class="panelBox cyan darken-1 white-text">
+        <h4><i class="material-icons">access_time</i> מערכת שעות</h4>
     </a>
     <Avivnet:TimeTableDay runat="server" ID="TimeTableWeek" />
-    <ul class="collection with-header" style="direction: rtl;float:right;border:0px; margin-top:0px; width:100%; max-width:500px">
-        <li class="collection-header lime white-text" style="border-radius:0px;">
+    <ul class="collection with-header" style="direction: rtl; float: right; border: 0px; margin-top: 0px; width: 100%; max-width: 500px">
+        <li class="collection-header lime white-text" style="border-radius: 0px;">
             <h4>כיתות:</h4>
         </li>
         <asp:ListView ID="ListViewGrades" runat="server">
             <ItemTemplate>
                 <li class="collection-item">
-                    <div><%#Eval("Name") %><a href="Grade.aspx?gid=<%#Eval("ID") %>" class="secondary-content lime-text" style="float:left"><i class="material-icons">arrow_back</i></a></div>
+                    <div><%#Eval("Name") %><a href="Grade.aspx?gid=<%#Eval("ID") %>" class="secondary-content lime-text" style="float: left"><i class="material-icons">arrow_back</i></a></div>
                 </li>
             </ItemTemplate>
         </asp:ListView>
-        <li class="collection-item lime white-text">
-        </li>
+        <li class="collection-item lime white-text"></li>
     </ul>
     <%--<div class="row">
         <div class="col s2">
@@ -119,18 +102,18 @@
     <%--    <link href="../../Content/css/pShow.css" rel="stylesheet" />
     <h2 style="text-align: center">הכיתות שלי</h2>
     <div id="pShow" style="direction: rtl">
-        <asp:DataList ID="DataListGrades" runat="server" RepeatLayout="Table" RepeatColumns="3" OnItemCommand="DataListGrades_ItemCommand" OnUpdateCommand="DataListGrades_UpdateCommand" OnEditCommand="DataListGrades_EditCommand" DataKeyField="ID" OnItemDataBound="DataListGrades_ItemDataBound">
+        <asp:DataList ID="DataLisTeacherGrades" runat="server" RepeatLayout="Table" RepeatColumns="3" OnItemCommand="DataLisTeacherGrades_ItemCommand" OnUpdateCommand="DataLisTeacherGrades_UpdateCommand" OnEditCommand="DataLisTeacherGrades_EditCommand" DataKeyField="ID" OnItemDataBound="DataLisTeacherGrades_ItemDataBound">
             <ItemTemplate>
                 <div id="ccol" class="ccol_4 noselect">
                     <figure>
                         <div class="image">
-                            <img src="../../Content/graphics/img/tGrade.jpg">
-                            <h2><%#tGradeService.GetPartGrade(int.Parse(Eval("ID").ToString())) %></h2>
+                            <img src="../../Content/graphics/img/TeacherGrade.jpg">
+                            <h2><%#TeacherGradeService.GetParTeacherGrade(int.Parse(Eval("ID").ToString())) %></h2>
                         </div>
                         <figcaption>
                             <span style="font-size: 20px"><%#Eval("Name") %></span>
                             <br />
-                            כמות תלמידים: <%#tGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %> 
+                            כמות תלמידים: <%#TeacherGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %> 
                         </figcaption>
                         <asp:LinkButton ID="LinkButtonEdit" CssClass="button" Style="width: 90%" runat="server" CommandName="Edit"><span style="font-size: 18px" class="noselect">הצג כיתה</span><i class="material-icons" style="vertical-align: middle;">keyboard_arrow_left</i></asp:LinkButton>
                     </figure>
@@ -140,8 +123,8 @@
                 <div id="ccol" class="ccol_4 noselect">
                     <figure style="max-width: 600px">
                         <div class="image">
-                            <img src="../../Content/graphics/img/tGrade.jpg">
-                            <h2><%#tGradeService.GetPartGrade(int.Parse(Eval("ID").ToString())) %></h2>
+                            <img src="../../Content/graphics/img/TeacherGrade.jpg">
+                            <h2><%#TeacherGradeService.GetParTeacherGrade(int.Parse(Eval("ID").ToString())) %></h2>
                         </div>
                         <figcaption>
                             <table>
@@ -151,9 +134,9 @@
                                 </tr>
                                 <tr>
                                     <td>כמות תלמידים:</td>
-                                    <td><%#tGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %></td>
+                                    <td><%#TeacherGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %></td>
                                     <td>ממוצע כיתתי:</td>
-                                    <td><%#tGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %></td>
+                                    <td><%#TeacherGradeService.GetStudentCount(int.Parse(Eval("ID").ToString())) %></td>
                                 </tr>
                                 <tr>
                                     <td>תלמידים:</td>

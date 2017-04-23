@@ -29,11 +29,11 @@
             <li>
                 <!-- User Dropdown Structure -->
                 <ul id='dropdown-user' class='dropdown-content' style="width: 300px; text-align: center">
-                    <li style="background-color: #6385b2; text-align: center;">
-                        <img src="#" class="user-pic-view" style="border-radius: 50%; width: 170px; height: 170px; background: #ffffff; margin-top: 30px" /><span style="color: #fff; font-size: 30px" class="user-name-view"></span>
+                    <li style="background-color: #6385b2; text-align: center; " >
+                        <img src="#"  class="user-pic-view" onclick="location=host+'/User/Edit.aspx'" style="border-radius: 50%;cursor:pointer; width: 170px; height: 170px; background: #ffffff; margin-top: 30px" /><span style="color: #fff; font-size: 30px" class="user-name-view"></span>
 
                     </li>
-                    <li style="text-align: center" class="actionLink"><a href="#!" onclick="Logout()"><span style="font-size: 20px"></span><i class="material-icons">play_for_work</i></a></li>
+                    <li style="text-align: center" class="actionLink"><a href="#Logout" onclick="Logout()"><span style="font-size: 20px"></span><i class="material-icons">play_for_work</i></a></li>
 
                 </ul>
                 <%--                <!-- Notfication Dropdown Structure -->

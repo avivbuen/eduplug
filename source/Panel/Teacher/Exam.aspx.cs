@@ -4,6 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Exams;
+using Business_Logic.Grades;
+using Business_Logic.Members;
+using Business_Logic.Scores;
+using Business_Logic.TeacherGrades;
 
 public partial class Panel_Teacher_Exam : System.Web.UI.Page
 {
@@ -22,19 +28,19 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
             Session["curExamScoring"] = exm;
             if (!IsPostBack)
             {
-                Fill(exm.TeacherGradeID);
+                Fill(exm.TeacherGradeId);
                 Exam_Name.Text = exm.Title;
                 Exam_Date.Text = exm.Date.ToString("dd/MM/yyyy");
                 Exam_Precent.Text = exm.Precent.ToString();
             }
             script = "";
-            maxPrecent = ExamService.PrecentLeft(exm.TeacherGradeID) + exm.Precent;
+            maxPrecent = ExamService.PrecentLeft(exm.TeacherGradeId) + exm.Precent;
         }
-        catch (Exception ex) { Response.Redirect("~/Default.aspx"); }
+        catch (Exception ex) { Response.Redirect("~/Default.aspx"); ex.HelpLink = "http://avivnet.com"; }
     }
     protected void Fill(int eid)
     {
-        DataListScores.DataSource = tGradeService.GetStudents(eid);
+        DataListScores.DataSource = TeacherGradeService.GetStudents(eid);
         DataListScores.DataBind();
     }
     protected void DataListScores_ItemDataBound(object sender, DataListItemEventArgs e)
@@ -44,7 +50,7 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
             Response.Redirect("~/Default.aspx");
         }
         int sid = int.Parse(DataListScores.DataKeys[e.Item.ItemIndex].ToString());
-        int eid = ((Exam)Session["curExamScoring"]).ID;
+        int eid = ((Exam)Session["curExamScoring"]).Id;
         Score scr = ScoreService.GetScore(sid, eid);
         if (scr == null||scr.ScoreVal==-1)
         {
@@ -67,14 +73,14 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
         {
             Exam exmn = new Exam()
             {
-                ID = ((Exam)Session["curExamScoring"]).ID,
+                Id = ((Exam)Session["curExamScoring"]).Id,
                 Title = Exam_Name.Text,
                 Date = DateTime.ParseExact(Exam_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
                 Precent = int.Parse(Exam_Precent.Text)
             };
             ExamService.Update(exmn);
-            ScoreService.ResetScores(((Exam)Session["curExamScoring"]).ID);
-            maxPrecent = ExamService.PrecentLeft(((Exam)Session["curExamScoring"]).TeacherGradeID) + exmn.Precent;
+            ScoreService.ResetScores(((Exam)Session["curExamScoring"]).Id);
+            maxPrecent = ExamService.PrecentLeft(((Exam)Session["curExamScoring"]).TeacherGradeId) + exmn.Precent;
             int count = 0;
             foreach (DataListItem item in DataListScores.Items)
             {
@@ -93,14 +99,14 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
                         {
                             ScoreVal = val,
                             Student = new Member() { UserID = int.Parse(DataListScores.DataKeys[item.ItemIndex].ToString()) },
-                            Exam = new Exam() { ID = ((Exam)Session["curExamScoring"]).ID }
+                            Exam = new Exam() { Id = ((Exam)Session["curExamScoring"]).Id }
                         };
                         ScoreService.Add(score);
                     }
                     catch { count++; }
                 }
             }
-            Fill(((Exam)Session["curExamScoring"]).TeacherGradeID);
+            Fill(((Exam)Session["curExamScoring"]).TeacherGradeId);
             LabelSaved.Text = "נשמר";
             script = "alert('נשמר')";
             if (count != 0)
@@ -113,7 +119,7 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
         if(Session["curExamScoring"]==null)Response.Redirect("~/");
         Exam e = (Exam)Session["curExamScoring"];
         DateTime date =DateTime.ParseExact(Exam_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-        maxPrecent=ExamService.PrecentLeft(e.TeacherGradeID,EduSysDate.GetYearPart(date))+e.Precent;
+        maxPrecent=ExamService.PrecentLeft(e.TeacherGradeId,EduSysDate.GetYearPart(date))+e.Precent;
         args.IsValid = (int.Parse(args.Value) <= maxPrecent && int.Parse(args.Value) >= 0);
         LabelLeft.Text = "האחוזים שנותרו לידעתך למחצית זו  - " + (maxPrecent + "%") + " (מבלי מבחן זה)";
     }

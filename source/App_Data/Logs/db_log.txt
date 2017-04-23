@@ -46,7 +46,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (14,0,'יא''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (14,0,'יא''')
 -------------------------------
 
  AVIVNET Log Entry : 23:40:23 יום חמישי 23 מרץ 2017
@@ -59,7 +59,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (15,0,'יב''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (15,0,'יב''')
 -------------------------------
 
  AVIVNET Log Entry : 23:46:13 יום חמישי 23 מרץ 2017
@@ -72,7 +72,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (16,0,'יא''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (16,0,'יא''')
 -------------------------------
 
  AVIVNET Log Entry : 23:49:59 יום חמישי 23 מרץ 2017
@@ -85,7 +85,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (17,0,'יא''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (17,0,'יא''')
 -------------------------------
 
  AVIVNET Log Entry : 23:58:39 יום חמישי 23 מרץ 2017
@@ -98,7 +98,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (18,0,'יב''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (18,0,'יב''')
 -------------------------------
 
  AVIVNET Log Entry : 23:59:22 יום חמישי 23 מרץ 2017
@@ -111,7 +111,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (19,0,'יב''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (19,0,'יב''')
 -------------------------------
 
  AVIVNET Log Entry : 00:00:39 יום שישי 24 מרץ 2017
@@ -124,7 +124,7 @@
    at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
    at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
    at Connect.InsertUpdateDelete(String SqlQuery) in c:\Users\Aviv\Desktop\Project10_vs17\source\App_Code\DataBase\Connect.cs:line 76
- QUERY= INSERT INTO nhsMajorsTgrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (1,0,'י''')
+ QUERY= INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (1,0,'י''')
 -------------------------------
 
  AVIVNET Log Entry : 15:10:06 יום חמישי 06 אפריל 2017

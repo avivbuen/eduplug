@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddTgrade.aspx.cs" Inherits="InterTrack_Admin_AddTgrade" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddTgrade.aspx.cs" Inherits="InterTrack_Admin_AddTeacherGrade" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -19,17 +19,17 @@
                 <asp:RequiredFieldValidator ID="rfv_ListTeachers" runat="server" ControlToValidate="ListTeachers" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר מורה">*</asp:RequiredFieldValidator>
             </div>
             <div class="input-field col" style="width: 100%;">
-                <asp:TextBox ID="tGradeName" runat="server"></asp:TextBox>
+                <asp:TextBox ID="TeacherGradeName" runat="server"></asp:TextBox>
                 <label>
-                    <asp:RequiredFieldValidator ID="rfv_tGradeName" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="tGradeName" runat="server" ErrorMessage="הכנס שם כיתה">*</asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="refv_tGradeName" Display="Dynamic" ValidationExpression="^([\sא-ת]{2,30})$" EnableClientScript="true" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="tGradeName" runat="server" ErrorMessage="שם כיתה חייב להיות בעברית בלבד בין 2-30 תווים">*</asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfv_TeacherGradeName" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="TeacherGradeName" runat="server" ErrorMessage="הכנס שם כיתה">*</asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="refv_TeacherGradeName" Display="Dynamic" ValidationExpression="^([\sא-ת]{2,30})$" EnableClientScript="true" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="TeacherGradeName" runat="server" ErrorMessage="שם כיתה חייב להיות בעברית בלבד בין 2-30 תווים">*</asp:RegularExpressionValidator>
                     שם מקצוע</label>
             </div>
             <asp:UpdatePanel ID="UpdatePanelData" runat="server">
                 <ContentTemplate>
                     <div class="input-field col" style="direction: rtl; width: 100%">
                         שכבת המקצוע
-                        <asp:DropDownList ID="ListGrades" runat="server" CssClass="browser-default" OnSelectedIndexChanged="ListGrades_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:DropDownList ID="LisTeacherGrades" runat="server" CssClass="browser-default" OnSelectedIndexChanged="LisTeacherGrades_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="בחר שכבה" Value="-1"></asp:ListItem>
                             <asp:ListItem Text="ז'" Value="ז'"></asp:ListItem>
                             <asp:ListItem Text="ח'" Value="ח'"></asp:ListItem>
@@ -38,7 +38,7 @@
                             <asp:ListItem Text="יא'" Value="יא'"></asp:ListItem>
                             <asp:ListItem Text="יב'" Value="יב'"></asp:ListItem>
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfv_ListGrades" runat="server" ControlToValidate="ListGrades" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר שכבה">*</asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rfv_LisTeacherGrades" runat="server" ControlToValidate="LisTeacherGrades" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר שכבה">*</asp:RequiredFieldValidator>
                     </div>
                     <asp:Panel ID="PanelStudents" runat="server" Visible="false">
                         <asp:CustomValidator ID="cv_StudentsToAdd" runat="server" ErrorMessage="אנא בחר תלמיד אחד לפחות" OnServerValidate="cv_StudentsToAdd_ServerValidate" ForeColor="Red" ValidationGroup="AllowValidationGroup">*</asp:CustomValidator>
@@ -68,6 +68,6 @@
         </div>
         <asp:Button ID="AddButton" CssClass="btn waves-button-input btn-large" runat="server" Text="+" Font-Size="36" OnClick="AddButton_Click" />
     </div>
-    <%=script%>
+    <%=Script%>
 </asp:Content>
 

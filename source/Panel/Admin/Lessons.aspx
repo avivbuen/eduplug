@@ -80,7 +80,7 @@
             </div>
         </div>
 
-    <a href="Tgrades.aspx">חזור לכל הכיתות מקצועות</a>
+    <a href="TeacherGrades.aspx">חזור לכל הכיתות מקצועות</a>
 
 </asp:Content>
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic.Members;
 
 public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
 {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic.Members;
+using Business_Logic.Messages;
 
 public partial class Messages_Default : System.Web.UI.Page
 {
@@ -23,7 +25,7 @@ public partial class Messages_Default : System.Web.UI.Page
         else
             PanelEmptyAll.Visible = false;
 
-        List<Message> In = messages.Where(x => x.ReciverID == MemberService.GetCurrent().UserID).OrderByDescending(x => x.SentDate).OrderBy(x => x.Read).ToList();
+        List<Message> In = messages.Where(x => x.ReciverId == MemberService.GetCurrent().UserID).OrderByDescending(x => x.SentDate).OrderBy(x => x.Read).ToList();
         ListViewIn.DataSource = In;
         ListViewIn.DataBind();
         if (In.Count == 0)
@@ -31,7 +33,7 @@ public partial class Messages_Default : System.Web.UI.Page
         else
             PanelEmptyIn.Visible = false;
 
-        List<Message> Out = messages.Where(x => x.SenderID == MemberService.GetCurrent().UserID && !x.Guest).OrderByDescending(x => x.SentDate).OrderBy(x => x.Read).ToList();
+        List<Message> Out = messages.Where(x => x.SenderId == MemberService.GetCurrent().UserID && !x.Guest).OrderByDescending(x => x.SentDate).OrderBy(x => x.Read).ToList();
         ListViewOut.DataSource = Out;
         ListViewOut.DataBind();
         if (Out.Count == 0)

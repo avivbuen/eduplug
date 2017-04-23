@@ -4,10 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
-public partial class InterTrack_Admin_AddTgrade : System.Web.UI.Page
+public partial class InterTrack_Admin_AddTeacherGrade : System.Web.UI.Page
 {
-    public string script = "";
+    public string Script = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (MemberService.GetCurrent().Auth != MemberClearance.Admin)
@@ -30,53 +35,45 @@ public partial class InterTrack_Admin_AddTgrade : System.Web.UI.Page
     protected void AddButton_Click(object sender, EventArgs e)
     {
         Page.Validate();
-        if (Page.IsValid)
+        if (!Page.IsValid) return;
+        var tg = new TeacherGrade()
         {
-            tGrade tg = new tGrade()
+            TeacherId = int.Parse(ListTeachers.SelectedValue),
+            Name = TeacherGradeName.Text
+        };
+        TeacherGradeService.Add(tg);
+        var tgid = TeacherGradeService.GetId(tg);
+        var students = (from ListItem check in StudentsToAdd.Items
+            where check.Selected
+            select new Member()
             {
-                TeacherID = int.Parse(ListTeachers.SelectedValue),
-                Name = tGradeName.Text
-            };
-            tGradeService.Add(tg);
-            int tgid = tGradeService.GetID(tg);
-            List<Member> students = new List<Member>();
-            foreach (ListItem check in StudentsToAdd.Items)
-            {
-                if (check.Selected)
-                {
-                    Member student = new Member()
-                    {
-                        UserID = int.Parse(check.Value)
-                    };
-                    students.Add(student);
-                }
-            }
-            int majorid = int.Parse(ListMajors.SelectedValue);
-            if (majorid!=-1)
-            {
-                string gPart = tGradeService.GetPartGrade(ListGrades.SelectedValue);
-                MajorsService.SetMajorTgrade(tgid, majorid, gPart);
-            }
-            else
-            {
-                Major m = new Major()
-                {
-                    Title = MajorName.Text.Trim()
-                };
-                MajorsService.Add(m);
-                majorid = MajorsService.GetMajorID(m.Title);
-                string gPart = tGradeService.GetPartGrade(ListGrades.SelectedValue);
-                MajorsService.SetMajorTgrade(tgid, majorid, gPart);
-            }
-            tGradeService.AddStudents(tgid, students);
-            script = "<script>alert('הכיתה נוספה למערכת.');location='/Default.aspx';</script>";
+                UserID = int.Parse(check.Value)
+            }).ToList();
+        var majorid = int.Parse(ListMajors.SelectedValue);
+        if (majorid!=-1)
+        {
+            var gPart = TeacherGradeService.GetParTeacherGrade(LisTeacherGrades.SelectedValue);
+            MajorsService.SetMajorTeacherGrade(tgid, majorid, gPart);
         }
-    }
-    protected void ListGrades_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ListGrades.SelectedValue != "-1")
+        else
         {
-            StudentsToAdd.DataSource = MemberService.GetGradePart(ListGrades.SelectedValue.Replace("'", "''"));
+            var m = new Major()
+            {
+                Title = MajorName.Text.Trim()
+            };
+            MajorsService.Add(m);
+            majorid = MajorsService.GetMajorID(m.Title);
+            var gPart = TeacherGradeService.GetParTeacherGrade(LisTeacherGrades.SelectedValue);
+            MajorsService.SetMajorTeacherGrade(tgid, majorid, gPart);
+        }
+        TeacherGradeService.AddStudents(tgid, students);
+        Script = "<script>alert('הכיתה נוספה למערכת.');location='/Default.aspx';</script>";
+    }
+    protected void LisTeacherGrades_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (LisTeacherGrades.SelectedValue != "-1")
+        {
+            StudentsToAdd.DataSource = MemberService.GeTeacherGradePart(LisTeacherGrades.SelectedValue.Replace("'", "''"));
             StudentsToAdd.DataTextField = "Name";
             StudentsToAdd.DataValueField = "UserID";
             StudentsToAdd.DataBind();

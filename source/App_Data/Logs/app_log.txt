@@ -11,7 +11,7 @@
 
  AVIVNET Log Entry : 23:01:13 יום חמישי 23 מרץ 2017
   :
-  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:19329/Panel/Admin/AddTgrade.aspx
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:19329/Panel/Admin/AddTeacherGrade.aspx
 -------------------------------
 
  AVIVNET Log Entry : 10:39:03 יום שישי 24 מרץ 2017
@@ -299,4 +299,144 @@
  AVIVNET Log Entry : 22:09:22 יום שלישי 11 אפריל 2017
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/ChangeTable.aspx?tgid=10
+-------------------------------
+
+ AVIVNET Log Entry : 12:45:30 יום שני 17 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Teacher/GradeState.aspx?gid=11
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:51 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:54 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:55 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:55 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:56 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:56 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:57 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:57 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:57 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:58 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 13:59:58 יום שני 17 אפריל 2017
+  :
+  :System.Exception: f:\Projects\Project10\source\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_22rlirlv.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_Web_rrjaf4re.dll' URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 00:04:52 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Tgrades.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 00:05:44 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Tgrades.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 00:07:09 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Tgrades.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 00:07:15 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Tgrades.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:10:36 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:18:28 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:18:29 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:20:06 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:29:07 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:29:17 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:32:17 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:39:48 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:42:04 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:42:11 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:51:46 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 04:51:55 שבת 22 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
 -------------------------------

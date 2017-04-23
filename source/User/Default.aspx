@@ -63,8 +63,13 @@
                 }
                 var host = "<%= Intel.GetFullRootUrl()%>";
                 $(document).ready(function () {
-                    $('input.disablecopypaste').bind('copy paste', function (e) {
-                        e.preventDefault();
+                    $('input.disablecopypaste').bind('paste', function (e) {
+                        //e.preventDefault();
+                        setTimeout(function () {
+                            var str = $('input.disablecopypaste').val().replace(/\D/g, '');
+                            $('input.disablecopypaste').val(str);
+                        }, 100);
+
                     });
                 });
             </script>

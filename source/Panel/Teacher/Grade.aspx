@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Grade.aspx.cs" Inherits="Panel_Teacher_Grade" %>
+<%@ Import Namespace="Business_Logic.Grades" %>
+<%@ Import Namespace="Business_Logic.TeacherGrades" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -17,7 +19,7 @@
                     <asp:ListView ID="ListViewStudents" runat="server">
                         <ItemTemplate>
                             <li class="collection-item">
-                                <div><%#Eval("Name") %><a href="Student.aspx?sid=<%#Eval("UserID") %>&tgid=<%=((tGrade)Session["tgCur"]).ID %>" class="secondary-content cyan-text" style="float: left"><i class="material-icons">arrow_back</i></a></div>
+                                <div><%#Eval("Name") %><a href="Student.aspx?sid=<%#Eval("UserID") %>&tgid=<%=((TeacherGrade)Session["tgCur"]).Id %>" class="secondary-content cyan-text" style="float: left"><i class="material-icons">arrow_back</i></a></div>
                             </li>
                         </ItemTemplate>
                     </asp:ListView>
@@ -41,7 +43,7 @@
                         <asp:Label ID="LabelExamsEmpty" runat="server" Text="אין מבחנים"></asp:Label>
                         <asp:Label ID="LabelAVG" runat="server" Text=""></asp:Label>
                         <a id="addExamClick" onclick="$('#examModal').openModal()" class="white-text" style="float: left; cursor: pointer;"><i class="material-icons">add</i></a>
-                        <a id="stateClick" class="white-text" style="float: left; cursor: pointer;" href="GradeState.aspx?gid=<%=((tGrade)Session["tgCur"]).ID %>"><i class="material-icons">trending_up</i></a>
+                        <a id="stateClick" class="white-text" style="float: left; cursor: pointer;" href="GradeState.aspx?gid=<%=((TeacherGrade)Session["tgCur"]).Id %>"><i class="material-icons">trending_up</i></a>
                     </li>
                 </ul>
             </ContentTemplate>
@@ -104,7 +106,7 @@
                         var maxPrc;
                         $.ajax({//Calling the server in order to validate
                             url: "../../../System/Precent.ashx",
-                            data: { tgid: <%=((tGrade)Session["tgCur"]).ID %>, day:from[0], month:from[1], year:from[2] },
+                            data: { tgid: <%=((TeacherGrade)Session["tgCur"]).Id %>, day:from[0], month:from[1], year:from[2] },
                             type: "POST",
                             async: false,
                             cache: false,

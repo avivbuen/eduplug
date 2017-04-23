@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Members;
 
 public partial class Admin_Tools_AddAllow : System.Web.UI.Page
 {

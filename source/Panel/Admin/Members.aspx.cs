@@ -5,6 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
 public partial class Admin_Tools_Members : System.Web.UI.Page
 {
@@ -23,7 +28,7 @@ public partial class Admin_Tools_Members : System.Web.UI.Page
     /// </summary>
     protected void Fill()
     {
-        DataTable dt = MemberService.GetAllDT();
+        DataTable dt = MemberService.GetAllDataTable();
         ListViewUsers.DataSource = dt;
         ListViewUsers.DataBind();
     }
@@ -73,7 +78,7 @@ public partial class Admin_Tools_Members : System.Web.UI.Page
     {
         string obt = objt.ToString();
         if (obt == "a" || obt == "t") return "*";
-        return tGradeService.GetPartGrade(GradesService.Get((int)obj).Name);
+        return TeacherGradeService.GetParTeacherGrade(GradesService.Get((int)obj).Name);
     }
     protected string CastAge(object obj)
     {

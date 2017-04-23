@@ -1,5 +1,6 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="System.Threading" %>
+<%@ Import Namespace="Business_Logic.Members" %>
 <script runat="server">
     void Application_Start(object sender, EventArgs e)
     {

@@ -6,6 +6,8 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Members;
 
 public partial class User_Reset : System.Web.UI.Page
 {

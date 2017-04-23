@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
-using System.Web.Configuration;
+
 /// <summary>
 /// This class is connecting the application to the database,
 /// mainly used in the business logic classes.
@@ -19,15 +16,15 @@ public static class Connect
     /// <summary>
     ///  Return's Result For The SQL Query(DataTable Object)
     /// </summary>
-    public static DataTable GetData(string SqlQuery, string TableName)
+    public static DataTable GetData(string sqlQuery, string tableName)
     {
-        OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
-        OleDbCommand command = new OleDbCommand(SqlQuery, con);
+        var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+        var command = new OleDbCommand(sqlQuery, con);
         con.Open();
-        OleDbDataAdapter adp = new OleDbDataAdapter(command);
-        DataSet ds = new DataSet();
+        var adp = new OleDbDataAdapter(command);
+        var ds = new DataSet();
         
-        adp.Fill(ds, TableName);
+        adp.Fill(ds, tableName);
         con.Close();
         QueriesCount++;
         return ds.Tables[0];
@@ -35,46 +32,46 @@ public static class Connect
     /// <summary>
     ///  Return's Result For The SQL Query(DataSet Object)
     /// </summary>
-    public static DataSet GetData(string SqlQuery, string TableName, bool WantFullDataSet)
+    public static DataSet GetData(string sqlQuery, string tableName, bool wantFullDataSet)
     {
-        OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
-        OleDbCommand command = new OleDbCommand(SqlQuery, con);
-        OleDbDataAdapter adp = new OleDbDataAdapter(command);
-        DataSet ds = new DataSet();
-        adp.Fill(ds, TableName);
+        var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+        var command = new OleDbCommand(sqlQuery, con);
+        var adp = new OleDbDataAdapter(command);
+        var ds = new DataSet();
+        adp.Fill(ds, tableName);
         QueriesCount++;
         return ds;
     }
     /// <summary>
     /// Return's Object Result (It's Mainly For Mathmatical Use)
     /// </summary>
-    public static object GetObject(string SqlQuery)
+    public static object GetObject(string sqlQuery)
     {
         try
         {
-            OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
-            OleDbCommand command = new OleDbCommand(SqlQuery, con);
+            var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+            var command = new OleDbCommand(sqlQuery, con);
             con.Open();
-            object MyObj = command.ExecuteScalar();
+            var myObj = command.ExecuteScalar();
             con.Close();
             QueriesCount++;
-            return MyObj;
+            return myObj;
         }
         catch(Exception ex)
         {
-            Problem.Log(ex,SqlQuery);
+            Problem.Log(ex,sqlQuery);
             return null;
         }
     }
     /// <summary>
     /// Executes The SqlQuery And Return's Boolean For Success Of The Query Execution
     /// </summary>
-    public static bool InsertUpdateDelete(string SqlQuery)
+    public static bool InsertUpdateDelete(string sqlQuery)
     {
         try
         {
-            OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
-            OleDbCommand command = new OleDbCommand(SqlQuery, con);
+            var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+            var command = new OleDbCommand(sqlQuery, con);
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
@@ -83,28 +80,28 @@ public static class Connect
         }
         catch (Exception ex)
         {
-            Problem.Log(ex, SqlQuery);
+            Problem.Log(ex, sqlQuery);
         }
         return false;  
     }
     /// <summary>
     /// Executes The SqlQuery And Return's Boolean For Success Of The Query Execution
     /// </summary>
-    public static int InsertUpdateDeleteState(string SqlQuery)
+    public static int InsertUpdateDeleteState(string sqlQuery)
     {
         try
         {
-            OleDbConnection con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
-            OleDbCommand command = new OleDbCommand(SqlQuery, con);
+            var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+            var command = new OleDbCommand(sqlQuery, con);
             con.Open();
-            int rows = command.ExecuteNonQuery();
+            var rows = command.ExecuteNonQuery();
             con.Close();
             QueriesCount++;
             return rows;
         }
         catch (Exception ex)
         {
-            Problem.Log(ex, SqlQuery);
+            Problem.Log(ex, sqlQuery);
         }
         return 0;
     }

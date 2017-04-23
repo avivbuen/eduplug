@@ -4,8 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
-public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
+public partial class Panel_Admin_EditTeacherGrade : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,12 +32,12 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
         ListMajors.DataValueField = "ID";
         ListMajors.DataBind();
         ListMajors.Items.Add(new ListItem("מגמה חדשה+", "-1"));
-        tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
+        TeacherGrade t = TeacherGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
         if (t == null) Response.Redirect("~/");
-        tGradeName.Text = t.Name;
-        ListTeachers.SelectedValue = t.TeacherID.ToString();
-        ListGrades.SelectedValue = tGradeService.GetPartGrade(t.ID);
-        ListMajors.SelectedValue = tGradeService.GetMajor(t.ID).ToString();
+        TeacherGradeName.Text = t.Name;
+        ListTeachers.SelectedValue = t.TeacherId.ToString();
+        LisTeacherGrades.SelectedValue = TeacherGradeService.GetParTeacherGrade(t.Id);
+        ListMajors.SelectedValue = TeacherGradeService.GetMajor(t.Id).ToString();
         Session["kTG"] = t;
         vChanged();
     }
@@ -47,15 +52,15 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
                 item.Selected = false;
         }
     }
-    protected void ListGrades_SelectedIndexChanged(object sender, EventArgs e)
+    protected void LisTeacherGrades_SelectedIndexChanged(object sender, EventArgs e)
     {
         vChanged();
     }
     protected void vChanged()
     {
-        if (ListGrades.SelectedValue != "-1")
+        if (LisTeacherGrades.SelectedValue != "-1")
         {
-            StudentsToAdd.DataSource = MemberService.GetGradePart(ListGrades.SelectedValue.Replace("'", "''"));
+            StudentsToAdd.DataSource = MemberService.GeTeacherGradePart(LisTeacherGrades.SelectedValue.Replace("'", "''"));
             StudentsToAdd.DataTextField = "Name";
             StudentsToAdd.DataValueField = "UserID";
             StudentsToAdd.DataBind();
@@ -79,8 +84,8 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
             LabelNoStudents.Text = "";
         }
         if (Session["kTG"] == null) Response.Redirect("~/");
-        tGrade tg = (tGrade)Session["kTG"];
-        Member[] mem = tGradeService.GetStudents(tg.ID).ToArray();
+        TeacherGrade tg = (TeacherGrade)Session["kTG"];
+        Member[] mem = TeacherGradeService.GetStudents(tg.Id).ToArray();
         string select = "";
         for (int i = 0; i < mem.Length; i++)
         {
@@ -108,12 +113,12 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
         Page.Validate();
         if (Page.IsValid)
         {
-            if(((tGrade)Session["kTG"])==null)Response.Redirect("~/");
-            tGrade tg = ((tGrade)Session["kTG"]);
-            int tgid = tg.ID;
-            tg.Name = tGradeName.Text;
-            tg.TeacherID = int.Parse(ListTeachers.SelectedValue);
-            tGradeService.Update(tg);
+            if(((TeacherGrade)Session["kTG"])==null)Response.Redirect("~/");
+            TeacherGrade tg = ((TeacherGrade)Session["kTG"]);
+            int tgid = tg.Id;
+            tg.Name = TeacherGradeName.Text;
+            tg.TeacherId = int.Parse(ListTeachers.SelectedValue);
+            TeacherGradeService.Update(tg);
             List<Member> students = new List<Member>();
             foreach (ListItem check in StudentsToAdd.Items)
             {
@@ -129,8 +134,8 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
             int majorid = int.Parse(ListMajors.SelectedValue);
             if (majorid != -1)
             {
-                string gPart = tGradeService.GetPartGrade(ListGrades.SelectedValue);
-                MajorsService.SetMajorTgrade(tgid, majorid, gPart);
+                string gPart = TeacherGradeService.GetParTeacherGrade(LisTeacherGrades.SelectedValue);
+                MajorsService.SetMajorTeacherGrade(tgid, majorid, gPart);
             }
             else
             {
@@ -140,10 +145,10 @@ public partial class Panel_Admin_EditTgrade : System.Web.UI.Page
                 };
                 MajorsService.Add(m);
                 majorid = MajorsService.GetMajorID(m.Title);
-                string gPart = tGradeService.GetPartGrade(ListGrades.SelectedValue);
-                MajorsService.SetMajorTgrade(tgid, majorid, gPart);
+                string gPart = TeacherGradeService.GetParTeacherGrade(LisTeacherGrades.SelectedValue);
+                MajorsService.SetMajorTeacherGrade(tgid, majorid, gPart);
             }
-            tGradeService.AddStudents(tgid, students);
+            TeacherGradeService.AddStudents(tgid, students);
             Response.Redirect("~/Panel/Admin/Tgrades.aspx");
             //script = "<script>alert('הכיתה נוספה למערכת.');location='/Default.aspx';</script>";
         }

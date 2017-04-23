@@ -2,6 +2,7 @@
 
 using System;
 using System.Web;
+using Business_Logic.Exams;
 
 public class Precent : IHttpHandler {
     

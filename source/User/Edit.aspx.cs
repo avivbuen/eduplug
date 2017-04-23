@@ -7,6 +7,11 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Cities;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
 
 public partial class User_Edit : System.Web.UI.Page
 {
@@ -61,7 +66,7 @@ public partial class User_Edit : System.Web.UI.Page
         User_Email.Text = mem.Mail;
         User_ID.Text = mem.ID;
         User_Section.SelectedValue = mem.GradeID.ToString();
-        User_City.SelectedValue = mem.City.ID.ToString();
+        User_City.SelectedValue = mem.City.Id.ToString();
         User_Gender.SelectedValue = ((char)mem.Gender).ToString();
         User_Password.Attributes.Add("value", "!@#$%^&*(8)(&%@#&$*(");
         User_Password_c.Attributes.Add("value", "!@#$%^&*(8)(&%@#&$*(");
@@ -73,11 +78,11 @@ public partial class User_Edit : System.Web.UI.Page
         {
             if (mjrs.Length - 1 != i)
             {
-                select += mjrs[i].ID + ",";
+                select += mjrs[i].Id + ",";
             }
             else
             {
-                select += mjrs[i].ID;
+                select += mjrs[i].Id;
             }
         }
         SetSelectedInCheckBox(User_Majors, select);
@@ -92,12 +97,12 @@ public partial class User_Edit : System.Web.UI.Page
             if (c is City)
             {
                 City city = ((City)c);
-                drpdwnLST.Items.Add(new ListItem(city.Name, city.ID.ToString()));
+                drpdwnLST.Items.Add(new ListItem(city.Name, city.Id.ToString()));
             }
             if (c is Grade)
             {
                 Grade grade = ((Grade)c);
-                drpdwnLST.Items.Add(new ListItem(grade.Name, grade.ID.ToString()));
+                drpdwnLST.Items.Add(new ListItem(grade.Name, grade.Id.ToString()));
             }
         }
     }

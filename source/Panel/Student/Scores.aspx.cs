@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Members;
+using Business_Logic.Scores;
 
 public partial class Track_Scores : System.Web.UI.Page
 {

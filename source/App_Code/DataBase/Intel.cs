@@ -5,6 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Data;
+using Business_Logic;
+using Business_Logic.Members;
+
 /// <summary>
 /// Gathers intelligence on client and system, also provides help to ui
 /// </summary>

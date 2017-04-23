@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Lessons;
+using Business_Logic.Members;
 
 public partial class Panel_Teacher_TimeTable : System.Web.UI.Page
 {

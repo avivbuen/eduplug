@@ -4,6 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Lessons;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
 public partial class Panel_ChangeTable : System.Web.UI.Page
 {
@@ -18,15 +23,15 @@ public partial class Panel_ChangeTable : System.Web.UI.Page
     {
         if (Request.QueryString["tgid"] == null || Request.QueryString["tgid"].ToString() == "")
             Response.Redirect("~/");
-        tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
+        TeacherGrade t = TeacherGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
         if (t == null) Response.Redirect("~/");
         Session["ltgCur"] = t;
         LabelName.Text = t.Name;
         List<LessonChange> changes = new List<LessonChange>();
-        List<Lesson> lsns = LessonService.GetLessons(t.ID);
+        List<Lesson> lsns = LessonService.GetLessons(t.Id);
         foreach (Lesson les in lsns)
         {
-            changes.AddRange(LessonService.GetChanges(les.ID));
+            changes.AddRange(LessonService.GetChanges(les.Id));
         }
         ListViewChanges.DataSource = changes;
         ListViewChanges.DataBind();
@@ -56,10 +61,10 @@ public partial class Panel_ChangeTable : System.Web.UI.Page
             Response.Redirect("~/");
         if (Change_Date.Text != "")
         {
-            tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
+            TeacherGrade t = TeacherGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
             DayOfWeek day = DateTime.ParseExact(Change_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).DayOfWeek;
             int daoy = (int)day + 1;
-            List<Lesson> lessons = LessonService.GetLessons(t.ID).Where(x => x.Day == daoy).OrderBy(x => x.Hour).ToList();
+            List<Lesson> lessons = LessonService.GetLessons(t.Id).Where(x => x.Day == daoy).OrderBy(x => x.Hour).ToList();
             Lesson_Hour.Items.Clear();
             Lesson_Hour.Items.Add(new ListItem("בחר שעה...", "-1"));
             foreach (Lesson lesson in lessons)
@@ -77,13 +82,13 @@ public partial class Panel_ChangeTable : System.Web.UI.Page
         Page.Validate();
         if (Page.IsValid)
         {
-            tGrade t = tGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
+            TeacherGrade t = TeacherGradeService.Get(int.Parse(Request.QueryString["tgid"].ToString().Trim()));
             int day = (int)DateTime.ParseExact(Change_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).DayOfWeek+1;
             LessonChange change = new LessonChange()
             {
                 ChangeType = (LessonChangeType)Change_Cause.SelectedValue.ToString()[0],
                 Date = DateTime.ParseExact(Change_Date.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
-                LessonID = LessonService.GetLesson(t.ID,int.Parse(Lesson_Hour.SelectedValue), day).ID,
+                LessonId = LessonService.GetLesson(t.Id,int.Parse(Lesson_Hour.SelectedValue), day).Id,
                 Message = TextBoxDesc.Text
             };
             LessonService.AddChange(change);

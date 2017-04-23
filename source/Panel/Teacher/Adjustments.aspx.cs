@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Members;
 
 public partial class Panel_Teacher_Adjustments : System.Web.UI.Page
 {
@@ -31,6 +33,7 @@ public partial class Panel_Teacher_Adjustments : System.Web.UI.Page
         catch (Exception ex)
         {
             Response.Redirect("~/Default.aspx");
+            ex.HelpLink = "http://avivnet.com";
         }
 
         

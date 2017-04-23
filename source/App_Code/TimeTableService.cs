@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using Business_Logic;
+using Business_Logic.Lessons;
 
 /// <summary>
 /// Summary description for TimeTableService

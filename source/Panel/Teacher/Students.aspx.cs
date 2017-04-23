@@ -5,6 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
+using Business_Logic.TeacherGrades;
 
 public partial class Panel_Teacher_Students : System.Web.UI.Page
 {
@@ -70,7 +75,7 @@ public partial class Panel_Teacher_Students : System.Web.UI.Page
     {
         string obt = objt.ToString();
         if (obt == "a" || obt == "t") return "*";
-        return tGradeService.GetPartGrade(GradesService.Get((int)obj).Name);
+        return TeacherGradeService.GetParTeacherGrade(GradesService.Get((int)obj).Name);
     }
     protected string CastAge(object obj)
     {

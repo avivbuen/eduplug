@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Disciplines;
+using Business_Logic.Members;
+using Business_Logic.Scores;
 
 public partial class Panel_Teacher_Student : System.Web.UI.Page
 {
@@ -48,6 +52,6 @@ public partial class Panel_Teacher_Student : System.Web.UI.Page
             LabelID.Text = student.ID;
 
         }
-        catch (Exception ex) { Response.Redirect("~/Default.aspx"); }
+        catch (Exception ex) { Response.Redirect("~/Default.aspx"); ex.HelpLink = "http://avivnet.com"; }
     }
 }

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Members;
+using Business_Logic.Messages;
 
 public partial class Messages_Compose : System.Web.UI.Page
 {
@@ -78,8 +81,8 @@ public partial class Messages_Compose : System.Web.UI.Page
                 Message m = new Message()
                 {
                     Content = TextBoxMessageContent.Text.Trim(),
-                    ReciverID = int.Parse(DropDownUsers.SelectedValue),
-                    SenderID = MemberService.GetCurrent().UserID,
+                    ReciverId = int.Parse(DropDownUsers.SelectedValue),
+                    SenderId = MemberService.GetCurrent().UserID,
                     Subject = Message_Subject.Text.Trim()
                 };
                 MessagesService.SendMessage(m);
@@ -94,8 +97,8 @@ public partial class Messages_Compose : System.Web.UI.Page
                         Message m = new Message()
                         {
                             Content = TextBoxMessageContent.Text.Trim(),
-                            ReciverID = int.Parse(lt.Value),
-                            SenderID = MemberService.GetCurrent().UserID,
+                            ReciverId = int.Parse(lt.Value),
+                            SenderId = MemberService.GetCurrent().UserID,
                             Subject = Message_Subject.Text.Trim()
                         };
                         MessagesService.SendMessage(m);

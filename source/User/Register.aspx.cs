@@ -5,6 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Business_Logic;
+using Business_Logic.Cities;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
+using Business_Logic.Members;
 
 public partial class User_Register : System.Web.UI.Page
 {
@@ -43,12 +48,12 @@ public partial class User_Register : System.Web.UI.Page
             if (c is City)
             {
                 City city = ((City)c);
-                drpdwnLST.Items.Add(new ListItem(city.Name, city.ID.ToString()));
+                drpdwnLST.Items.Add(new ListItem(city.Name, city.Id.ToString()));
             }
             if (c is Grade)
             {
                 Grade grade = ((Grade)c);
-                drpdwnLST.Items.Add(new ListItem(grade.Name, grade.ID.ToString()));
+                drpdwnLST.Items.Add(new ListItem(grade.Name, grade.Id.ToString()));
             }
         }
     }
@@ -78,7 +83,7 @@ public partial class User_Register : System.Web.UI.Page
         List<Major> mjrs = new List<Major>();
         foreach (ListItem c in User_Majors.Items)
             if (c.Selected)
-                mjrs.Add(new Major() { ID = int.Parse(c.Value), Title = c.Text });
+                mjrs.Add(new Major() { Id = int.Parse(c.Value), Title = c.Text });
 
         //Declaring a new member
         Member mem = new Member()

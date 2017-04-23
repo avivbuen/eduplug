@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SideNav.ascx.cs" Inherits="Controls_SideNav" %>
+<%@ Import Namespace="Business_Logic.Members" %>
 <!-- Side Navigation -->
 <ul id="slide-out" class="side-nav right-aligned right-align">
     <li style="background: #3b6bab; text-align: center;">
@@ -63,7 +64,7 @@
     <%if (MemberService.GetCurrent().Auth == MemberClearance.Admin)
       { %>
     <li class="admin-panel">
-        <a class="collapsible-header waves-effect" href="~/Panel/Admin/AddTgrade.aspx" runat="server">כיתה<i class="material-icons">add</i></a>
+        <a class="collapsible-header waves-effect" href="~/Panel/Admin/AddTeacherGrade.aspx" runat="server">כיתה<i class="material-icons">add</i></a>
     </li>
     <%} %>
     <li class="logout-panel"><a class="waves-effect" onclick="Logout()" id="LogoutButton"><i class="material-icons">play_for_work</i>צא</a></li>

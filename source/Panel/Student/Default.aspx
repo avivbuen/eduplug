@@ -4,34 +4,18 @@
     <link href="../../Content/css/college.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-           <a href="~/Panel/Student/Scores.aspx" runat="server">
-            <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-                <div class="collection-header purple white-text" style="border-radius: 0px;">
-                    <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size:40px;">assignment</i>&nbsp; &nbsp ציונים</h4>
-                </div>
-            </div>
-        </a>
-        <a href="~/Panel/Student/Disciplines.aspx" runat="server">
-            <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-                <div class="collection-header red accent-3 white-text" style="border-radius: 0px;">
-                    <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size:40px;">warning</i>&nbsp; &nbsp הערות</h4>
-                </div>
-            </div>
-        </a>
-        <a href="~/Panel/Student/TimeTable.aspx" runat="server">
-            <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-                <div class="collection-header cyan darken-1 white-text" style="border-radius: 0px;">
-                    <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size:40px;">access_time</i>&nbsp; &nbsp;מערכת שעות</h4>
-                </div>
-            </div>
-        </a>
-        <a href="~/Panel/Student/Adjustments.aspx" runat="server">
-            <div class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; width: 100%; max-width: 415px">
-                <div class="collection-header light-green darken-2 white-text" style="border-radius: 0px;">
-                    <h4 style="line-height: 90%; font-size: 37px; padding-top: 15px; padding-bottom: 20px;"><i class="material-icons" style="font-size:40px;">face</i>&nbsp; &nbsp;התאמות</h4>
-                </div>
-            </div>
-        </a>
+    <a href="~/Panel/Student/Scores.aspx" runat="server" class="panelBox purple white-text">
+        <h4><i class="material-icons">assignment</i> ציונים</h4>
+    </a>
+    <a href="~/Panel/Student/Disciplines.aspx" runat="server" class="panelBox red accent-3 white-text">
+        <h4><i class="material-icons">warning</i> הערות</h4>
+    </a>
+    <a href="~/Panel/Student/TimeTable.aspx" runat="server" class="panelBox  cyan darken-1 white-text">
+        <h4><i class="material-icons">access_time</i> מערכת שעות</h4>
+    </a>
+    <a href="~/Panel/Student/Adjustments.aspx" runat="server" class="panelBox light-green darken-2 white-text">
+        <h4><i class="material-icons">face</i> התאמות</h4>
+    </a>
     <Avivnet:TimeTableDay runat="server" ID="TimeTableDay" TableFor="Student" />
     <ul class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; margin-top: 0px; width: 100%; max-width: 500px">
         <li class="collection-header blue-grey white-text" style="border-radius: 0px;">
@@ -58,7 +42,7 @@
         <asp:ListView ID="ListViewDisi" runat="server">
             <ItemTemplate>
                 <li class="collection-item">
-                    <div> - <%#Eval("dName") %> <span class="secondary-content"><%#Eval("dDate","{0:d}") %></span> <span class="secondary-content" style="float: left"><%#Eval("lName") %></span></div>
+                    <div>- <%#Eval("dName") %> <span class="secondary-content"><%#Eval("dDate","{0:d}") %></span> <span class="secondary-content" style="float: left"><%#Eval("lName") %></span></div>
                 </li>
             </ItemTemplate>
         </asp:ListView>

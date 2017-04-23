@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-/// <summary>
-/// LessonGroup
-/// </summary>
-public class LessonGroup
+namespace Business_Logic.Lessons
 {
     /// <summary>
-    /// The lessons
+    /// LessonGroup
     /// </summary>
-    public List<Lesson> lessons;
-    /// <summary>
-    /// CTOR
-    /// </summary>
-    public LessonGroup()
+    public class LessonGroup
     {
-        lessons = new List<Lesson>();
+        /// <summary>
+        /// The lessons
+        /// </summary>
+        public List<Lesson> Lessons;
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        public LessonGroup()
+        {
+            Lessons = new List<Lesson>();
+        }
     }
 }
