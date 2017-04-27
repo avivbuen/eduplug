@@ -440,3 +440,23 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Messages/default.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 11:16:02 יום חמישי 27 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 11:17:42 יום חמישי 27 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 11:19:15 יום חמישי 27 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 11:19:25 יום חמישי 27 אפריל 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/default.aspx
+-------------------------------

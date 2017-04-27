@@ -166,7 +166,7 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static List<Score> GetAllExam(int eid)
         {
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND nhsExamID=" + eid + ")";
+            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND exam.nhsExamID=" + eid + ")";
             var dt = Connect.GetData(sqlGet, "nhsScores");
             var exm = ExamService.GetExam(eid);
             return (from DataRow dataRow in dt.Rows
@@ -198,6 +198,13 @@ namespace Business_Logic.Scores
                 ScoreVal = int.Parse(dt.Rows[0]["StudentScore"].ToString().Trim())
             };
         }
+
+        public static double GetAvgTgrade(int tgid)
+        {
+            var exams= ExamService.GetExamsByTeacherGradeId(tgid);
+            var valsDoubles = exams.Select(exam => GetAvgExam(exam.Id)).Where(val => val > 0).ToList();
+            return valsDoubles.Count == 0 ? 0 : valsDoubles.Average();
+        }
         /// <summary>
         /// Get avg of exam
         /// </summary>
@@ -205,7 +212,8 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static double GetAvgExam(int eid)
         {
-            return GetAllExam(eid).Average(x => x.ScoreVal);
+            var scores = GetAllExam(eid);
+            return scores.Count == 0 ? 0 : GetAllExam(eid).Average(x => x.ScoreVal);
         }
         /// <summary>
         /// Get all grade - DataTable
