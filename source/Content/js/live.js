@@ -46,6 +46,6 @@ function LoadCurrentUser() {
             console.log("Avivnet System Error (Ajax) - Loading User : " + reponse);
         }
     });
-    setTimeout(LoadCurrentUser, 3000);
+    setTimeout(LoadCurrentUser, 5000);
 }
 

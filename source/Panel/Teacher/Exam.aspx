@@ -32,11 +32,13 @@
                         </label>
                     </div>
                     ציונים
+               
                 </div>
                 <div style="max-width: 500px; margin: 0 auto; text-align: center; overflow-y: scroll; background: #fff;">
                     <asp:DataList ID="DataListScores" RepeatLayout="Table" runat="server" DataKeyField="UserID" RepeatColumns="3" OnItemDataBound="DataListScores_ItemDataBound">
                         <ItemTemplate>
                             <%#Eval("Name") %>:
+                           
                             <asp:TextBox ID="TextBoxScoreVal" runat="server" MaxLength="3" CssClass="browser-default" Style="background-color: #fff; width: auto; margin: 0 0 0 0; height: 1.5rem; text-align: center; width: 40px;"></asp:TextBox>
                         </ItemTemplate>
                     </asp:DataList>
@@ -59,8 +61,8 @@
                     $('.datepicker').pickadate({
                         selectMonths: true, // Creates a dropdown to control month
                         selectYears: 3, // Creates a dropdown of 150 years to control year
-                        min: new Date(<%= EduSysDate.GetStart().Year %>,<%= EduSysDate.GetStart().Month %>-1,<%= EduSysDate.GetStart().Day %>),
-                        max: new Date(<%= EduSysDate.GetEnd().Year %>,<%= EduSysDate.GetEnd().Month %>-1,<%= EduSysDate.GetEnd().Day %>)
+                        min: new Date(<%= EduSysDate.GetStart().Year +","+ EduSysDate.GetStart().Month +"-1,"+ EduSysDate.GetStart().Day %>),
+                        max: new Date(<%= EduSysDate.GetStart().Year +","+ EduSysDate.GetEnd().Month +"-1,"+ EduSysDate.GetStart().Day %>)
                     });
                     setTimeout(picker, 200);
                 }
@@ -76,5 +78,6 @@
             </script>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <Avivnet:Chart runat="server" ID="ChartOfStats" />
 </asp:Content>
 

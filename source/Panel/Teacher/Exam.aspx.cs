@@ -29,6 +29,9 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
             if (!IsPostBack)
             {
                 Fill(exm.TeacherGradeId);
+                ChartOfStats.DataSource = GetDataChart(exm.Id);
+                ChartOfStats.Title = "כמות נכשלים/ עוברים מתוך רשומות שהוזנו";
+                ChartOfStats.DataBind();
                 Exam_Name.Text = exm.Title;
                 Exam_Date.Text = exm.Date.ToString("dd/MM/yyyy");
                 Exam_Precent.Text = exm.Precent.ToString();
@@ -38,10 +41,30 @@ public partial class Panel_Teacher_Exam : System.Web.UI.Page
         }
         catch (Exception ex) { Response.Redirect("~/Default.aspx"); ex.HelpLink = "http://avivnet.com"; }
     }
-    protected void Fill(int eid)
+    protected void Fill(int tgid)
     {
-        DataListScores.DataSource = TeacherGradeService.GetStudents(eid);
+        DataListScores.DataSource = TeacherGradeService.GetStudents(tgid);
         DataListScores.DataBind();
+        
+
+    }
+    protected Dictionary<string, object> GetDataChart(int eid)
+    {
+        var lsScores = ScoreService.GetAllExam(eid);
+        ChartOfStats.Visible = (lsScores.Count != 0);
+        var data = new Dictionary<string, object>();
+        data.Add("עוברים", 0);
+        data.Add("נכשל", 0);
+        foreach (Score scr in lsScores)
+        {
+            if(scr.ScoreVal>55)
+            {
+                data["עוברים"] = (int)data["עוברים"]+1;
+                continue;
+            }
+            data["נכשל"] = (int)data["נכשל"] + 1;
+        }
+        return data;
     }
     protected void DataListScores_ItemDataBound(object sender, DataListItemEventArgs e)
     {
