@@ -19,13 +19,13 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static List<TeacherGrade> GetAll()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsTeacherGrades WHERE nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsTeacherGrades");
+            var dt = Connect.GetData("SELECT * FROM eduTeacherGrades WHERE eduSchoolID="+MemberService.GetCurrent().School.Id+" AND eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduTeacherGrades");
             return (from DataRow dataRow in dt.Rows
                 select new TeacherGrade()
                 {
-                    Id = int.Parse(dataRow["nhsTgradeID"].ToString().Trim()),
-                    Name = dataRow["nhsTgradeName"].ToString().Trim(),
-                    TeacherId = int.Parse(dataRow["nhsTeacherID"].ToString().Trim())
+                    Id = int.Parse(dataRow["eduTgradeID"].ToString().Trim()),
+                    Name = dataRow["eduTgradeName"].ToString().Trim(),
+                    TeacherId = int.Parse(dataRow["eduTeacherID"].ToString().Trim())
                 }).ToList();
         }
         /// <summary>
@@ -35,7 +35,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static bool Remove(int tgid)
         {
-            return Connect.InsertUpdateDelete("DELETE FROM nhsLearnGroups WHERE nhsTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM nhsExams WHERE nhsTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM nhsTeacherGrades WHERE nhsTgradeID=" + tgid);
+            return Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduTeacherGrades WHERE eduTgradeID=" + tgid);
         }
         /// <summary>
         /// Get id by obj
@@ -44,12 +44,12 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static int GetId(TeacherGrade grd)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsTeacherGrades WHERE nhsTeacherID=" + grd.TeacherId + " AND nhsTgradeName='" + grd.Name + "' AND nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsTeacherGrades");
+            var dt = Connect.GetData("SELECT * FROM eduTeacherGrades WHERE eduTeacherID=" + grd.TeacherId + " AND eduTgradeName='" + grd.Name + "' AND eduSchoolID="+MemberService.GetCurrent().School.Id+" AND eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduTeacherGrades");
             if (dt.Rows.Count < 1)
             {
                 return -1;
             }
-            return int.Parse(dt.Rows[0]["nhsTgradeID"].ToString().Trim());
+            return int.Parse(dt.Rows[0]["eduTgradeID"].ToString().Trim());
         }
         /// <summary>
         /// Add new TeacherGrade to DB
@@ -58,7 +58,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static bool Add(TeacherGrade grd)
         {
-            var count = (int)Connect.GetObject("SELECT COUNT(*) FROM nhsTeacherGrades WHERE nhsTeacherID=" + grd.TeacherId + " AND nhsTgradeName='" + grd.Name + "'");
+            var count = (int)Connect.GetObject("SELECT COUNT(*) FROM eduTeacherGrades WHERE eduTeacherID=" + grd.TeacherId + " AND eduTgradeName='" + grd.Name + "'");
             if (count >= 1)
             {
                 return true;
@@ -66,14 +66,14 @@ namespace Business_Logic.TeacherGrades
             var rnd = new Random();
             var a = Color.FromArgb(rnd.Next(50, 256), rnd.Next(50, 256), rnd.Next(50, 256));
             var str = ColorTranslator.ToHtml(a).Substring(1);
-            var countColor = (int)Connect.GetObject("SELECT COUNT(*) FROM nhsTeacherGrades WHERE nhsColor='" + str + "'");
+            var countColor = (int)Connect.GetObject("SELECT COUNT(*) FROM eduTeacherGrades WHERE eduColor='" + str + "'");
             while (countColor > 0)
             {
                 a = Color.FromArgb(rnd.Next(50, 256), rnd.Next(50, 256), rnd.Next(50, 256));
                 str = ColorTranslator.ToHtml(a).Substring(1);
-                countColor = (int)Connect.GetObject("SELECT COUNT(*) FROM nhsTeacherGrades WHERE nhsColor='" + str + "'");
+                countColor = (int)Connect.GetObject("SELECT COUNT(*) FROM eduTeacherGrades WHERE eduColor='" + str + "'");
             }
-            return Connect.InsertUpdateDelete("INSERT INTO nhsTeacherGrades(nhsTeacherID,nhsTgradeName,nhsColor, nhsDate) VALUES(" + grd.TeacherId + ",'" + grd.Name + "','" + str + "', #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
+            return Connect.InsertUpdateDelete("INSERT INTO eduTeacherGrades(eduTeacherID,eduTgradeName,eduColor, eduDate,eduSchoolID) VALUES(" + grd.TeacherId + ",'" + grd.Name + "','" + str + "', #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#,"+MemberService.GetCurrent().School.Id+")");
         }
         /// <summary>
         /// Add students to tgarde
@@ -84,7 +84,7 @@ namespace Business_Logic.TeacherGrades
         public static bool AddStudents(int tgid, List<Member> students)
         {
             var all = GetStudents(tgid);
-            Connect.InsertUpdateDelete("DELETE FROM nhsLearnGroups WHERE nhsTgradeID=" + tgid);
+            Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid);
 
             foreach (var student in students)
             {
@@ -92,7 +92,7 @@ namespace Business_Logic.TeacherGrades
                 {
                     ScoreService.ResetScoresStudent(student.UserID, tgid);
                 }
-                Connect.InsertUpdateDelete("INSERT INTO nhsLearnGroups(nhsTgradeID,nhsStudentID,nhsDate) VALUES(" + tgid + "," + student.UserID + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
+                Connect.InsertUpdateDelete("INSERT INTO eduLearnGroups(eduTgradeID,eduStudentID,eduDate) VALUES(" + tgid + "," + student.UserID + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
             }
             return true;
         }
@@ -101,7 +101,7 @@ namespace Business_Logic.TeacherGrades
         /// </summary>
         public static bool AddStudent(int tgid, Member student)
         {
-            Connect.InsertUpdateDelete("INSERT INTO nhsLearnGroups(nhsTgradeID,nhsStudentID,nhsDate) VALUES(" + tgid + "," + student.UserID + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
+            Connect.InsertUpdateDelete("INSERT INTO eduLearnGroups(eduTgradeID,eduStudentID,eduDate) VALUES(" + tgid + "," + student.UserID + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
             return true;
         }
         /// <summary>
@@ -109,7 +109,7 @@ namespace Business_Logic.TeacherGrades
         /// </summary>
         public static bool AddStudent(int tgid, int uid)
         {
-            Connect.InsertUpdateDelete("INSERT INTO nhsLearnGroups(nhsTgradeID,nhsStudentID,nhsDate) VALUES(" + tgid + "," + uid + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
+            Connect.InsertUpdateDelete("INSERT INTO eduLearnGroups(eduTgradeID,eduStudentID,eduDate) VALUES(" + tgid + "," + uid + ",#" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "#)");
             return true;
         }
         /// <summary>
@@ -119,7 +119,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static bool Update(TeacherGrade tg)
         {
-            return Connect.InsertUpdateDelete("UPDATE nhsTeacherGrades SET nhsTeacherID=" + tg.TeacherId + ",nhsTgradeName='" + tg.Name + "',nhsDate = #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# WHERE nhsTgradeID=" + tg.Id);
+            return Connect.InsertUpdateDelete("UPDATE eduTeacherGrades SET eduTeacherID=" + tg.TeacherId + ",eduTgradeName='" + tg.Name + "',eduDate = #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# WHERE eduTgradeID=" + tg.Id);
         }
         /// <summary>
         /// Get part grade of tgarde
@@ -128,7 +128,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static string GetParTeacherGrade(int tgid)
         {
-            var dt = Connect.GetData("SELECT grade.nhsGradeName AS GradeName FROM nhsMembers AS m, nhsGrades AS grade, nhsLearnGroups AS lg WHERE lg.nhsStudentID = m.nhsUserID AND grade.nhsGradeID = m.nhsGradeID AND lg.nhsTgradeID=" + tgid, "nhsLearnGroup");
+            var dt = Connect.GetData("SELECT grade.eduGradeName AS GradeName FROM eduMembers AS m, eduGrades AS grade, eduLearnGroups AS lg WHERE lg.eduStudentID = m.eduUserID AND grade.eduGradeID = m.eduGradeID AND lg.eduTgradeID=" + tgid, "eduLearnGroup");
             if (dt.Rows.Count < 1)
             {
                 return "";
@@ -176,16 +176,16 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static TeacherGrade Get(int tgid)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsTeacherGrades WHERE nhsTgradeID=" + tgid, "nhsTeacherGrades");
+            var dt = Connect.GetData("SELECT * FROM eduTeacherGrades WHERE eduTgradeID=" + tgid, "eduTeacherGrades");
             if (dt.Rows.Count == 0)
             {
                 return null;
             }
             var c = new TeacherGrade()
             {
-                Id = int.Parse(dt.Rows[0]["nhsTgradeID"].ToString().Trim()),
-                Name = dt.Rows[0]["nhsTgradeName"].ToString().Trim(),
-                TeacherId = int.Parse(dt.Rows[0]["nhsTeacherID"].ToString().Trim())
+                Id = int.Parse(dt.Rows[0]["eduTgradeID"].ToString().Trim()),
+                Name = dt.Rows[0]["eduTgradeName"].ToString().Trim(),
+                TeacherId = int.Parse(dt.Rows[0]["eduTeacherID"].ToString().Trim())
             };
             return c;
         }
@@ -196,7 +196,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static List<TeacherGrade> GetTeacherTeacherGrades(int tid)
         {
-            var dt = Connect.GetData("SELECT m.nhsUserID AS TeacherID, nhsTgradeID AS TeacherGradeID, nhsTgradeName AS TeacherGradeName FROM  nhsMembers AS m, nhsTeacherGrades WHERE m.nhsUserID = nhsTeacherID AND nhsTeacherID=" + tid + " AND nhsTeacherGrades.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsTeacherGrades.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsTeacherGrades");
+            var dt = Connect.GetData("SELECT m.eduUserID AS TeacherID, eduTgradeID AS TeacherGradeID, eduTgradeName AS TeacherGradeName FROM  eduMembers AS m, eduTeacherGrades WHERE m.eduUserID = eduTeacherID AND eduTeacherID=" + tid + " AND m.eduSchoolID=" + MemberService.GetCurrent().School.Id+" AND eduTeacherGrades.eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduTeacherGrades.eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduTeacherGrades");
             return (from DataRow dataRow in dt.Rows
                 select new TeacherGrade()
                 {
@@ -212,7 +212,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static int GetStudentCount(int tgid)
         {
-            return (int)Connect.GetObject("SELECT COUNT(*) FROM nhsLearnGroups WHERE nhsTgradeID=" + tgid);
+            return (int)Connect.GetObject("SELECT COUNT(*) FROM eduLearnGroups WHERE eduTgradeID=" + tgid);
         }
         /// <summary>
         /// Get students of TeacherGrade
@@ -221,12 +221,12 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static List<Member> GetStudents(int tgid)
         {
-            var dt = Connect.GetData("SELECT m.nhsFirstName + ' ' + m.nhsLastName AS nhsStudentName,m.nhsUserID AS nhsStudentID  FROM nhsMembers AS m, nhsLearnGroups WHERE m.nhsUserID = nhsLearnGroups.nhsStudentID AND nhsTgradeID=" + tgid, "nhsLearnGroups");
+            var dt = Connect.GetData("SELECT m.eduFirstName + ' ' + m.eduLastName AS eduStudentName,m.eduUserID AS eduStudentID  FROM eduMembers AS m, eduLearnGroups WHERE m.eduUserID = eduLearnGroups.eduStudentID AND eduTgradeID=" + tgid, "eduLearnGroups");
             return (from DataRow dataRow in dt.Rows
                 select new Member()
                 {
-                    UserID = int.Parse(dataRow["nhsStudentID"].ToString().Trim()),
-                    Name = dataRow["nhsStudentName"].ToString().Trim()
+                    UserID = int.Parse(dataRow["eduStudentID"].ToString().Trim()),
+                    Name = dataRow["eduStudentName"].ToString().Trim()
                 }).ToList();
         }
         /// <summary>
@@ -236,10 +236,10 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static int GetMajor(int tgid)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsMajorsTeacherGrades WHERE nhsTgradeID=" + tgid, "nhsMajorsTeacherGrades");
+            var dt = Connect.GetData("SELECT * FROM eduMajorsTgrades WHERE eduTgradeID=" + tgid, "eduMajorsTgrades");
             if (dt.Rows.Count == 0)
                 return -1;
-            return int.Parse(dt.Rows[0]["nhsMajorID"].ToString().Trim());
+            return int.Parse(dt.Rows[0]["eduMajorID"].ToString().Trim());
         }
     }
 }

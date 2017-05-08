@@ -19,20 +19,38 @@ public partial class Panel_Admin_Allowed : System.Web.UI.Page
         //Adds THEAD and TBODY to GridView.
 
 
-        
+
     }
     /// <summary>
     /// Fills the gridview with data from the DB
     /// </summary>
     protected void Fill()
     {
-        DataTable dt = MemberService.GetAllowed();
-        GridViewUsers.DataSource = dt;
-        GridViewUsers.DataBind();
-        if (dt.Rows.Count == 0)
-            LabelEmpty.Text = "אין מורשים";
-        else
+        var dt = MemberService.GetAllowed();
+        dt.Columns.Add("Pass");
+
+        DataTable dt1DataTable = dt.Clone();
+        foreach (DataRow dataRow in dt.Rows)
+        {
+            string id = dataRow["eduUserID"].ToString();
+            string strNew = "";
+            foreach (char cid in id)
+            {
+                int c = int.Parse(cid.ToString());
+                char cc = (char)(c + 97);
+                strNew += cid + cc.ToString();
+            }
+            dataRow["Pass"] = strNew;
+            dt1DataTable.ImportRow(dataRow);
+        }
+        if (dt1DataTable.Rows.Count != 0)
+        {
+            GridViewUsers.DataSource = dt1DataTable;
+            GridViewUsers.DataBind();
             LabelEmpty.Text = "";
+            return;
+        }
+        LabelEmpty.Text = "אין מורשים";
     }
     protected void GridViewUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -57,14 +75,33 @@ public partial class Panel_Admin_Allowed : System.Web.UI.Page
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = GridViewUsers.Rows[index];
-            MemberService.RemoveFromAllowed(row.Cells[1].Text);
+            // MemberService(row.Cells[1].Text);
             Fill();
         }
+    }
+    protected string CastAge(object obj)
+    {
+        DateTime date = DateTime.Parse(obj.ToString());
+        TimeSpan ts = DateTime.Now - date;
+        double age = ts.Days / 365.0;
+        return Math.Round(age, 1).ToString();
+    }
+    protected string CastType(object obj)
+    {
+        switch (obj.ToString())
+        {
+            case "a": return "מנהל";
+            case "s": return "תלמיד";
+            case "t": return "מורה";
+            case "p": return "הורה";
+        }
+        return "לא ידוע";
     }
 
     protected void GridViewUsers_DataBinding(object sender, EventArgs e)
     {
-        GridViewUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
+        if (GridViewUsers.HeaderRow != null)
+            GridViewUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
 
     }
 }

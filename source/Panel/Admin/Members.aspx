@@ -33,26 +33,26 @@
                             <ItemTemplate>
                                 <tr>
                                     <td data-title="">
-                                        <img src="<%#Eval("nhsPicture")%>" style="width: 70px; height: 70px; border-radius: 50%; text-align: center; margin: 0 auto; display: block; margin-left: auto; margin-right: auto; background: #eaeaea" /></td>
-                                    <td data-title="שם"><span style="white-space: nowrap !important;"><%#Eval("nhsFirstName")%> <%#Eval("nhsLastName")%></span></td>
+                                        <img src="<%#Eval("eduPicture")%>" style="width: 70px; height: 70px; border-radius: 50%; text-align: center; margin: 0 auto; display: block; margin-left: auto; margin-right: auto; background: #eaeaea" /></td>
+                                    <td data-title="שם"><span style="white-space: nowrap !important;"><%#Eval("eduFirstName")%> <%#Eval("eduLastName")%></span></td>
                                     <td data-title="מייל">
-                                        <a href="mailto:<%#Eval("nhsMail") %>"><%#Eval("nhsMail") %></a>
+                                        <a href="mailto:<%#Eval("eduMail") %>"><%#Eval("eduMail") %></a>
                                     </td>
-                                    <td data-title="ת.ז"><%#Eval("nhsID") %></td>
-                                    <td data-title="מגדר"><%#CastGender(Eval("nhsGender")) %></td>
-                                    <td data-title="תאריך לידה"><%#Eval("nhsBorn","{0:dd/MM/yyyy}") %></td>
-                                    <td data-title="תאריך הרשמה"><%#Eval("nhsDateRegister") %></td>
-                                    <td data-title="גיל"><%#CastAge(Eval("nhsBorn")) %></td>
-                                    <td data-title="עיר מגורים"><%#Eval("nhsCity") %></td>
-                                    <td data-title="סוג"><%#CastType(Eval("nhsType")) %></td>
-                                    <td data-title="שכבה"><%#CastGPART(Eval("nhsGradeID"),Eval("nhsType")) %></td>
+                                    <td data-title="ת.ז"><%#Eval("eduID") %></td>
+                                    <td data-title="מגדר"><%#CastGender(Eval("eduGender")) %></td>
+                                    <td data-title="תאריך לידה"><%#Eval("eduBorn","{0:dd/MM/yyyy}") %></td>
+                                    <td data-title="תאריך הרשמה"><%#Eval("eduDateRegister") %></td>
+                                    <td data-title="גיל"><%#CastAge(Eval("eduBorn")) %></td>
+                                    <td data-title="עיר מגורים"><%#Eval("eduCity") %></td>
+                                    <td data-title="סוג"><%#CastType(Eval("eduType")) %></td>
+                                    <td data-title="שכבה"><%#CastGPART(Eval("eduGradeID"),Eval("eduType")) %></td>
                                     <td data-title="">
                                         <asp:LinkButton ID="LinkButtonDel" Style="color: black" runat="server" CommandName="EditT"
-                                            CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">edit</i></asp:LinkButton>
+                                            CommandArgument='<%# (Eval("eduUserID")) %>'><i class="material-icons">edit</i></asp:LinkButton>
                                         <asp:LinkButton ID="btnDelete" runat="server" Style="color: black" CommandName="DeleteT" OnClientClick="return confirm('בטוח שברצונך למחוק')"
-                                            CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">delete</i></asp:LinkButton>
+                                            CommandArgument='<%# (Eval("eduUserID")) %>'><i class="material-icons">delete</i></asp:LinkButton>
                                         <asp:LinkButton ID="btnAdjust" runat="server" Style="color: black" CommandName="AdjustT"
-                                            CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">face</i></asp:LinkButton></td>
+                                            CommandArgument='<%# (Eval("eduUserID")) %>'><i class="material-icons">face</i></asp:LinkButton></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:ListView>

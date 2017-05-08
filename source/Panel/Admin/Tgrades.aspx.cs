@@ -18,14 +18,14 @@ public partial class Panel_Admin_TeacherGrades : System.Web.UI.Page
         if (!IsPostBack)
             Fill();
         //Adds THEAD and TBODY to GridView.
-        
+
     }
     /// <summary>
     /// Fills the gridview with data from the DB
     /// </summary>
     protected void Fill()
     {
-        GridViewTeacherGrades.DataSource = TeacherGradeService.GetAll().OrderBy(x=>x.TeacherId).ToList();
+        GridViewTeacherGrades.DataSource = TeacherGradeService.GetAll().OrderBy(x => x.TeacherId).ToList();
         GridViewTeacherGrades.DataBind();
         if (GridViewTeacherGrades.Rows.Count == 0)
             LabelEmpty.Text = "אין כיתות";
@@ -44,7 +44,7 @@ public partial class Panel_Admin_TeacherGrades : System.Web.UI.Page
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = GridViewTeacherGrades.Rows[index];
-            Response.Redirect("~/Panel/Admin/EditTeacherGrade.aspx?tgid=" + int.Parse(GridViewTeacherGrades.DataKeys[row.RowIndex].Value.ToString()));
+            Response.Redirect("~/Panel/Admin/EditTgrade.aspx?tgid=" + int.Parse(GridViewTeacherGrades.DataKeys[row.RowIndex].Value.ToString()));
         }
         if (e.CommandName == "ChangeT")
         {
@@ -70,6 +70,7 @@ public partial class Panel_Admin_TeacherGrades : System.Web.UI.Page
     protected void GridViewTeacherGrades_DataBinding(object sender, EventArgs e)
     {
         //GridViewTeacherGrades.HeaderRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
-        GridViewTeacherGrades.HeaderRow.TableSection = TableRowSection.TableHeader;
+        if (GridViewTeacherGrades.HeaderRow != null)
+            GridViewTeacherGrades.HeaderRow.TableSection = TableRowSection.TableHeader;
     }
 }

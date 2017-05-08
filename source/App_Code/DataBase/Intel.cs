@@ -49,6 +49,9 @@ public static class Intel
             case MemberClearance.Admin:
                 Response.Redirect("~/Panel/Admin", false);
                 break;
+            case MemberClearance.Parent:
+                Response.Redirect("~/Panel/Student", false);
+                break;
             default:
                 Response.Redirect("~/User", false);
                 break;

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Business_Logic.Members;
 
 namespace Business_Logic.Majors
 {
@@ -16,12 +17,12 @@ namespace Business_Logic.Majors
         /// <returns></returns>
         public static List<Major> GetAll()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsMajors", "nhsMajors");
+            var dt = Connect.GetData("SELECT * FROM eduMajors", "eduMajors");
             return (from DataRow dataRow in dt.Rows
                 select new Major()
                 {
-                    Id = int.Parse(dataRow["nhsMajorID"].ToString().Trim()),
-                    Title = dataRow["nhsMajor"].ToString().Trim()
+                    Id = int.Parse(dataRow["eduMajorID"].ToString().Trim()),
+                    Title = dataRow["eduMajor"].ToString().Trim()
                 }).ToList();
         }
         /// <summary>
@@ -30,7 +31,7 @@ namespace Business_Logic.Majors
         /// <returns>DataTable</returns>
         public static DataTable GetAllDataTable()
         {
-            DataTable dt = Connect.GetData("SELECT * FROM nhsMajors", "nhsMajors");
+            DataTable dt = Connect.GetData("SELECT * FROM eduMajors", "eduMajors");
             return dt;
         }
         /// <summary>
@@ -39,7 +40,7 @@ namespace Business_Logic.Majors
         /// <returns>DataSet</returns>
         public static DataSet GetAllDataSet()
         {
-            DataTable dt = Connect.GetData("SELECT * FROM nhsMajors", "nhsMajors");
+            DataTable dt = Connect.GetData("SELECT * FROM eduMajors", "eduMajors");
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);
             return ds;
@@ -51,8 +52,8 @@ namespace Business_Logic.Majors
         /// <returns>Major</returns>
         public static Major Get(int majorId)
         {
-            DataTable dt = Connect.GetData("SELECT * FROM nhsMajors WHERE nhsMajorID="+majorId, "nhsMajors");
-            return new Major() { Id = int.Parse(dt.Rows[0]["nhsMajorID"].ToString().Trim()), Title = dt.Rows[0]["nhsMajor"].ToString().Trim() };
+            DataTable dt = Connect.GetData("SELECT * FROM eduMajors WHERE eduMajorID="+majorId, "eduMajors");
+            return new Major() { Id = int.Parse(dt.Rows[0]["eduMajorID"].ToString().Trim()), Title = dt.Rows[0]["eduMajor"].ToString().Trim() };
         }
         /// <summary>
         /// Get connections of majors and members
@@ -61,13 +62,13 @@ namespace Business_Logic.Majors
         public static List<MajorMember> GetConnection()
         {
             List<MajorMember> majors = new List<MajorMember>();
-            DataTable dt = Connect.GetData("SELECT * FROM nhsMajorsMembers", "nhsMajorsMembers");
+            DataTable dt = Connect.GetData("SELECT * FROM eduMajorsMembers", "eduMajorsMembers");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 MajorMember c = new MajorMember()
                 {
-                    UserId = int.Parse(dt.Rows[i]["nhsUserID"].ToString().Trim()),
-                    MajorId = int.Parse(dt.Rows[i]["nhsMajorID"].ToString().Trim())
+                    UserId = int.Parse(dt.Rows[i]["eduUserID"].ToString().Trim()),
+                    MajorId = int.Parse(dt.Rows[i]["eduMajorID"].ToString().Trim())
                 };
                 majors.Add(c);
             }
@@ -116,8 +117,8 @@ namespace Business_Logic.Majors
         /// <returns></returns>
         public static bool SetMajorTeacherGrade(int tgid,int mjrid,string gPart)
         {
-            Connect.InsertUpdateDelete("DELETE FROM nhsMajorsTeacherGrades WHERE nhsTgradeID=" + tgid);
-            Connect.InsertUpdateDelete("INSERT INTO nhsMajorsTeacherGrades (nhsMajorID,nhsTgradeID,nhsGradePart) VALUES (" + mjrid + "," + tgid + ",'" + gPart.Replace("'", "''") + "')");
+            Connect.InsertUpdateDelete("DELETE FROM eduMajorsTgrades WHERE eduTgradeID=" + tgid);
+            Connect.InsertUpdateDelete("INSERT INTO eduMajorsTgrades (eduMajorID,eduTgradeID,eduGradePart,eduSchoolID) VALUES (" + mjrid + "," + tgid + ",'" + gPart.Replace("'", "''") + "',"+MemberService.GetCurrent().School.Id+")");
             return true;
         }
         /// <summary>
@@ -127,7 +128,7 @@ namespace Business_Logic.Majors
         /// <returns></returns>
         public static bool Add(Major m)
         {
-            return Connect.InsertUpdateDelete("INSERT INTO nhsMajors (nhsMajor) VALUES ('" + m.Title.Replace("'", "''") + "')");
+            return Connect.InsertUpdateDelete("INSERT INTO eduMajors (eduMajor) VALUES ('" + m.Title.Replace("'", "''") + "')");
         }
         /// <summary>
         /// Get major id by name
@@ -136,12 +137,12 @@ namespace Business_Logic.Majors
         /// <returns></returns>
         public static int GetMajorID(string name)
         {
-            DataTable dt = Connect.GetData("SELECT * FROM nhsMajors WHERE nhsMajor='"+name+"'","nhsMajors");
+            DataTable dt = Connect.GetData("SELECT * FROM eduMajors WHERE eduMajor='"+name+"'","eduMajors");
             if (dt.Rows.Count==0)
             {
                 return -1;
             }
-            return int.Parse(dt.Rows[0]["nhsMajorID"].ToString());
+            return int.Parse(dt.Rows[0]["eduMajorID"].ToString());
         }
     }
 }

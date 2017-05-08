@@ -6,7 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
+using Business_Logic.Cities;
+using Business_Logic.Grades;
+using Business_Logic.Majors;
 using Business_Logic.Members;
 
 public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
@@ -16,8 +20,8 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
         HandleFile();
     }
     protected void HandleFile()
-    {
-        if (IsPostBack && FileUploadExcel.PostedFile != null && DropDownFam.SelectedValue != "-1")
+    {/*
+        if (IsPostBack && FileUploadExcel.PostedFile != null)
         {
             if (FileUploadExcel.PostedFile.FileName.Length > 0)
             {
@@ -34,14 +38,15 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
                         int indFname = 0;
                         for (int i = 0; i < 3; i++)
                         {
-                            if (valFunc.Item3 != i && int.Parse(DropDownFam.SelectedValue) != i)
+                            if (valFunc.Item3 != i)
                             {
                                 indFname = i;
                                 break;
                             }
                         }
-                        int count = MemberService.AddAllowed(dt, valFunc.Item3, indFname, int.Parse(DropDownFam.SelectedValue));
-                        LiteralResp.Text += " " + (dt.Rows.Count - count) + " כבר קיימים " + count.ToString();
+
+                        string resAddAllowed = MemberService.AddAllowed(dt);
+                        LiteralResp.Text += resAddAllowed;
                     }
                     else
                     {
@@ -54,75 +59,108 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
                     LiteralRespIcon.Text = "close";
                 }
             }
-        }
+        }*/
     }
 
     public Tuple<string, bool, int> ValidateExcel(DataTable dt)
     {
         //Validate number of columns
-        if (dt.Columns.Count != 3)
+        if (dt.Columns.Count != 10)
         {
-            return new Tuple<string, bool, int>("כמות עמודות לא שווה 3", false, -1);
+            return new Tuple<string, bool, int>("כמות עמודות לא שווה 10", false, -1);
         }
         //Validate rows id
-        string[] state = new string[3];
+        string[] state = new string[10];
         for (int i = 0; i < state.Length; i++)
         {
-            state[i] = "";
+            state[i] = dt.Rows[0][i].ToString();
         }
+        int rowNum = 0;
         foreach (DataRow dr in dt.Rows)
         {
+            rowNum++;
             int index = 0;
+            List<Grade> grades = GradesService.GetAll();
+            DateTime dat;
+            List<Major> majors = MajorsService.GetAll();
+            List<City> cities = CitiesService.GetAll();
             foreach (DataColumn dc in dt.Columns)
             {
-                if (state[index] == "")
+                switch (state[index])
                 {
-                    state[index] = GetCellType(dr[dc].ToString());
-                }
-                else if (state[index] != GetCellType(dr[dc].ToString()))
-                {
-                    return new Tuple<string, bool, int>("אין אחדות בנתונים", false, -1);
+                    case "שם פרטי":
+                        if(rowNum==1)continue;
+                        if (!CheckName(dr[dc].ToString().Replace("`", "").Replace("-", "")))
+                            return new Tuple<string, bool, int>("שם פרטי באחד או יותר מן הרשומות לא חוקי", false, -1);
+                        break;
+                    case "שם משפחה":
+                        if (rowNum == 1) continue;
+                        if (!CheckName(dr[dc].ToString().Replace("`", "").Replace("-", "")))
+                            return new Tuple<string, bool, int>("שם משפחה באחד או יותר מן הרשומות לא חוקי", false, -1);
+                        break;
+                    case "תעודת זהות":
+                        if (rowNum == 1) continue;
+                        if (!CheckIDNo(dr[dc].ToString())) return new Tuple<string, bool, int>("תעודות זהות לא חוקיות קיימות", false, -1);
+                        break;
+                    case "סוג":
+                        if (rowNum == 1) continue;
+                        if (!CheckType(dr[dc].ToString())) return new Tuple<string, bool, int>("סוגים לא חוקיים", false, -1);
+                        break;
+                    case "כיתה":
+                        if (rowNum == 1) continue;
+                        if (grades.All(x=> x.Name!= dr[dc].ToString()))
+                            return new Tuple<string, bool, int>("כיתות לא קיימות", false, -1);
+                        break;
+                    case "תאריך לידה":
+                        if (rowNum == 1) continue;
+                        if (!DateTime.TryParse(dr[dc].ToString(), out dat))
+                            return new Tuple<string, bool, int>("תאריכי לידה לא תקינים", false, -1);
+                        break;
+                    case "מגדר":
+                        if (rowNum == 1) continue;
+                        if (dr[dc].ToString()!="זכר"&& dr[dc].ToString()!="נקבה") return new Tuple<string, bool, int>("מגדרים לא תקינים", false, -1);
+                        break;
+                    case "מזהי מגמות":
+                        if (rowNum == 1) continue;
+                        string[] idStrings = dr[dc].ToString().Split(',');
+                        if (idStrings.Any(s => majors.All(x=>x.Id!=int.Parse(s))))
+                        {
+                            return new Tuple<string, bool, int>("מזהי מגמות אשר לא קיימות", false, -1);
+                        }
+                        break;
+                    case "מזהה עיר":
+                        if (rowNum == 1) continue;
+                        if (cities.All(x=> x.Id!= int.Parse(dr[dc].ToString()))) return new Tuple<string, bool, int>("מזהה עיר אשר לא קיימ/ת/ות", false, -1);
+                        break;
+                    case "פלאפון": if (rowNum == 1) continue; break;
+                    default:
+                        return new Tuple<string, bool, int>("עמודות חסרות/שגויות", false, -1);
                 }
                 index++;
             }
         }
-        int indNum = -1;
-        for (int i = 0; i < state.Length; i++)
-        {
-            if (state[i] == "num")
-            {
-                indNum = i;
-                break;
-            }
-        }
-        if (indNum == -1)
-            return new Tuple<string, bool, int>("לא מכיל תעודות זהות", false, -1);
-
-        foreach (DataRow dr in dt.Rows)
-        {
-            if (!CheckIDNo(dr[indNum].ToString()))
-            {
-                return new Tuple<string, bool, int>("תעודות זהות לא תקינות", false, indNum);
-            }
-        }
-        if (int.Parse(DropDownFam.SelectedValue) == indNum)
-            return new Tuple<string, bool, int>("עמודת המשפחה מכילה מספרים", false, indNum);
-        return new Tuple<string, bool, int>("הועלה", true, indNum);
+        return new Tuple<string, bool, int>("הועלה", true, -1);
     }
-    static bool CheckIDNo(string strID)
+
+    static bool CheckName(string name)
     {
-        strID = strID.Replace("'", "");
-        int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+        if (name.Length < 2)
+            return false;
+        if (name.Length > 32)
+            return false;
+        return name.All(c => c >= 'א' && c <= 'ת');
+    }
+    static bool CheckIDNo(string strId)
+    {
+        strId = strId.Replace("'", "");
+        int[] id12Digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
         int count = 0;
 
-        if (strID == null)
-            return false;
-
-        strID = strID.PadLeft(9, '0');
+        strId = strId.PadLeft(9, '0');
 
         for (int i = 0; i < 9; i++)
         {
-            int num = int.Parse(strID.Substring(i, 1)) * id_12_digits[i];
+            int num = int.Parse(strId.Substring(i, 1)) * id12Digits[i];
 
             if (num > 9)
                 num = (num / 10) + (num % 10);
@@ -141,6 +179,12 @@ public partial class Panel_Admin_ImportAllowed : System.Web.UI.Page
             return "num";
         return "str";
     }
+
+    public bool CheckType(string str)
+    {
+        string[] strings = { "תלמיד", "הורה", "מורה", "מנהל" };
+        return (strings.Contains(str));
+    }
 }
 public static class ExcelPackageExtensions
 {
@@ -152,7 +196,7 @@ public static class ExcelPackageExtensions
         foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
         {
             t++;
-            table.Columns.Add("T" + t);
+            table.Columns.Add(firstRowCell.Text);
         }
 
         for (var rowNumber = 1; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
@@ -171,7 +215,7 @@ public static class ExcelPackageExtensions
                 catch (System.IndexOutOfRangeException e)
                 {
                     return new DataTable();
-                    
+
                 }
 
             }

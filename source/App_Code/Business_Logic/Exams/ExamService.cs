@@ -18,17 +18,17 @@ namespace Business_Logic.Exams
         public static List<Exam> GetAll()
         {
             var exams = new List<Exam>();
-            var dt = Connect.GetData("SELECT * FROM nhsExams", "nhsExams");
+            var dt = Connect.GetData("SELECT * FROM eduExams", "eduExams");
             for (var i = 0; i < dt.Rows.Count; i++)
             {
                 var c = new Exam()
                 {
-                    Id = int.Parse(dt.Rows[i]["nhsExamID"].ToString().Trim()),
-                    Title = dt.Rows[i]["nhsExamTitle"].ToString().Trim(),
-                    TeacherId = int.Parse(dt.Rows[i]["nhsTeacherID"].ToString().Trim()),
-                    Date = DateTime.Parse(dt.Rows[i]["nhsExamDate"].ToString().Trim()),
-                    TeacherGradeId = int.Parse(dt.Rows[i]["nhsTgradeID"].ToString().Trim()),
-                    Precent = int.Parse(dt.Rows[0]["nhsPrecent"].ToString().Trim())
+                    Id = int.Parse(dt.Rows[i]["eduExamID"].ToString().Trim()),
+                    Title = dt.Rows[i]["eduExamTitle"].ToString().Trim(),
+                    TeacherId = int.Parse(dt.Rows[i]["eduTeacherID"].ToString().Trim()),
+                    Date = DateTime.Parse(dt.Rows[i]["eduExamDate"].ToString().Trim()),
+                    TeacherGradeId = int.Parse(dt.Rows[i]["eduTgradeID"].ToString().Trim()),
+                    Precent = int.Parse(dt.Rows[0]["eduPrecent"].ToString().Trim())
                 };
                 exams.Add(c);
             }
@@ -44,7 +44,7 @@ namespace Business_Logic.Exams
         {
             if (exm.Date < EduSysDate.GetStart() || exm.Date > EduSysDate.GetEnd())
                 return false;
-            return MemberService.GetUser(exm.TeacherId) != null && Connect.InsertUpdateDelete("INSERT INTO nhsExams (nhsTeacherID,nhsExamDate,nhsPrecent,nhsTgradeID,nhsExamTitle,nhsYearPart) VALUES (" + exm.TeacherId + ",#" + Converter.GetTimeShortForDataBase(exm.Date) + "#," + exm.Precent + "," + tgid + ",'" + exm.Title + "','" + EduSysDate.GetYearPart(exm.Date) + "')");
+            return MemberService.GetUser(exm.TeacherId) != null && Connect.InsertUpdateDelete("INSERT INTO eduExams (eduTeacherID,eduExamDate,eduPrecent,eduTgradeID,eduExamTitle,eduYearPart) VALUES (" + exm.TeacherId + ",#" + Converter.GetTimeShortForDataBase(exm.Date) + "#," + exm.Precent + "," + tgid + ",'" + exm.Title + "','" + EduSysDate.GetYearPart(exm.Date) + "')");
         }
         /// <summary>
         /// Get exam by id
@@ -53,16 +53,16 @@ namespace Business_Logic.Exams
         /// <returns>Exam</returns>
         public static Exam GetExam(int eid)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsExamID=" + eid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
+            var dt = Connect.GetData("SELECT * FROM eduExams WHERE eduExamID=" + eid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduExams");
             if (dt.Rows.Count != 1) return null;
             var c = new Exam()
             {
-                Id = int.Parse(dt.Rows[0]["nhsExamID"].ToString().Trim()),
-                Title = dt.Rows[0]["nhsExamTitle"].ToString().Trim(),
-                TeacherId = int.Parse(dt.Rows[0]["nhsTeacherID"].ToString().Trim()),
-                Date = DateTime.Parse(dt.Rows[0]["nhsExamDate"].ToString().Trim()),
-                TeacherGradeId = int.Parse(dt.Rows[0]["nhsTgradeID"].ToString().Trim()),
-                Precent = int.Parse(dt.Rows[0]["nhsPrecent"].ToString().Trim())
+                Id = int.Parse(dt.Rows[0]["eduExamID"].ToString().Trim()),
+                Title = dt.Rows[0]["eduExamTitle"].ToString().Trim(),
+                TeacherId = int.Parse(dt.Rows[0]["eduTeacherID"].ToString().Trim()),
+                Date = DateTime.Parse(dt.Rows[0]["eduExamDate"].ToString().Trim()),
+                TeacherGradeId = int.Parse(dt.Rows[0]["eduTgradeID"].ToString().Trim()),
+                Precent = int.Parse(dt.Rows[0]["eduPrecent"].ToString().Trim())
             };
             return c;
         }
@@ -73,10 +73,10 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static int GetExamId(Exam exm)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsExamTitle='" + exm.Title + "' AND nhsTeacherID="+exm.TeacherId+" AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
+            var dt = Connect.GetData("SELECT * FROM eduExams WHERE eduExamTitle='" + exm.Title + "' AND eduTeacherID="+exm.TeacherId+" AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduExams");
             if (dt.Rows.Count == 1)
             {
-                return int.Parse(dt.Rows[0]["nhsExamID"].ToString().Trim());
+                return int.Parse(dt.Rows[0]["eduExamID"].ToString().Trim());
             }
             return -1;
         }
@@ -87,7 +87,7 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static bool Delete(int eid)
         {
-            return Connect.InsertUpdateDelete("DELETE FROM nhsScores WHERE nhsExamID=" + eid) && Connect.InsertUpdateDelete("DELETE FROM nhsExams WHERE nhsExamID=" + eid);
+            return Connect.InsertUpdateDelete("DELETE FROM eduScores WHERE eduExamID=" + eid) && Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduExamID=" + eid);
         }
         /// <summary>
         /// Get precent left of teacher grade - irelavent
@@ -96,12 +96,12 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static int PrecentLeft(int tgid)
         {
-            int count = int.Parse(Connect.GetObject("SELECT COUNT (*) FROM nhsExams WHERE nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#").ToString());
+            int count = int.Parse(Connect.GetObject("SELECT COUNT (*) FROM eduExams WHERE eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#").ToString());
             if (count == 0)
             {
                 return 100;
             }
-            DataTable dt = Connect.GetData("SELECT SUM(nhsPrecent) AS PSu FROM nhsExams WHERE nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsYearPart='a'", "nhsExams");
+            DataTable dt = Connect.GetData("SELECT SUM(eduPrecent) AS PSu FROM eduExams WHERE eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND eduYearPart='a'", "eduExams");
             string str = dt.Rows[0]["PSu"].ToString();
             if (str == "") return 100;
             return 100 - int.Parse(str);
@@ -114,14 +114,14 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static int PrecentLeft(int tgid,string yearPart)
         {
-            object obj = Connect.GetObject("SELECT COUNT (*) FROM nhsExams WHERE nhsYearPart='" + yearPart + "' AND nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#");
+            object obj = Connect.GetObject("SELECT COUNT (*) FROM eduExams WHERE eduYearPart='" + yearPart + "' AND eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#");
             if (obj == null) return 100;
             int count = int.Parse(obj.ToString());
             if (count == 0)
             {
                 return 100;
             }
-            DataTable dt = Connect.GetData("SELECT SUM(nhsPrecent) AS PSu FROM nhsExams WHERE nhsYearPart='" + yearPart + "' AND nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# ", "nhsExams");
+            DataTable dt = Connect.GetData("SELECT SUM(eduPrecent) AS PSu FROM eduExams WHERE eduYearPart='" + yearPart + "' AND eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# ", "eduExams");
             string str = dt.Rows[0]["PSu"].ToString();
             if (str == "") return 100;
             return 100 - int.Parse(str);
@@ -133,16 +133,16 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static List<Exam> GetExamsByTeacherGradeId(int tgid)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
+            var dt = Connect.GetData("SELECT * FROM eduExams WHERE eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduExams");
             return (from DataRow dataRow in dt.Rows
                 select new Exam()
                 {
-                    Id = int.Parse(dataRow["nhsExamID"].ToString().Trim()),
-                    Title = dataRow["nhsExamTitle"].ToString().Trim(),
-                    TeacherId = int.Parse(dataRow["nhsTeacherID"].ToString().Trim()),
-                    Date = DateTime.Parse(dataRow["nhsExamDate"].ToString().Trim()),
-                    TeacherGradeId = int.Parse(dataRow["nhsTgradeID"].ToString().Trim()),
-                    Precent = int.Parse(dataRow["nhsPrecent"].ToString().Trim())
+                    Id = int.Parse(dataRow["eduExamID"].ToString().Trim()),
+                    Title = dataRow["eduExamTitle"].ToString().Trim(),
+                    TeacherId = int.Parse(dataRow["eduTeacherID"].ToString().Trim()),
+                    Date = DateTime.Parse(dataRow["eduExamDate"].ToString().Trim()),
+                    TeacherGradeId = int.Parse(dataRow["eduTgradeID"].ToString().Trim()),
+                    Precent = int.Parse(dataRow["eduPrecent"].ToString().Trim())
                 }).ToList();
         }
         /// <summary>
@@ -153,16 +153,16 @@ namespace Business_Logic.Exams
         /// <returns></returns>
         public static List<Exam> GetExamsByTeacherGradeId(int tgid,string yearPart)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsExams WHERE nhsYearPart='"+yearPart+"' AND nhsTgradeID=" + tgid + " AND nhsExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND nhsExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "nhsExams");
+            var dt = Connect.GetData("SELECT * FROM eduExams WHERE eduYearPart='"+yearPart+"' AND eduTgradeID=" + tgid + " AND eduExamDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND eduExamDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#", "eduExams");
             return (from DataRow dataRow in dt.Rows
                 select new Exam()
                 {
-                    Id = int.Parse(dataRow["nhsExamID"].ToString().Trim()),
-                    Title = dataRow["nhsExamTitle"].ToString().Trim(),
-                    TeacherId = int.Parse(dataRow["nhsTeacherID"].ToString().Trim()),
-                    Date = DateTime.Parse(dataRow["nhsExamDate"].ToString().Trim()),
-                    TeacherGradeId = int.Parse(dataRow["nhsTgradeID"].ToString().Trim()),
-                    Precent = int.Parse(dataRow["nhsPrecent"].ToString().Trim())
+                    Id = int.Parse(dataRow["eduExamID"].ToString().Trim()),
+                    Title = dataRow["eduExamTitle"].ToString().Trim(),
+                    TeacherId = int.Parse(dataRow["eduTeacherID"].ToString().Trim()),
+                    Date = DateTime.Parse(dataRow["eduExamDate"].ToString().Trim()),
+                    TeacherGradeId = int.Parse(dataRow["eduTgradeID"].ToString().Trim()),
+                    Precent = int.Parse(dataRow["eduPrecent"].ToString().Trim())
                 }).ToList();
         }
         /// <summary>
@@ -171,7 +171,7 @@ namespace Business_Logic.Exams
         /// <param name="exam">Exam</param>
         public static bool Update(Exam exam)
         {
-            return Connect.InsertUpdateDelete("UPDATE nhsExams SET nhsExamTitle='" + exam.Title + "',nhsExamDate=#" + Converter.GetTimeShortForDataBase(exam.Date) + "#,nhsPrecent=" + exam.Precent + " WHERE nhsExamID=" + exam.Id);
+            return Connect.InsertUpdateDelete("UPDATE eduExams SET eduExamTitle='" + exam.Title + "',eduExamDate=#" + Converter.GetTimeShortForDataBase(exam.Date) + "#,eduPrecent=" + exam.Precent + " WHERE eduExamID=" + exam.Id);
         }
     }
 }

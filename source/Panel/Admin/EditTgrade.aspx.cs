@@ -23,7 +23,7 @@ public partial class Panel_Admin_EditTeacherGrade : System.Web.UI.Page
     {
         if (Request.QueryString["tgid"] == null || Request.QueryString["tgid"].ToString() == "")
             Response.Redirect("~/");
-        ListTeachers.DataSource = MemberService.GetNames().Where(x => x.Auth == MemberClearance.Teacher && x.Active);
+        ListTeachers.DataSource = MemberService.GetNames().Where(x => x.Auth == MemberClearance.Teacher && x.Active == "Yes");
         ListTeachers.DataTextField = "Name";
         ListTeachers.DataValueField = "UserID";
         ListTeachers.DataBind();

@@ -13,7 +13,8 @@ namespace Business_Logic
         Guest = 'g',
         Student = 's',
         Teacher = 't',
-        Admin = 'a'
+        Admin = 'a',
+        Parent='p'
     }
     public enum MemberGender
     {

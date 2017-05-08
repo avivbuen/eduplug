@@ -16,7 +16,7 @@ namespace Business_Logic.Messages
         /// <param name="m">Message Object</param>
         public static void SendMessage(Message m)
         {
-            Connect.InsertUpdateDelete("INSERT INTO nhsMessages (nhsMessageSender,nhsMessageReciver,nhsMessageSubject,nhsMessageContent,nhsMessageRead,nhsDateSent) VALUES (" + m.SenderId + "," + m.ReciverId + ",'" + m.Subject.Replace("'","''") + "','" + m.Content.Replace("'", "''") + "',No,'" + Converter.GetFullTimeReadyForDataBase() + "')");
+            Connect.InsertUpdateDelete("INSERT INTO eduMessages (eduMessageSender,eduMessageReciver,eduMessageSubject,eduMessageContent,eduMessageRead,eduDateSent) VALUES (" + m.SenderId + "," + m.ReciverId + ",'" + m.Subject.Replace("'","''") + "','" + m.Content.Replace("'", "''") + "',No,'" + Converter.GetFullTimeReadyForDataBase() + "')");
         }
         /// <summary>
         /// Marks a message as read by message id
@@ -24,7 +24,7 @@ namespace Business_Logic.Messages
         /// <param name="mid">Message ID</param>
         public static void MarkAsRead(int mid)
         {
-            Connect.InsertUpdateDelete("UPDATE nhsMessages SET nhsMessageRead=Yes WHERE nhsMessageID=" + mid);
+            Connect.InsertUpdateDelete("UPDATE eduMessages SET eduMessageRead=Yes WHERE eduMessageID=" + mid);
         }
 
         /// <summary>
@@ -35,24 +35,24 @@ namespace Business_Logic.Messages
         /// Gets the user messages
         /// </summary>
         /// <param name="uid">User ID</param>
-        public static List<Message> GetAllUser(int uid)//TODO BIG PROBLEM HERE CODE DOES NOT RUN I GET AN ERROR ON QUERY RUN!
+        public static List<Message> GetAllUser(int uid)
         {
             List<Message> messages = new List<Message>();
-            DataTable dt = Connect.GetData("SELECT m1.nhsFirstName +' '+ m1.nhsLastName AS nhsSenderName,m2.nhsFirstName + ' ' + m2.nhsLastName AS nhsReciverName,nhsMessages.nhsMessageID AS nhsMessageID,nhsMessages.nhsMessageSender AS nhsMessageSender,nhsMessages.nhsMessageReciver AS nhsMessageReciver,nhsMessages.nhsMessageSubject AS nhsMessageSubject,nhsMessages.nhsMessageContent AS nhsMessageContent,nhsMessages.nhsMessageRead AS nhsMessageRead,nhsMessages.nhsDateSent AS nhsDateSent,YES AS nhsActive FROM nhsMembers AS m1, nhsMembers AS m2, nhsMessages WHERE (m1.nhsUserID=nhsMessages.nhsMessageSender AND m2.nhsUserID=nhsMessages.nhsMessageReciver) AND (nhsMessages.nhsMessageReciver=" + uid + " OR nhsMessages.nhsMessageSender=" + uid + ") AND (nhsMessages.nhsActive<> ':" + uid + ":' OR nhsMessages.nhsActive IS NULL)", "nhsMessages");
+            DataTable dt = Connect.GetData("SELECT m1.eduFirstName +' '+ m1.eduLastName AS eduSenderName,m2.eduFirstName + ' ' + m2.eduLastName AS eduReciverName,eduMessages.eduMessageID AS eduMessageID,eduMessages.eduMessageSender AS eduMessageSender,eduMessages.eduMessageReciver AS eduMessageReciver,eduMessages.eduMessageSubject AS eduMessageSubject,eduMessages.eduMessageContent AS eduMessageContent,eduMessages.eduMessageRead AS eduMessageRead,eduMessages.eduDateSent AS eduDateSent,'Yes' AS eduActive FROM eduMembers AS m1, eduMembers AS m2, eduMessages WHERE (m1.eduUserID=eduMessages.eduMessageSender AND m2.eduUserID=eduMessages.eduMessageReciver) AND (eduMessages.eduMessageReciver=" + uid + " OR eduMessages.eduMessageSender=" + uid + ") AND (eduMessages.eduActive<> ':" + uid + ":' OR eduMessages.eduActive IS NULL)", "eduMessages");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Message m = new Message()
                 {
-                    Id = int.Parse(dt.Rows[i]["nhsMessageID"].ToString().Trim()),
-                    SenderId = int.Parse(dt.Rows[i]["nhsMessageSender"].ToString().Trim()),
-                    ReciverId = int.Parse(dt.Rows[i]["nhsMessageReciver"].ToString().Trim()),
-                    Subject = dt.Rows[i]["nhsMessageSubject"].ToString().Trim(),
-                    Content = dt.Rows[i]["nhsMessageContent"].ToString().Trim(),
-                    Read = Convert.ToBoolean(dt.Rows[i]["nhsMessageRead"].ToString().Trim()),
-                    SentDate = DateTime.Parse(dt.Rows[i]["nhsDateSent"].ToString().Trim()),
-                    State = dt.Rows[i]["nhsActive"].ToString().Trim(),
-                    SenderName = dt.Rows[i]["nhsSenderName"].ToString().Trim(),
-                    ReciverName = dt.Rows[i]["nhsReciverName"].ToString().Trim()
+                    Id = int.Parse(dt.Rows[i]["eduMessageID"].ToString().Trim()),
+                    SenderId = int.Parse(dt.Rows[i]["eduMessageSender"].ToString().Trim()),
+                    ReciverId = int.Parse(dt.Rows[i]["eduMessageReciver"].ToString().Trim()),
+                    Subject = dt.Rows[i]["eduMessageSubject"].ToString().Trim(),
+                    Content = dt.Rows[i]["eduMessageContent"].ToString().Trim(),
+                    Read = Convert.ToBoolean(dt.Rows[i]["eduMessageRead"].ToString().Trim()),
+                    SentDate = DateTime.Parse(dt.Rows[i]["eduDateSent"].ToString().Trim()),
+                    State = dt.Rows[i]["eduActive"].ToString().Trim(),
+                    SenderName = dt.Rows[i]["eduSenderName"].ToString().Trim(),
+                    ReciverName = dt.Rows[i]["eduReciverName"].ToString().Trim()
                 };
                 messages.Add(m);
             }
@@ -63,18 +63,18 @@ namespace Business_Logic.Messages
         /// </summary>
         public static List<Message> GetAll()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsMessages", "nhsMessages");
+            var dt = Connect.GetData("SELECT * FROM eduMessages", "eduMessages");
             return (from DataRow dataRow in dt.Rows
                 select new Message()
                 {
-                    Id = int.Parse(dataRow["nhsMessageID"].ToString().Trim()),
-                    SenderId = int.Parse(dataRow["nhsMessageSender"].ToString().Trim()),
-                    ReciverId = int.Parse(dataRow["nhsMessageReciver"].ToString().Trim()),
-                    Subject = dataRow["nhsMessageSubject"].ToString().Trim(),
-                    Content = dataRow["nhsMessageContent"].ToString().Trim(),
-                    Read = Convert.ToBoolean(dataRow["nhsMessageRead"].ToString().Trim()),
-                    SentDate = DateTime.Parse(dataRow["nhsDateSent"].ToString().Trim()),
-                    State = dataRow["nhsActive"].ToString().Trim()
+                    Id = int.Parse(dataRow["eduMessageID"].ToString().Trim()),
+                    SenderId = int.Parse(dataRow["eduMessageSender"].ToString().Trim()),
+                    ReciverId = int.Parse(dataRow["eduMessageReciver"].ToString().Trim()),
+                    Subject = dataRow["eduMessageSubject"].ToString().Trim(),
+                    Content = dataRow["eduMessageContent"].ToString().Trim(),
+                    Read = Convert.ToBoolean(dataRow["eduMessageRead"].ToString().Trim()),
+                    SentDate = DateTime.Parse(dataRow["eduDateSent"].ToString().Trim()),
+                    State = dataRow["eduActive"].ToString().Trim()
                 }).ToList();
         }
         /// <summary>
@@ -92,11 +92,11 @@ namespace Business_Logic.Messages
             if (state.Contains(":" + uid + ":")) return;
             if (state.Trim() == "")
             {
-                Connect.InsertUpdateDelete("UPDATE nhsMessages SET nhsActive=':" + uid + ":' WHERE nhsMessageID=" + mid);
+                Connect.InsertUpdateDelete("UPDATE eduMessages SET eduActive=':" + uid + ":' WHERE eduMessageID=" + mid);
             }
             else
             {
-                Connect.InsertUpdateDelete("DELETE FROM nhsMessages WHERE nhsMessageID=" + mid);
+                Connect.InsertUpdateDelete("DELETE FROM eduMessages WHERE eduMessageID=" + mid);
             }
         }
         /// <summary>
@@ -106,7 +106,7 @@ namespace Business_Logic.Messages
         public static int GetUnreaedCount(int uid)
         {
             if (uid == 0) return 0;
-            var obj = Connect.GetObject("SELECT COUNT(*) FROM nhsMessages WHERE nhsMessageReciver=" + uid + " AND nhsMessageRead=NO AND (nhsActive<> ':" + uid + ":' OR nhsActive IS NULL)");
+            var obj = Connect.GetObject("SELECT COUNT(*) FROM eduMessages WHERE eduMessageReciver=" + uid + " AND eduMessageRead=NO AND (eduActive<> ':" + uid + ":' OR eduActive IS NULL)");
             return obj == null ? 0 : int.Parse(obj.ToString());
         }
         /// <summary>
@@ -116,20 +116,20 @@ namespace Business_Logic.Messages
         /// <returns></returns>
         public static List<Message> GetUnreaed(int uid)
         {
-            var dt = Connect.GetData("SELECT m1.nhsFirstName +' '+ m1.nhsLastName AS nhsSenderName,m2.nhsFirstName + ' ' + m2.nhsLastName AS nhsReciverName,nhsMessages.nhsMessageID AS nhsMessageID,nhsMessages.nhsMessageSender AS nhsMessageSender,nhsMessages.nhsMessageReciver AS nhsMessageReciver,nhsMessages.nhsMessageSubject AS nhsMessageSubject,nhsMessages.nhsMessageContent AS nhsMessageContent,nhsMessages.nhsMessageRead AS nhsMessageRead,nhsMessages.nhsDateSent AS nhsDateSent,nhsMessages.nhsActive AS nhsActive FROM nhsMembers AS m1, nhsMembers AS m2, nhsMessages WHERE (m1.nhsUserID=nhsMessages.nhsMessageSender AND m2.nhsUserID=nhsMessages.nhsMessageReciver) AND (nhsMessages.nhsMessageReciver=" + uid + " OR nhsMessages.nhsMessageSender=" + uid + ") AND (nhsMessageRead=NO) AND (nhsMessages.nhsActive<> ':" + uid + ":' OR nhsMessages.nhsActive IS NULL)", "nhsMessages");
+            var dt = Connect.GetData("SELECT m1.eduFirstName +' '+ m1.eduLastName AS eduSenderName,m2.eduFirstName + ' ' + m2.eduLastName AS eduReciverName,eduMessages.eduMessageID AS eduMessageID,eduMessages.eduMessageSender AS eduMessageSender,eduMessages.eduMessageReciver AS eduMessageReciver,eduMessages.eduMessageSubject AS eduMessageSubject,eduMessages.eduMessageContent AS eduMessageContent,eduMessages.eduMessageRead AS eduMessageRead,eduMessages.eduDateSent AS eduDateSent,eduMessages.eduActive AS eduActive FROM eduMembers AS m1, eduMembers AS m2, eduMessages WHERE (m1.eduUserID=eduMessages.eduMessageSender AND m2.eduUserID=eduMessages.eduMessageReciver) AND (eduMessages.eduMessageReciver=" + uid + " OR eduMessages.eduMessageSender=" + uid + ") AND (eduMessageRead=NO) AND (eduMessages.eduActive<> ':" + uid + ":' OR eduMessages.eduActive IS NULL)", "eduMessages");
             return (from DataRow dataRow in dt.Rows
                 select new Message()
                 {
-                    Id = int.Parse(dataRow["nhsMessageID"].ToString().Trim()),
-                    SenderId = int.Parse(dataRow["nhsMessageSender"].ToString().Trim()),
-                    ReciverId = int.Parse(dataRow["nhsMessageReciver"].ToString().Trim()),
-                    Subject = dataRow["nhsMessageSubject"].ToString().Trim(),
-                    Content = dataRow["nhsMessageContent"].ToString().Trim(),
-                    Read = Convert.ToBoolean(dataRow["nhsMessageRead"].ToString().Trim()),
-                    SentDate = DateTime.Parse(dataRow["nhsDateSent"].ToString().Trim()),
-                    State = dataRow["nhsActive"].ToString().Trim(),
-                    SenderName = dataRow["nhsSenderName"].ToString().Trim(),
-                    ReciverName = dataRow["nhsReciverName"].ToString().Trim()
+                    Id = int.Parse(dataRow["eduMessageID"].ToString().Trim()),
+                    SenderId = int.Parse(dataRow["eduMessageSender"].ToString().Trim()),
+                    ReciverId = int.Parse(dataRow["eduMessageReciver"].ToString().Trim()),
+                    Subject = dataRow["eduMessageSubject"].ToString().Trim(),
+                    Content = dataRow["eduMessageContent"].ToString().Trim(),
+                    Read = Convert.ToBoolean(dataRow["eduMessageRead"].ToString().Trim()),
+                    SentDate = DateTime.Parse(dataRow["eduDateSent"].ToString().Trim()),
+                    State = dataRow["eduActive"].ToString().Trim(),
+                    SenderName = dataRow["eduSenderName"].ToString().Trim(),
+                    ReciverName = dataRow["eduReciverName"].ToString().Trim()
                 }).ToList();
         }
     }

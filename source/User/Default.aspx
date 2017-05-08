@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="User_Default" %>
+
 <!-- FROM EDUPLUG.CO.IL -->
 <!DOCTYPE html>
 
@@ -29,11 +30,18 @@
                         <br />
                         <asp:RequiredFieldValidator ID="rfv_User_ID" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_ID" runat="server" ErrorMessage="הכנס תעודת זהות">*</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="refv_User_ID" Display="Dynamic" ValidationExpression="^[0-9]{9}$" EnableClientScript="true" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_ID" runat="server" ErrorMessage="תעודת זהות לא תקינה">*</asp:RegularExpressionValidator>
-                        <asp:TextBox ID="User_ID" runat="server"  placeholder="תעודת זהות" CssClass="tbbox disablecopypaste" MaxLength="9"></asp:TextBox>
+                        <asp:TextBox ID="User_ID" runat="server" onkeydown="multiCheck()" onkeyup="multiCheck()" placeholder="תעודת זהות" CssClass="tbbox disablecopypaste" MaxLength="9"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfv_User_Password" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="LoginValidationGroup" ControlToValidate="User_Password" runat="server" ErrorMessage="הכנס סיסמה">*</asp:RequiredFieldValidator>
                         <asp:TextBox ID="User_Password" runat="server" placeholder="סיסמה" CssClass="tbbox" TextMode="Password"></asp:TextBox>
+                        <asp:DropDownList ID="User_School" runat="server" placeholder="בית ספר" CssClass="tbbox" Style="display: none"></asp:DropDownList>
+                        <asp:DropDownList ID="User_Type" runat="server" placeholder="הרשאה" CssClass="tbbox" Style="display: none"></asp:DropDownList>
                         <input type="submit" class="sbmBtn log" value="כניסה" />
-                        <p class="message">לא רשום? <a href="#">צור חשבון</a> | שכחת סיסמה? <a href="Reset.aspx">אפס</a></p>
+                        <p class="message">
+                             שכחת סיסמה? <a href="Reset.aspx">אפס</a>
+                            | מנהל בית ספר? <a href="CreateSchool.aspx">רשום בית ספר</a>
+                           
+                            
+                        </p>
                         <p class="errorCode message" style="color: #ff0000"></p>
                         <asp:ValidationSummary ForeColor="Red" ID="ValidationSummaryLogin" ValidationGroup="LoginValidationGroup" runat="server" DisplayMode="BulletList" />
                     </div>
@@ -60,6 +68,70 @@
                 }
                 function getPass() {
                     return document.getElementById("<%= User_Password.ClientID%>").value;
+                }
+
+                function multiCheck() {
+
+                    var sid = -1;
+                    if (getUserid().length === 9) {
+                        $.ajax({//*
+                            url: "/System/Multi.ashx",
+                            data: { id: getUserid() },
+                            type: "POST",
+                            success: function (data) {
+                                var dataDrop = JSON.parse(data);
+                                if (dataDrop.length > 1) {
+                                    $('#<%=User_School.ClientID%>').empty();
+                                    $.each(dataDrop, function (index, value) {
+                                        $('#<%=User_School.ClientID%>').append($('<option/>', {
+                                            value: value.Id,
+                                            text: value.Name
+                                        }));
+                                    });
+                                    sid = dataDrop[0].Id;
+                                    $('#<%=User_School.ClientID%>').show();
+                                } else {
+                                    $('#<%=User_School.ClientID%>').hide();
+                                }
+                                $.ajax({//*
+                                    url: "/System/MultiCLR.ashx",
+                                    data: { id: getUserid(), scid: sid },
+                                    type: "POST",
+                                    success: function (data) {
+                                        var dataDrop = JSON.parse(data);
+                                        if (dataDrop.length > 1) {
+                                            $('#<%=User_Type.ClientID%>').empty();
+                                            $.each(dataDrop, function (index, value) {
+                                                $('#<%=User_Type.ClientID%>').append($('<option/>', {
+                                                    value: value,
+                                                    text: getCLR(value)
+                                                }));
+                                            });
+                                            $('#<%=User_Type.ClientID%>').fadeIn();
+                                        } else {
+                                            $('#<%=User_Type.ClientID%>').hide();
+                                        }
+                                    },
+                                    error: function (reponse) {
+                                        console.log("Avivnet System Error (Ajax) - Loading Auths : " + reponse);
+                                    }
+                                });
+                            },
+                            error: function (reponse) {
+                                console.log("Avivnet System Error (Ajax) - Loading Schools : " + reponse);
+                            }
+                        });
+
+                    } else {
+                        $('#<%=User_School.ClientID%>').hide();
+                        $('#<%=User_Type.ClientID%>').hide();
+                    }
+                }
+
+                function getCLR(clr) {
+                    if (clr == 97) return "ניהול";
+
+                    return "";
                 }
                 var host = "<%= Intel.GetFullRootUrl()%>";
                 $(document).ready(function () {

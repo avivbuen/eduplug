@@ -19,12 +19,12 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static List<Score> GetAll()
         {
-            const string sqlGet = "SELECT score.nhsScoreID AS nhsScoreID, exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID)";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            const string sqlGet = "SELECT score.eduScoreID AS eduScoreID, exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID)";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             return (from DataRow dataRow in dt.Rows
                 select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = new Member() {Name = dataRow["StudentName"].ToString().Trim(), UserID = int.Parse(dataRow["StudentID"].ToString().Trim())},
                     Exam = new Exam() {Id = int.Parse(dataRow["ExamID"].ToString().Trim()), Date = DateTime.Parse(dataRow["ExamDate"].ToString().Trim()), Title = dataRow["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dataRow["TeacherID"].ToString().Trim())},
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -39,15 +39,15 @@ namespace Business_Logic.Scores
         {
             if (MemberService.GetUserPart(sid) == null || MemberService.GetUserPart(sid).Auth != MemberClearance.Student)
                 return new List<Score>();
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND nhsStudentID=" + sid + ")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND eduStudentID=" + sid + ")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             var mem = MemberService.GetUserPart(sid);
 
             return (from DataRow dataRow in dt.Rows
                 where int.Parse(dataRow["StudentScore"].ToString().Trim())!=-1
                     select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = mem,
                     Exam = new Exam() { Id = int.Parse(dataRow["ExamID"].ToString().Trim()), Date = DateTime.Parse(dataRow["ExamDate"].ToString().Trim()), Title = dataRow["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dataRow["TeacherID"].ToString().Trim()) },
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -64,16 +64,16 @@ namespace Business_Logic.Scores
             Member mem = MemberService.GetUserPart(sid);
             if (mem == null || mem.Auth != MemberClearance.Student)
                 return new List<Score>();
-            string sqlGet = "SELECT exam.nhsPrecent AS ePrecent, score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND nhsStudentID=" + sid + " AND TeacherGrade.nhsTgradeID=" + tgid + ")";
+            string sqlGet = "SELECT exam.eduPrecent AS ePrecent, score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND eduStudentID=" + sid + " AND TeacherGrade.eduTgradeID=" + tgid + ")";
             List<Score> scores = new List<Score>();
-            DataTable dt = Connect.GetData(sqlGet, "nhsScores");
+            DataTable dt = Connect.GetData(sqlGet, "eduScores");
         
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (int.Parse(dt.Rows[i]["StudentScore"].ToString().Trim()) == -1) continue;
                 Score c = new Score()
                 {
-                    Id = int.Parse(dt.Rows[i]["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dt.Rows[i]["eduScoreID"].ToString().Trim()),
                     Student = mem,
                     Exam = new Exam() { Id = int.Parse(dt.Rows[i]["ExamID"].ToString().Trim()), Date = DateTime.Parse(dt.Rows[i]["ExamDate"].ToString().Trim()), Title = dt.Rows[i]["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dt.Rows[i]["TeacherID"].ToString().Trim()), Precent= int.Parse(dt.Rows[i]["ePrecent"].ToString().Trim()) },
                     ScoreVal = int.Parse(dt.Rows[i]["StudentScore"].ToString().Trim())
@@ -94,9 +94,9 @@ namespace Business_Logic.Scores
             Member mem = MemberService.GetUserPart(sid);
             if (mem == null || mem.Auth != MemberClearance.Student)
                 return new List<Score>();
-            string sqlGet = "SELECT exam.nhsPrecent AS ePrecent, score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND exam.nhsYearPart='"+yearPart+"' AND nhsStudentID=" + sid + " AND TeacherGrade.nhsTgradeID=" + tgid + ")";
+            string sqlGet = "SELECT exam.eduPrecent AS ePrecent, score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND exam.eduYearPart='"+yearPart+"' AND eduStudentID=" + sid + " AND TeacherGrade.eduTgradeID=" + tgid + ")";
             List<Score> scores = new List<Score>();
-            DataTable dt = Connect.GetData(sqlGet, "nhsScores");
+            DataTable dt = Connect.GetData(sqlGet, "eduScores");
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -104,7 +104,7 @@ namespace Business_Logic.Scores
                 {
                     Score c = new Score()
                     {
-                        Id = int.Parse(dt.Rows[i]["nhsScoreID"].ToString().Trim()),
+                        Id = int.Parse(dt.Rows[i]["eduScoreID"].ToString().Trim()),
                         Student = mem,
                         Exam = new Exam() { Id = int.Parse(dt.Rows[i]["ExamID"].ToString().Trim()), Date = DateTime.Parse(dt.Rows[i]["ExamDate"].ToString().Trim()), Title = dt.Rows[i]["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dt.Rows[i]["TeacherID"].ToString().Trim()), Precent = int.Parse(dt.Rows[i]["ePrecent"].ToString().Trim()) },
                         ScoreVal = int.Parse(dt.Rows[i]["StudentScore"].ToString().Trim())
@@ -124,13 +124,13 @@ namespace Business_Logic.Scores
         {
             if (MemberService.GetUserPart(sid) == null || MemberService.GetUserPart(sid).Auth != MemberClearance.Student)
                 return new List<Score>();
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND nhsStudentID=" + sid + " AND TeacherGrade.nhsTgradeID=" + tgid+")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND eduStudentID=" + sid + " AND TeacherGrade.eduTgradeID=" + tgid+")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             var mem = MemberService.GetUserPart(sid);
             return (from DataRow dataRow in dt.Rows
                 select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = mem,
                     Exam = new Exam() {Id = int.Parse(dataRow["ExamID"].ToString().Trim()), Date = DateTime.Parse(dataRow["ExamDate"].ToString().Trim()), Title = dataRow["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dataRow["TeacherID"].ToString().Trim())},
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -148,12 +148,12 @@ namespace Business_Logic.Scores
             var mem = MemberService.GetUserPart(sid);
             if (mem == null || mem.Auth != MemberClearance.Student)
                 return new List<Score>();
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND nhsStudentID=" + sid + " AND exam.nhsYearPart='"+yearPart+"' AND TeacherGrade.nhsTgradeID=" + tgid + ")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND eduStudentID=" + sid + " AND exam.eduYearPart='"+yearPart+"' AND TeacherGrade.eduTgradeID=" + tgid + ")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             return (from DataRow dataRow in dt.Rows
                 select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = mem,
                     Exam = new Exam() {Id = int.Parse(dataRow["ExamID"].ToString().Trim()), Date = DateTime.Parse(dataRow["ExamDate"].ToString().Trim()), Title = dataRow["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dataRow["TeacherID"].ToString().Trim())},
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -166,14 +166,14 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static List<Score> GetAllExam(int eid)
         {
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND exam.nhsExamID=" + eid + ")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND exam.eduExamID=" + eid + ")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             var exm = ExamService.GetExam(eid);
             return (from DataRow dataRow in dt.Rows
                 where int.Parse(dataRow["StudentScore"].ToString().Trim()) != -1
                 select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = new Member() {Name = dataRow["StudentName"].ToString().Trim(), UserID = int.Parse(dataRow["StudentID"].ToString().Trim())},
                     Exam = exm,
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -187,13 +187,13 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static Score GetScore(int sid, int eid)
         {
-            var sqlGet = "SELECT score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND exam.nhsExamID=" + eid + " AND score.nhsStudentID=" + sid + ")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND exam.eduExamID=" + eid + " AND score.eduStudentID=" + sid + ")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             if (dt.Rows.Count == 0)
                 return null;
             return new Score()
             {
-                Id = int.Parse(dt.Rows[0]["nhsScoreID"].ToString().Trim()),
+                Id = int.Parse(dt.Rows[0]["eduScoreID"].ToString().Trim()),
                 Student = new Member() { Name = dt.Rows[0]["StudentName"].ToString().Trim(), UserID = int.Parse(dt.Rows[0]["StudentID"].ToString().Trim()) },
                 ScoreVal = int.Parse(dt.Rows[0]["StudentScore"].ToString().Trim())
             };
@@ -222,18 +222,18 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static DataTable GetAllGrade(int sid)
         {
-            var sqlGet = "SELECT TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID) AND score.nhsScore<>-1 AND student.nhsUserID="+sid;
-            return Connect.GetData(sqlGet, "nhsMembers");
+            var sqlGet = "SELECT TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID) AND score.eduScore<>-1 AND student.eduUserID="+sid;
+            return Connect.GetData(sqlGet, "eduMembers");
         }
 
         public static List<Score> GetAllGradeScores(int tgid)
         {
-            var sqlGet = "SELECT exam.nhsYearPart AS YP, exam.nhsPrecent AS ePrecent, score.nhsScoreID AS nhsScoreID,exam.nhsExamID AS ExamID,TeacherGrade.nhsTgradeName AS GradeName, TeacherGrade.nhsTgradeID AS GradeID, teacher.nhsFirstName +' '+ teacher.nhsLastName AS TeacherName,teacher.nhsUserID AS TeacherID,student.nhsFirstName + ' ' + student.nhsLastName AS StudentName,student.nhsUserID AS StudentID,grade.nhsGradeName AS StudenTeacherGrade,grade.nhsGradeID AS StudenTeacherGradeID,exam.nhsExamDate AS ExamDate,exam.nhsExamTitle AS ExamTitle,score.nhsScore AS StudentScore FROM nhsScores AS score, nhsGrades AS grade, nhsExams AS exam,nhsTeacherGrades AS TeacherGrade, nhsMembers AS teacher, nhsMembers AS student WHERE (score.nhsExamID=exam.nhsExamID AND teacher.nhsUserID = exam.nhsTeacherID AND student.nhsUserID=score.nhsStudentID AND student.nhsGradeID=grade.nhsGradeID AND exam.nhsTgradeID=TeacherGrade.nhsTgradeID AND TeacherGrade.nhsTgradeID=" + tgid + ")";
-            var dt = Connect.GetData(sqlGet, "nhsScores");
+            var sqlGet = "SELECT exam.eduYearPart AS YP, exam.eduPrecent AS ePrecent, score.eduScoreID AS eduScoreID,exam.eduExamID AS ExamID,TeacherGrade.eduTgradeName AS GradeName, TeacherGrade.eduTgradeID AS GradeID, teacher.eduFirstName +' '+ teacher.eduLastName AS TeacherName,teacher.eduUserID AS TeacherID,student.eduFirstName + ' ' + student.eduLastName AS StudentName,student.eduUserID AS StudentID,grade.eduGradeName AS StudenTeacherGrade,grade.eduGradeID AS StudenTeacherGradeID,exam.eduExamDate AS ExamDate,exam.eduExamTitle AS ExamTitle,score.eduScore AS StudentScore FROM eduScores AS score, eduGrades AS grade, eduExams AS exam,eduTeacherGrades AS TeacherGrade, eduMembers AS teacher, eduMembers AS student WHERE (score.eduExamID=exam.eduExamID AND teacher.eduUserID = exam.eduTeacherID AND student.eduUserID=score.eduStudentID AND student.eduGradeID=grade.eduGradeID AND exam.eduTgradeID=TeacherGrade.eduTgradeID AND TeacherGrade.eduTgradeID=" + tgid + ")";
+            var dt = Connect.GetData(sqlGet, "eduScores");
             return (from DataRow dataRow in dt.Rows
                 select new Score()
                 {
-                    Id = int.Parse(dataRow["nhsScoreID"].ToString().Trim()),
+                    Id = int.Parse(dataRow["eduScoreID"].ToString().Trim()),
                     Student = new Member() {UserID = int.Parse(dataRow["StudentID"].ToString().Trim())},
                     Exam = new Exam() {Id = int.Parse(dataRow["ExamID"].ToString().Trim()), YearPart = dataRow["YP"].ToString().Trim(), Date = DateTime.Parse(dataRow["ExamDate"].ToString().Trim()), Title = dataRow["ExamTitle"].ToString().Trim(), TeacherId = int.Parse(dataRow["TeacherID"].ToString().Trim())},
                     ScoreVal = int.Parse(dataRow["StudentScore"].ToString().Trim())
@@ -306,7 +306,7 @@ namespace Business_Logic.Scores
             var mem = MemberService.GetUserPart(score.Student.UserID);
             if (mem == null || mem.Auth != MemberClearance.Student)
                 return false;
-            return Exsits(score.Student.UserID, score.Exam.Id) ? Connect.InsertUpdateDelete("UPDATE nhsScores SET nhsStudentID=" + score.Student.UserID + ",nhsExamID=" + score.Exam.Id + ",nhsScore=" + score.ScoreVal + " WHERE  nhsStudentID=" + score.Student.UserID + " AND nhsExamID=" + score.Exam.Id + "") : Connect.InsertUpdateDelete("INSERT INTO nhsScores (nhsStudentID,nhsExamID,nhsScore) VALUES (" + score.Student.UserID + "," + score.Exam.Id + "," + score.ScoreVal + ")");
+            return Exsits(score.Student.UserID, score.Exam.Id) ? Connect.InsertUpdateDelete("UPDATE eduScores SET eduStudentID=" + score.Student.UserID + ",eduExamID=" + score.Exam.Id + ",eduScore=" + score.ScoreVal + " WHERE  eduStudentID=" + score.Student.UserID + " AND eduExamID=" + score.Exam.Id + "") : Connect.InsertUpdateDelete("INSERT INTO eduScores (eduStudentID,eduExamID,eduScore) VALUES (" + score.Student.UserID + "," + score.Exam.Id + "," + score.ScoreVal + ")");
         }
         /// <summary>
         /// Check if exsit
@@ -316,7 +316,7 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static bool Exsits(int sid, int eid)
         {
-            return int.Parse(Connect.GetObject("SELECT COUNT(*) FROM nhsScores WHERE nhsStudentID=" + sid + " AND nhsExamID=" + eid + "").ToString()) > 0;
+            return int.Parse(Connect.GetObject("SELECT COUNT(*) FROM eduScores WHERE eduStudentID=" + sid + " AND eduExamID=" + eid + "").ToString()) > 0;
         }
         /// <summary>
         /// Reset scores
@@ -325,7 +325,7 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static bool ResetScores(int eid)
         {
-            Connect.InsertUpdateDelete("DELETE FROM nhsScores WHERE nhsExamID=" + eid);
+            Connect.InsertUpdateDelete("DELETE FROM eduScores WHERE eduExamID=" + eid);
 
             foreach (var student in TeacherGradeService.GetStudents(ExamService.GetExam(eid).TeacherGradeId))
             {
@@ -348,7 +348,7 @@ namespace Business_Logic.Scores
         /// <returns></returns>
         public static bool ResetScoresStudent(int sid,int tgid)
         {
-            Connect.InsertUpdateDelete("DELETE FROM nhsScores WHERE nhsStudentID=" + sid);
+            Connect.InsertUpdateDelete("DELETE FROM eduScores WHERE eduStudentID=" + sid);
             foreach (var exm in ExamService.GetExamsByTeacherGradeId(tgid))
             {
                 var score = new Score()

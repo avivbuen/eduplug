@@ -28,13 +28,13 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static List<Lesson> GetAll(int teacherId)
         {
-            var dt = Connect.GetData("SELECT tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND tg.nhsTeacherID=" + teacherId + " AND nhsActive=YES", "nhsLessons");
+            var dt = Connect.GetData("SELECT tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND tg.eduTeacherID=" + teacherId + " AND eduActive='Yes'", "eduLessons");
             return (from DataRow dr in dt.Rows
                 select new Lesson()
                 {
                     Name = dr["LessonName"].ToString(),
-                    Day = int.Parse(dr["nhsDay"].ToString()),
-                    Hour = int.Parse(dr["nhsHour"].ToString()),
+                    Day = int.Parse(dr["eduDay"].ToString()),
+                    Hour = int.Parse(dr["eduHour"].ToString()),
                     Id = int.Parse(dr["LessonID"].ToString()),
                     TeacherId = int.Parse(dr["TeacherID"].ToString())
                 }).ToList();
@@ -46,15 +46,15 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static Lesson GetLesson(int lid)
         {
-            DataTable dt = Connect.GetData("SELECT tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsLessonID=" + lid + " AND nhsActive=YES", "nhsLessons");
+            DataTable dt = Connect.GetData("SELECT tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND eduLessonID=" + lid + " AND eduActive='Yes'", "eduLessons");
             if (dt.Rows.Count == 0)
                 return null;
             DataRow dr = dt.Rows[0];
             var lesson = new Lesson()
             {
                 Name = dr["LessonName"].ToString(),
-                Day = int.Parse(dr["nhsDay"].ToString()),
-                Hour = int.Parse(dr["nhsHour"].ToString()),
+                Day = int.Parse(dr["eduDay"].ToString()),
+                Hour = int.Parse(dr["eduHour"].ToString()),
                 Id = int.Parse(dr["LessonID"].ToString()),
                 TeacherId = int.Parse(dr["TeacherID"].ToString()),
                 Changes = GetChanges(lid)
@@ -68,15 +68,15 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static List<Member> GetAllStudents(int lid)
         {
-            DataTable dt = Connect.GetData("SELECT nhsFirstName,nhsLastName,nhsUserID FROM nhsMembers AS student,nhsLearnGroups AS lgrps,nhsTeacherGrades AS tg, nhsLessons WHERE lgrps.nhsTgradeID = tg.nhsTgradeID AND lgrps.nhsStudentID=student.nhsUserID AND tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsLessonID=" + lid, "nhsMembers");
+            DataTable dt = Connect.GetData("SELECT eduFirstName,eduLastName,eduUserID FROM eduMembers AS student,eduLearnGroups AS lgrps,eduTeacherGrades AS tg, eduLessons WHERE lgrps.eduTgradeID = tg.eduTgradeID AND lgrps.eduStudentID=student.eduUserID AND tg.eduTgradeID = eduLessons.eduTgradeID AND eduLessonID=" + lid, "eduMembers");
             List<Member> students = new List<Member>();
             foreach (DataRow dr in dt.Rows)
             {
                 Member m = new Member()
                 {
-                    FirstName = dr["nhsFirstName"].ToString(),
-                    LastName = dr["nhsLastName"].ToString(),
-                    UserID = int.Parse(dr["nhsUserID"].ToString())
+                    FirstName = dr["eduFirstName"].ToString(),
+                    LastName = dr["eduLastName"].ToString(),
+                    UserID = int.Parse(dr["eduUserID"].ToString())
                 };
                 students.Add(m);
             }
@@ -105,7 +105,7 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         private static DataTable GetLessonsByTeacher(int tid)
         {
-            return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND tg.nhsTeacherID=" + tid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive=YES", "nhsLessons");
+            return Connect.GetData("SELECT tg.eduColor AS cellColor, tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND tg.eduTeacherID=" + tid + " AND tg.eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND eduActive='Yes'", "eduLessons");
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         private static DataTable GetLessonsByStudent(int sid)
         {
-            return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons, nhsLearnGroups WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsLearnGroups.nhsTgradeID = tg.nhsTgradeID  AND nhsLearnGroups.nhsStudentID=" + sid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive=YES", "nhsLessons");
+            return Connect.GetData("SELECT tg.eduColor AS cellColor, tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons, eduLearnGroups WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND eduLearnGroups.eduTgradeID = tg.eduTgradeID  AND eduLearnGroups.eduStudentID=" + sid + " AND tg.eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND eduActive='Yes'", "eduLessons");
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         private static DataTable GetLessonsByGradePart(string gradePart)
         {
-            return Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, lsons.nhsLessonID AS LessonID, lsons.nhsTgradeID AS TeacherGradeID, lsons.nhsDay AS nhsDay, lsons.nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsLessons AS lsons INNER JOIN nhsTeacherGrades AS tg ON tg.nhsTgradeID = lsons.nhsTgradeID WHERE tg.nhsTgradeID IN( SELECT grp.nhsTgradeID FROM (nhsLearnGroups grp INNER JOIN nhsMembers AS mem ON mem.nhsUserID = grp.nhsStudentID) INNER JOIN nhsGrades AS grd ON mem.nhsGradeID = grd.nhsGradeID WHERE grd.nhsGradeName LIKE '%" + gradePart + "%' AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#) AND nhsActive=YES", "nhsLessons");
+            return Connect.GetData("SELECT tg.eduColor AS cellColor, tg.eduTgradeName AS LessonName, lsons.eduLessonID AS LessonID, lsons.eduTgradeID AS TeacherGradeID, lsons.eduDay AS eduDay, lsons.eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduLessons AS lsons INNER JOIN eduTeacherGrades AS tg ON tg.eduTgradeID = lsons.eduTgradeID WHERE tg.eduTgradeID IN( SELECT grp.eduTgradeID FROM (eduLearnGroups grp INNER JOIN eduMembers AS mem ON mem.eduUserID = grp.eduStudentID) INNER JOIN eduGrades AS grd ON mem.eduGradeID = grd.eduGradeID WHERE grd.eduGradeName LIKE '%" + gradePart + "%' AND tg.eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "#) AND eduActive='Yes'", "eduLessons");
         }
         /// <summary>
         /// Gets the time table of the grade that contains this value in its name
@@ -169,7 +169,7 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static bool CancelChange(int changeId)
         {
-            return Connect.InsertUpdateDelete("DELETE FROM nhsLessonChanges WHERE nhsLessonChangeID=" + changeId);
+            return Connect.InsertUpdateDelete("DELETE FROM eduLessonChanges WHERE eduLessonChangeID=" + changeId);
         }
         /// <summary>
         /// Get the changes of a lesson
@@ -179,16 +179,16 @@ namespace Business_Logic.Lessons
         public static List<LessonChange> GetChanges(int lid)
         {
             
-            DataTable dt = Connect.GetData("SELECT * FROM nhsLessonChanges WHERE nhsLessonID=" + lid, "nhsLessonChanges");
+            DataTable dt = Connect.GetData("SELECT * FROM eduLessonChanges WHERE eduLessonID=" + lid, "eduLessonChanges");
             List<LessonChange> changeTable = new List<LessonChange>();
             foreach (DataRow dr in dt.Rows)
             {
                 LessonChange change = new LessonChange()
                 {
-                    Id = int.Parse(dr["nhsLessonChangeID"].ToString()),
-                    ChangeType = ((LessonChangeType)(char.Parse(dr["nhsLessonChangeType"].ToString()))),
-                    Date = DateTime.Parse(dr["nhsDate"].ToString().Trim()),
-                    Message = dr["nhsMessage"].ToString().Trim(),
+                    Id = int.Parse(dr["eduLessonChangeID"].ToString()),
+                    ChangeType = ((LessonChangeType)(char.Parse(dr["eduLessonChangeType"].ToString()))),
+                    Date = DateTime.Parse(dr["eduDate"].ToString().Trim()),
+                    Message = dr["eduMessage"].ToString().Trim(),
                     LessonId = lid
                 };
                 changeTable.Add(change);
@@ -213,23 +213,23 @@ namespace Business_Logic.Lessons
                 Lesson lesson = new Lesson()
                 {
                     Name = dr["LessonName"].ToString(),
-                    Day = int.Parse(dr["nhsDay"].ToString()),
-                    Hour = int.Parse(dr["nhsHour"].ToString()),
+                    Day = int.Parse(dr["eduDay"].ToString()),
+                    Hour = int.Parse(dr["eduHour"].ToString()),
                     Id = int.Parse(dr["LessonID"].ToString()),
                     TeacherId = int.Parse(dr["TeacherID"].ToString()),
                     Color = dr["cellColor"].ToString(),
                     TeacherGradeId = int.Parse(dr["TeacherGradeID"].ToString()),
                     Changes = GetChanges(int.Parse(dr["LessonID"].ToString()))
                 };
-                if (int.Parse(dr["nhsHour"].ToString()) > (LessonsInDay) || int.Parse(dr["nhsHour"].ToString()) <= 0 || int.Parse(dr["nhsDay"].ToString()) > DaysInWeek || int.Parse(dr["nhsDay"].ToString()) <= 0)
+                if (int.Parse(dr["eduHour"].ToString()) > (LessonsInDay) || int.Parse(dr["eduHour"].ToString()) <= 0 || int.Parse(dr["eduDay"].ToString()) > DaysInWeek || int.Parse(dr["eduDay"].ToString()) <= 0)
                 {
                     continue;
                 }
-                if (lessons[int.Parse(dr["nhsHour"].ToString()) - 1, int.Parse(dr["nhsDay"].ToString()) - 1] == null)
+                if (lessons[int.Parse(dr["eduHour"].ToString()) - 1, int.Parse(dr["eduDay"].ToString()) - 1] == null)
                 {
-                    lessons[int.Parse(dr["nhsHour"].ToString()) - 1, int.Parse(dr["nhsDay"].ToString()) - 1] = new LessonGroup();
+                    lessons[int.Parse(dr["eduHour"].ToString()) - 1, int.Parse(dr["eduDay"].ToString()) - 1] = new LessonGroup();
                 }
-                lessons[int.Parse(dr["nhsHour"].ToString()) - 1, int.Parse(dr["nhsDay"].ToString()) - 1].Lessons.Add(lesson);
+                lessons[int.Parse(dr["eduHour"].ToString()) - 1, int.Parse(dr["eduDay"].ToString()) - 1].Lessons.Add(lesson);
             }
 
             List<LessonGroup[]> lessData = new List<LessonGroup[]>();//Converting the 2D array to a list of 1D arrays(The conversion is made for the datalist)
@@ -245,15 +245,15 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static List<Lesson> GetLessons(int tgid)
         {
-            DataTable dt = Connect.GetData("SELECT tg.nhsColor AS cellColor, tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND tg.nhsTgradeID=" + tgid + " AND tg.nhsDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.nhsDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND nhsActive = YES", "nhsLessons");
+            DataTable dt = Connect.GetData("SELECT tg.eduColor AS cellColor, tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND tg.eduTgradeID=" + tgid + " AND tg.eduDate >= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetStart()) + "# AND tg.eduDate <= #" + Converter.GetTimeShortForDataBase(EduSysDate.GetEnd()) + "# AND eduActive = YES", "eduLessons");
             List<Lesson> lessons = new List<Lesson>();
             foreach (DataRow dr in dt.Rows)//Array Fill
             {
                 Lesson lesson = new Lesson()
                 {
                     Name = dr["LessonName"].ToString(),
-                    Day = int.Parse(dr["nhsDay"].ToString()),
-                    Hour = int.Parse(dr["nhsHour"].ToString()),
+                    Day = int.Parse(dr["eduDay"].ToString()),
+                    Hour = int.Parse(dr["eduHour"].ToString()),
                     Id = int.Parse(dr["LessonID"].ToString()),
                     TeacherId = int.Parse(dr["TeacherID"].ToString()),
                     Color = dr["cellColor"].ToString(),
@@ -272,14 +272,14 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static bool DeleteLesson(int tgid, int day, int hour)
         {
-            return Connect.InsertUpdateDelete("UPDATE nhsLessons SET nhsActive=NO WHERE nhsTgradeID=" + tgid + " AND nhsDay=" + day + " AND nhsHour=" + hour);
+            return Connect.InsertUpdateDelete("UPDATE eduLessons SET eduActive='No' WHERE eduTgradeID=" + tgid + " AND eduDay=" + day + " AND eduHour=" + hour);
         }
         /// <summary>
         /// Delete lesson
         /// </summary>
         public static bool DeleteLesson(int lid)
         {
-            return Connect.InsertUpdateDelete("UPDATE nhsLessons SET nhsActive=NO WHERE nhsLessonID=" + lid);
+            return Connect.InsertUpdateDelete("UPDATE eduLessons SET eduActive='No' WHERE eduLessonID=" + lid);
         }
         /// <summary>
         /// Add lesson to db
@@ -288,10 +288,10 @@ namespace Business_Logic.Lessons
         {
             var t = TeacherGradeService.Get(lsn.TeacherGradeId);
             if (t == null) return false;
-            var rows = Connect.InsertUpdateDeleteState("UPDATE nhsLessons SET nhsActive=YES WHERE nhsTgradeID=" + lsn.TeacherGradeId + " AND nhsDay=" + lsn.Day + " AND nhsHour=" + lsn.Hour);
+            var rows = Connect.InsertUpdateDeleteState("UPDATE eduLessons SET eduActive='Yes' WHERE eduTgradeID=" + lsn.TeacherGradeId + " AND eduDay=" + lsn.Day + " AND eduHour=" + lsn.Hour);
             if (rows == 0)
             {
-                Connect.InsertUpdateDelete("INSERT INTO nhsLessons (nhsTgradeID,nhsDay,nhsHour,nhsActive) VALUES (" + lsn.TeacherGradeId + "," + lsn.Day + "," + lsn.Hour + ",YES)");
+                Connect.InsertUpdateDelete("INSERT INTO eduLessons (eduTgradeID,eduDay,eduHour,eduActive) VALUES (" + lsn.TeacherGradeId + "," + lsn.Day + "," + lsn.Hour + ",'Yes')");
             }
             return true;
         }
@@ -302,7 +302,7 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static bool AddChange(LessonChange change)
         {
-            return Connect.InsertUpdateDelete("INSERT INTO nhsLessonChanges (nhsLessonChangeType,nhsLessonID,nhsMessage,nhsDate) VALUES('" + Converter.GetChangeType(change.ChangeType) + "'," + change.LessonId + ",'" + change.Message + "',#" + Converter.GetTimeShortForDataBase(change.Date) + "#)");
+            return Connect.InsertUpdateDelete("INSERT INTO eduLessonChanges (eduLessonChangeType,eduLessonID,eduMessage,eduDate) VALUES('" + Converter.GetChangeType(change.ChangeType) + "'," + change.LessonId + ",'" + change.Message + "',#" + Converter.GetTimeShortForDataBase(change.Date) + "#)");
         }
         /// <summary>
         /// Get lesson by params
@@ -313,15 +313,15 @@ namespace Business_Logic.Lessons
         /// <returns></returns>
         public static Lesson GetLesson(int tgid,int hour,int day)
         {
-            DataTable dt = Connect.GetData("SELECT tg.nhsTgradeName AS LessonName, nhsLessonID AS LessonID, nhsLessons.nhsTgradeID AS TeacherGradeID, nhsDay AS nhsDay, nhsHour AS nhsHour, tg.nhsTeacherID AS TeacherID FROM nhsTeacherGrades AS tg, nhsLessons WHERE tg.nhsTgradeID = nhsLessons.nhsTgradeID AND nhsHour=" + hour + " AND nhsDay="+day+ " AND tg.nhsTgradeID="+tgid+" AND nhsActive=YES", "nhsLessons");
+            DataTable dt = Connect.GetData("SELECT tg.eduTgradeName AS LessonName, eduLessonID AS LessonID, eduLessons.eduTgradeID AS TeacherGradeID, eduDay AS eduDay, eduHour AS eduHour, tg.eduTeacherID AS TeacherID FROM eduTeacherGrades AS tg, eduLessons WHERE tg.eduTgradeID = eduLessons.eduTgradeID AND eduHour=" + hour + " AND eduDay="+day+ " AND tg.eduTgradeID="+tgid+" AND eduActive='Yes'", "eduLessons");
             if (dt.Rows.Count == 0)
                 return null;
             DataRow dr = dt.Rows[0];
             Lesson lesson = new Lesson()
             {
                 Name = dr["LessonName"].ToString(),
-                Day = int.Parse(dr["nhsDay"].ToString()),
-                Hour = int.Parse(dr["nhsHour"].ToString()),
+                Day = int.Parse(dr["eduDay"].ToString()),
+                Hour = int.Parse(dr["eduHour"].ToString()),
                 Id = int.Parse(dr["LessonID"].ToString()),
                 TeacherId = int.Parse(dr["TeacherID"].ToString()),
                 Changes = GetChanges(int.Parse(dr["LessonID"].ToString()))

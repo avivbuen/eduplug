@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,7 @@ using Business_Logic.Cities;
 using Business_Logic.Grades;
 using Business_Logic.Majors;
 using Business_Logic.Members;
+using Business_Logic.Schools;
 
 public partial class User_Edit : System.Web.UI.Page
 {
@@ -30,7 +32,8 @@ public partial class User_Edit : System.Web.UI.Page
                 picPath = MemberService.GetCurrent().PicturePath;
             if (!IsPostBack)
             {
-                CitiesService.UpdateCities();
+                Thread t = new Thread(() => CitiesService.UpdateCities());
+                t.Start();
                 FillAreas();
                 if (Request.QueryString["uid"] != null && Request.QueryString["uid"].ToString().Trim() != "" && MemberService.GetCurrent().Auth == MemberClearance.Admin)
                     UpdateFill(Request.QueryString["uid"].ToString().Trim());
@@ -47,8 +50,42 @@ public partial class User_Edit : System.Web.UI.Page
     }
     protected void FillAreas()
     {
-        Fill(User_City, "בחר/י עיר", CitiesService.GetAll(), "nhsCity", "nhsCityID");
-        Fill(User_Section, "בחר/י כיתה/אזור", GradesService.GetAll(), "nhsGradeName", "nhsGradeID");
+        Fill(User_City, "בחר/י עיר", CitiesService.GetAll(), "eduCity", "eduCityID");
+        Fill(User_Section, "בחר/י כיתה/אזור", GradesService.GetAll(), "eduGradeName", "eduGradeID");
+        if (MemberService.GetCurrent().Auth == MemberClearance.Admin)
+        {
+            List<MemberClearance> clearances = new List<MemberClearance>();
+            clearances.Add(MemberClearance.Admin);
+            clearances.Add(MemberClearance.Parent);
+            clearances.Add(MemberClearance.Student);
+            clearances.Add(MemberClearance.Teacher);
+            Dictionary<MemberClearance, string> dataDictionary = new Dictionary<MemberClearance, string>();
+            foreach (MemberClearance memberClearance in clearances)
+            {
+                switch (memberClearance)
+                {
+                    case MemberClearance.Admin:
+                        dataDictionary.Add(memberClearance, "ניהול");
+                        break;
+                    case MemberClearance.Parent:
+                        dataDictionary.Add(memberClearance, "הורה");
+                        break;
+                    case MemberClearance.Teacher:
+                        dataDictionary.Add(memberClearance, "מורה");
+                        break;
+                    case MemberClearance.Student:
+                        dataDictionary.Add(memberClearance, "תלמיד");
+                        break;
+                }
+            }
+
+            User_Type.DataSource = dataDictionary;
+            User_Type.DataTextField = "Value";
+            User_Type.DataValueField = "Key";
+            User_Type.DataBind();
+            User_Type.Visible = true;
+            RequiredFieldValidator1.Enabled = true;
+        }
         List<Major> mjrs = MajorsService.GetAll();
         User_Majors.DataSource = mjrs;
         User_Majors.DataTextField = "Title";
@@ -65,6 +102,8 @@ public partial class User_Edit : System.Web.UI.Page
         User_Last_Name.Text = mem.LastName;
         User_Email.Text = mem.Mail;
         User_ID.Text = mem.ID;
+        if (MemberService.GetCurrent().Auth == MemberClearance.Admin)
+            User_Type.SelectedValue = mem.Auth.ToString();
         User_Section.SelectedValue = mem.GradeID.ToString();
         User_City.SelectedValue = mem.City.Id.ToString();
         User_Gender.SelectedValue = ((char)mem.Gender).ToString();
@@ -170,7 +209,7 @@ public partial class User_Edit : System.Web.UI.Page
             List<Major> _Majors = new List<Major>();
             foreach (ListItem it in User_Majors.Items)
                 if (it.Selected)
-                    _Majors.Add(MajorsService.Get(int.Parse(it.Value.Trim())));
+                    _Majors.Add(new Major() {Id = int.Parse(it.Value.Trim()), Title = it.Text});
 
             //Create a 'new' member
             Member m = new Member()
@@ -187,7 +226,9 @@ public partial class User_Edit : System.Web.UI.Page
                 City = CitiesService.GetCity(int.Parse(User_City.SelectedValue.Trim())),
                 Majors = _Majors
             };
-
+            MemberClearance clr = (MemberClearance)Enum.Parse(typeof(MemberClearance), User_Type.SelectedValue);
+            if (MemberService.GetCurrent().Auth == MemberClearance.Admin)
+                m.Auth = clr;
             if (User_Picture.HasFile)
             {
                 string folder = CreateUserFolder(User_ID.Text);//Creating user directory
@@ -202,7 +243,8 @@ public partial class User_Edit : System.Web.UI.Page
             {
                 MemberService.UpdatePassword(int.Parse(Session["uuid"].ToString()), User_Password.Text);
             }
-            CitiesService.UpdateCities();
+            Thread t = new Thread(() => CitiesService.UpdateCities());
+            t.Start();
             FillAreas();
             if (Request.QueryString["uid"] != null && Request.QueryString["uid"].ToString().Trim() != "" && MemberService.GetCurrent().Auth == MemberClearance.Admin)
                 UpdateFill(Request.QueryString["uid"].ToString().Trim());
@@ -264,7 +306,7 @@ public partial class User_Edit : System.Web.UI.Page
     }
     protected void cv_User_Picture_ServerValidate1(object source, ServerValidateEventArgs args)
     {
-        if(User_Picture.HasFile)
+        if (User_Picture.HasFile)
         {
             string ending = Path.GetExtension(User_Picture.FileName);
             string[] fileTypes = { ".png", ".bmp", ".jpg" };

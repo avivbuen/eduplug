@@ -1,9 +1,9 @@
-﻿<Window x:Class="EduPlugWPF.MainWindow"
+﻿<controls:MetroWindow x:Class="EduPlugWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
        ResizeMode="NoResize"
-        Title="EduPlug School Management System" Height="528" Width="360" OpacityMask="Black">
+        Title="EduPlug" Height="528" Width="360" OpacityMask="Black" Icon="favicon1.png">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
             <GradientStop Color="#FF30559E"/>
@@ -11,15 +11,29 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid>
-        <TextBox Name="idBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" MouseLeftButtonDown="idBox_MouseLeftButtonDown" HorizontalContentAlignment="Center" Height="57" Margin="45,202,0,0" TextWrapping="Wrap" Text="תעודת זהות" VerticalAlignment="Top" Width="264
+        <TextBox Name="IdBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" MouseLeftButtonDown="idBox_MouseLeftButtonDown" HorizontalContentAlignment="Center" Height="57" Margin="55,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264
                  " FontSize="20"  Background="#B2D8D7D7" Foreground="White"/>
-        <PasswordBox Name="passBox" HorizontalAlignment="Left" VerticalContentAlignment="Center"  KeyDown="PasswordBox_KeyDown"  HorizontalContentAlignment="Center" Height="57" Margin="45,273,0,0"  VerticalAlignment="Top" Width="264" FontSize="20" Background="#B2D8D7D7" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="187" VerticalAlignment="Top" Width="291" Margin="28,-7,0,0" Source="logo2.png" Stretch="UniformToFill">
+        <TextBlock IsHitTestVisible="False" Text="תעודת זהות" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="139,217,114,255" Foreground="#FFF1F1F1" FontSize="20">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=IdBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <PasswordBox Name="PassBox" HorizontalAlignment="Left" VerticalContentAlignment="Center"  KeyDown="PasswordBox_KeyDown"  HorizontalContentAlignment="Center" Height="57" Margin="55,271,0,0"  VerticalAlignment="Top" Width="264" FontSize="20" Background="#B2D8D7D7" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="187" VerticalAlignment="Top" Width="291" Margin="28,-6,0,0" Source="logo2.png" Stretch="UniformToFill">
             <Image.OpacityMask>
                 <ImageBrush ImageSource="logo2.png"/>
             </Image.OpacityMask>
         </Image>
-        <Button Name="buttonBox" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Content="כניסה" HorizontalAlignment="Left" Margin="28,354,0,0" VerticalAlignment="Top" Width="291" Height="57" Background="#FF30559E" Foreground="White" BorderThickness="0" FontSize="24" ClickMode="Press"/>
+        <Button Name="ButtonBox"  Content="כניסה" HorizontalAlignment="Left" Margin="44,343,0,0" VerticalAlignment="Top" Width="291" Height="57" Foreground="White" BorderThickness="0" FontSize="24" ClickMode="Hover" Background="#FF30559E" BorderBrush="White"/>
+        <Label Content="התחבר לשליטה מהפלאפון" Name="lblLink" HorizontalAlignment="Left" Margin="10,464,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Background="#B3FFFFFF" Foreground="#FF0157FF"/>
 
     </Grid>
-</Window>
+</controls:MetroWindow>
+

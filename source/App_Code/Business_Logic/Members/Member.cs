@@ -5,6 +5,7 @@ using System.Web;
 using Business_Logic.Cities;
 using Business_Logic.Grades;
 using Business_Logic.Majors;
+using Business_Logic.Schools;
 
 namespace Business_Logic.Members
 {
@@ -78,11 +79,24 @@ namespace Business_Logic.Members
         /// <summary>
         /// The id of the user grade
         /// </summary>
-        public int GradeID { get; set; }
+        public int GradeID {
+            get
+            {
+                return Grade == null ? 0 : Grade.Id;
+            }
+            set
+            {
+                if(Grade==null) Grade=new Grade(){Id=value}; else Grade.Id = value;
+            }
+        }
         /// <summary>
         /// The grade of the user
         /// </summary>
         public Grade Grade { get; set; }
+        /// <summary>
+        /// The school of the user
+        /// </summary>
+        public School School { get; set; }
         /// <summary>
         /// The city of the user
         /// </summary>
@@ -90,8 +104,8 @@ namespace Business_Logic.Members
         /// <summary>
         /// The user state active/not active
         /// </summary>
-        public bool Active { get; set; }
+        public string Active { get; set; }
         //END GET/SET 
-
+        public string Phone { get; set; }
     }
 }

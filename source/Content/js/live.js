@@ -12,6 +12,8 @@
         }
     });
 }
+
+var serverContact = 0;
 function LoadCurrentUser() {
     var url = host + "/SYSTEM/SysAuth.ashx";
     $.ajax({//*
@@ -46,6 +48,6 @@ function LoadCurrentUser() {
             console.log("Avivnet System Error (Ajax) - Loading User : " + reponse);
         }
     });
-    setTimeout(LoadCurrentUser, 5000);
+    serverContact = setTimeout(LoadCurrentUser, 5000);
 }
 

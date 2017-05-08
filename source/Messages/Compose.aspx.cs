@@ -25,15 +25,15 @@ public partial class Messages_Compose : System.Web.UI.Page
         List<Member> mems = MemberService.GetNames();
         if (current.Auth == MemberClearance.Admin)
         {
-            UsersToSend.DataSource = mems.AsEnumerable().Where(x => x.Active&&x.UserID!=current.UserID).ToList();
+            UsersToSend.DataSource = mems.AsEnumerable().Where(x => x.Active == "Yes" && x.UserID!=current.UserID).ToList();
         }
         else if (current.Auth == MemberClearance.Teacher)
         {
-            DropDownUsers.DataSource = mems.AsEnumerable().Where(x => x.Active && x.Auth != MemberClearance.Admin && x.UserID != current.UserID).ToList();
+            DropDownUsers.DataSource = mems.AsEnumerable().Where(x => x.Active=="Yes" && x.Auth != MemberClearance.Admin && x.UserID != current.UserID).ToList();
         }
         else
         {
-            DropDownUsers.DataSource = mems.AsEnumerable().Where(x => x.Active && x.Auth == MemberClearance.Teacher && x.UserID != current.UserID).ToList();
+            DropDownUsers.DataSource = mems.AsEnumerable().Where(x => x.Active == "Yes" && x.Auth == MemberClearance.Teacher && x.UserID != current.UserID).ToList();
         }
         UsersToSend.DataTextField = "Name";
         UsersToSend.DataValueField = "UserID";

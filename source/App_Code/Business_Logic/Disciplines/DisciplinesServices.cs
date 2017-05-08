@@ -16,14 +16,14 @@ namespace Business_Logic.Disciplines
         public static List<DisciplineType> GetAllTypes()
         {
             List<DisciplineType> types = new List<DisciplineType>();
-            DataTable dt = Connect.GetData("SELECT * FROM nhsDisciplines", "nhsDisciplines");
+            DataTable dt = Connect.GetData("SELECT * FROM eduDisciplines", "eduDisciplines");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DisciplineType c = new DisciplineType()
                 {
-                    Id = int.Parse(dt.Rows[i]["nhsDisciplinesID"].ToString().Trim()),
-                    Name = dt.Rows[i]["nhsDisciplinesTitle"].ToString().Trim(),
-                    Score = int.Parse(dt.Rows[i]["nhsDisciplinesScore"].ToString().Trim())
+                    Id = int.Parse(dt.Rows[i]["eduDisciplinesID"].ToString().Trim()),
+                    Name = dt.Rows[i]["eduDisciplinesTitle"].ToString().Trim(),
+                    Score = int.Parse(dt.Rows[i]["eduDisciplinesScore"].ToString().Trim())
                 };
                 types.Add(c);
             }
@@ -39,7 +39,7 @@ namespace Business_Logic.Disciplines
         /// <returns></returns>
         public static bool Add(int lessonId, int studentId, int disciplinesId,DateTime date)
         {
-            return Connect.InsertUpdateDelete("INSERT INTO nhsDisciplinesMembers (nhsLessonID,nhsDisciplinesID,nhsStudentID,nhsDate) VALUES(" + lessonId + "," + disciplinesId + "," + studentId + ",#" + Converter.GetTimeShortForDataBase(date) + "#)");
+            return Connect.InsertUpdateDelete("INSERT INTO eduDisciplinesMembers (eduLessonID,eduDisciplinesID,eduStudentID,eduDate) VALUES(" + lessonId + "," + disciplinesId + "," + studentId + ",#" + Converter.GetTimeShortForDataBase(date) + "#)");
         }
         /// <summary>
         /// Get all the preselected items
@@ -50,13 +50,13 @@ namespace Business_Logic.Disciplines
         public static List<DisciplineEvent> GetSelected(int lessonId, DateTime date)
         {
             List<DisciplineEvent> events = new List<DisciplineEvent>();
-            DataTable dt = Connect.GetData("SELECT * FROM nhsDisciplinesMembers WHERE nhsLessonID="+lessonId+" AND nhsDate=#"+Converter.GetTimeShortForDataBase(date)+"#" , "nhsDisciplinesMembers");
+            DataTable dt = Connect.GetData("SELECT * FROM eduDisciplinesMembers WHERE eduLessonID="+lessonId+" AND eduDate=#"+Converter.GetTimeShortForDataBase(date)+"#" , "eduDisciplinesMembers");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DisciplineEvent even = new DisciplineEvent()
                 {
-                    StudentId = int.Parse(dt.Rows[i]["nhsStudentID"].ToString().Trim()),
-                    DisciplinesId = int.Parse(dt.Rows[i]["nhsDisciplinesID"].ToString().Trim())
+                    StudentId = int.Parse(dt.Rows[i]["eduStudentID"].ToString().Trim()),
+                    DisciplinesId = int.Parse(dt.Rows[i]["eduDisciplinesID"].ToString().Trim())
                 };
 
                 events.Add(even);
@@ -70,7 +70,7 @@ namespace Business_Logic.Disciplines
         /// <returns></returns>
         public static DataTable GetStudent(int uid)
         {
-            DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName, tg.nhsTeacherID AS teacherId, ls.nhsHour AS dHour FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid+ " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID ORDER BY dsm.nhsDate DESC", "nhsDisciplinesMembers");
+            DataTable dt = Connect.GetData("SELECT ds.eduDisciplinesTitle AS dName, dsm.eduDate AS dDate, tg.eduTgradeName AS lName, tg.eduTeacherID AS teacherId, ls.eduHour AS dHour FROM eduTeacherGrades AS tg, eduDisciplinesMembers AS dsm,eduDisciplines AS ds,eduLessons AS ls WHERE dsm.eduStudentID=" + uid+ " AND dsm.eduDisciplinesID=ds.eduDisciplinesID AND ls.eduLessonID = dsm.eduLessonID AND ls.eduTgradeID=tg.eduTgradeID ORDER BY dsm.eduDate DESC", "eduDisciplinesMembers");
             return dt;
         }
 
@@ -82,7 +82,7 @@ namespace Business_Logic.Disciplines
         /// <returns></returns>
         public static DataTable GetStudent(int uid,DateTime date)
         {
-            DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName, tg.nhsTeacherID AS teacherId, ls.nhsHour AS dHour FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND dsm.nhsDate > #"+Converter.GetTimeShortForDataBase(date)+ "# ORDER BY dsm.nhsDate DESC", "nhsDisciplinesMembers");
+            DataTable dt = Connect.GetData("SELECT ds.eduDisciplinesTitle AS dName, dsm.eduDate AS dDate, tg.eduTgradeName AS lName, tg.eduTeacherID AS teacherId, ls.eduHour AS dHour FROM eduTeacherGrades AS tg, eduDisciplinesMembers AS dsm,eduDisciplines AS ds,eduLessons AS ls WHERE dsm.eduStudentID=" + uid + " AND dsm.eduDisciplinesID=ds.eduDisciplinesID AND ls.eduLessonID = dsm.eduLessonID AND ls.eduTgradeID=tg.eduTgradeID AND dsm.eduDate > #"+Converter.GetTimeShortForDataBase(date)+ "# ORDER BY dsm.eduDate DESC", "eduDisciplinesMembers");
             return dt;
         }
 
@@ -94,7 +94,7 @@ namespace Business_Logic.Disciplines
         /// <returns></returns>
         public static DataTable GetStudent(int uid,int tgid)
         {
-            DataTable dt = Connect.GetData("SELECT ds.nhsDisciplinesTitle AS dName, dsm.nhsDate AS dDate, tg.nhsTgradeName AS lName, tg.nhsTeacherID AS teacherId, ls.nhsHour AS dHour FROM nhsTeacherGrades AS tg, nhsDisciplinesMembers AS dsm,nhsDisciplines AS ds,nhsLessons AS ls WHERE dsm.nhsStudentID=" + uid + " AND dsm.nhsDisciplinesID=ds.nhsDisciplinesID AND ls.nhsLessonID = dsm.nhsLessonID AND ls.nhsTgradeID=tg.nhsTgradeID AND tg.nhsTgradeID="+tgid, "nhsDisciplinesMembers");
+            DataTable dt = Connect.GetData("SELECT ds.eduDisciplinesTitle AS dName, dsm.eduDate AS dDate, tg.eduTgradeName AS lName, tg.eduTeacherID AS teacherId, ls.eduHour AS dHour FROM eduTeacherGrades AS tg, eduDisciplinesMembers AS dsm,eduDisciplines AS ds,eduLessons AS ls WHERE dsm.eduStudentID=" + uid + " AND dsm.eduDisciplinesID=ds.eduDisciplinesID AND ls.eduLessonID = dsm.eduLessonID AND ls.eduTgradeID=tg.eduTgradeID AND tg.eduTgradeID="+tgid, "eduDisciplinesMembers");
             return dt;
         }
         /// <summary>
@@ -104,7 +104,7 @@ namespace Business_Logic.Disciplines
         /// <param name="date">Date</param>
         public static void ResetLesson(int lessonId, DateTime date)
         {
-            Connect.InsertUpdateDelete("DELETE FROM nhsDisciplinesMembers WHERE nhsLessonID=" + lessonId + " AND nhsDate =#" + Converter.GetTimeShortForDataBase(date) + "#");
+            Connect.InsertUpdateDelete("DELETE FROM eduDisciplinesMembers WHERE eduLessonID=" + lessonId + " AND eduDate =#" + Converter.GetTimeShortForDataBase(date) + "#");
         }
     }
 }

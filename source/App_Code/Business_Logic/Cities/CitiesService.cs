@@ -19,12 +19,12 @@ namespace Business_Logic.Cities
         /// <returns>List(City) of all cities</returns>
         public static List<City> GetAll()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsCities", "nhsCities");
+            var dt = Connect.GetData("SELECT * FROM eduCities WHERE eduCityID <> 2787", "eduCities");
             var cities = (from DataRow dataRow in dt.Rows
                 select new City()
                 {
-                    Id = int.Parse(dataRow["nhsCityID"].ToString().Trim()),
-                    Name = dataRow["nhsCity"].ToString().Trim()
+                    Id = int.Parse(dataRow["eduCityID"].ToString().Trim()),
+                    Name = dataRow["eduCity"].ToString().Trim()
                 }).ToList();
             return cities.OrderBy(x => x.Name).ToList();
         }
@@ -34,7 +34,7 @@ namespace Business_Logic.Cities
         /// <returns>DataTable</returns>
         public static DataTable GetAllDataTable()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsCities", "nhsCities");
+            var dt = Connect.GetData("SELECT * FROM eduCities WHERE eduCityID <> 2787", "eduCities");
             return dt;
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Business_Logic.Cities
         /// <returns>DataSet</returns>
         public static DataSet GetAllDataSet()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsCities", "nhsCities");
+            var dt = Connect.GetData("SELECT * FROM eduCities WHERE eduCityID <> 2787", "eduCities");
             var ds = new DataSet();
             ds.Tables.Add(dt);
             return ds;
@@ -55,8 +55,8 @@ namespace Business_Logic.Cities
         /// <returns>City</returns>
         public static City GetCity(int cityId)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsCities WHERE nhsCityID=" + cityId, "nhsCities");
-            return new City() { Id = int.Parse(dt.Rows[0]["nhsCityID"].ToString().Trim()), Name = dt.Rows[0]["nhsCity"].ToString().Trim() };
+            var dt = Connect.GetData("SELECT * FROM eduCities WHERE eduCityID=" + cityId, "eduCities");
+            return new City() { Id = int.Parse(dt.Rows[0]["eduCityID"].ToString().Trim()), Name = dt.Rows[0]["eduCity"].ToString().Trim() };
         }
         /// <summary>
         /// Add a new city
@@ -65,7 +65,7 @@ namespace Business_Logic.Cities
         /// <returns>success</returns>
         public static bool Add(City c)
         {
-            return Connect.InsertUpdateDelete("INSERT INTO nhsCities (nhsCity) VALUES('" + c.Name + "')");
+            return Connect.InsertUpdateDelete("INSERT INTO eduCities (eduCity) VALUES('" + c.Name + "')");
         }
         /// <summary>
         /// Updates city from service
@@ -89,21 +89,21 @@ namespace Business_Logic.Cities
                 //Method: GetAllCitiesFromIsrael
                 var cityService = new WebServiceCities();
                 var dtWs = cityService.GetAllCitiesFromIsrael().Tables[0];
-                var dtAll = Connect.GetData("SELECT * FROM nhsCities ORDER BY nhsCity", "nhsCities");
+                var dtAll = Connect.GetData("SELECT * FROM eduCities ORDER BY eduCity", "eduCities");
                 var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
                 con.Open();
                 var cmd = new OleDbCommand
                 {
                     Connection = con,
-                    CommandText = "INSERT INTO nhsCities(nhsCity) VALUES(@nhsCity)"
+                    CommandText = "INSERT INTO eduCities(eduCity) VALUES(@eduCity)"
                 };
-                cmd.Parameters.Add("@nhsCity", OleDbType.VarWChar, 255);
+                cmd.Parameters.Add("@eduCity", OleDbType.VarWChar, 255);
                 var transaction = con.BeginTransaction();
                 cmd.Transaction = transaction;
                 for (var i = 0; i < dtWs.Rows.Count; i++)
                 {
                     var cityName = dtWs.Rows[i]["Heb"].ToString();
-                    var exists = dtAll.AsEnumerable().Any(x => x.Field<string>("nhsCity").Equals(cityName));//Using lambda to check if exsits
+                    var exists = dtAll.AsEnumerable().Any(x => x.Field<string>("eduCity").Equals(cityName));//Using lambda to check if exsits
                     if (exists) continue;
                     cmd.Parameters[0].Value = cityName;
                     cmd.ExecuteNonQuery();

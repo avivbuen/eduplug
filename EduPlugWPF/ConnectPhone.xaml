@@ -1,0 +1,29 @@
+﻿<controls:MetroWindow x:Class="EduPlugWPF.ConnectPhone"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      ResizeMode="NoResize"
+                      Title="EduPlug" Height="236.034" Width="453.966" OpacityMask="Black" Icon="favicon1.png">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+            <GradientStop Color="#FF30559E"/>
+            <GradientStop Color="#FF80F3FF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <TextBox x:Name="CodeBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="57" Margin="90,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264                  " FontSize="20"  Background="#B2D8D7D7" Foreground="White"/>
+        <TextBlock IsHitTestVisible="False" Text="קוד חיבור" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,60,183,120" Foreground="#FFF1F1F1" FontSize="20">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=CodeBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <Button x:Name="ButtonBox"  Content="חבר" HorizontalAlignment="Left" Margin="90,108,0,0" VerticalAlignment="Top" Width="264" Height="57" Foreground="White" BorderThickness="0" FontSize="24" ClickMode="Hover" Background="#FF30559E" BorderBrush="White"/>
+    </Grid>
+</controls:MetroWindow>

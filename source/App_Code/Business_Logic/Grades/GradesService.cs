@@ -15,12 +15,12 @@ namespace Business_Logic.Grades
         /// <returns></returns>
         public static List<Grade> GetAll()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsGrades", "nhsGrades");
+            var dt = Connect.GetData("SELECT * FROM eduGrades", "eduGrades");
             return (from DataRow dataRow in dt.Rows
                 select new Grade()
                 {
-                    Id = int.Parse(dataRow["nhsGradeID"].ToString().Trim()),
-                    Name = dataRow["nhsGradeName"].ToString().Trim()
+                    Id = int.Parse(dataRow["eduGradeID"].ToString().Trim()),
+                    Name = dataRow["eduGradeName"].ToString().Trim()
                 }).ToList();
         }
         /// <summary>
@@ -29,7 +29,7 @@ namespace Business_Logic.Grades
         /// <returns>DataTable</returns>
         public static DataTable GetAllDataTable()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsGrades", "nhsGrades");
+            var dt = Connect.GetData("SELECT * FROM eduGrades", "eduGrades");
             return dt;
         }
         /// <summary>
@@ -38,7 +38,7 @@ namespace Business_Logic.Grades
         /// <returns>DataSet</returns>
         public static DataSet GetAllDataSet()
         {
-            var dt = Connect.GetData("SELECT * FROM nhsGrades", "nhsGrades");
+            var dt = Connect.GetData("SELECT * FROM eduGrades", "eduGrades");
             var ds = new DataSet();
             ds.Tables.Add(dt);
             return ds;
@@ -50,15 +50,15 @@ namespace Business_Logic.Grades
         /// <returns></returns>
         public static Grade Get(int id)
         {
-            var dt = Connect.GetData("SELECT * FROM nhsGrades WHERE nhsGradeID="+id, "nhsGrades");
+            var dt = Connect.GetData("SELECT * FROM eduGrades WHERE eduGradeID="+id, "eduGrades");
             if (dt.Rows.Count == 0)
             {
                 return null;
             }
             var c = new Grade()
             {
-                Id = int.Parse(dt.Rows[0]["nhsGradeID"].ToString().Trim()),
-                Name = dt.Rows[0]["nhsGradeName"].ToString().Trim()
+                Id = int.Parse(dt.Rows[0]["eduGradeID"].ToString().Trim()),
+                Name = dt.Rows[0]["eduGradeName"].ToString().Trim()
             };
             return c;
         }

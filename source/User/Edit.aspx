@@ -18,6 +18,7 @@
                 $(".e-form input:checkbox").attr("disabled", "disabled");
                 $("#<%= User_City.ClientID %>").attr("disabled", "disabled");
                 $("#<%= User_Section.ClientID %>").attr("disabled", "disabled");
+                $("#<%= User_Type.ClientID %>").attr("disabled", "disabled");
                 <%}
             else
             {%>
@@ -36,6 +37,8 @@
                 $(".e-form input:checkbox").removeAttr("disabled");
                 $("#<%= User_City.ClientID %>").removeAttr("disabled");
                 $("#<%= User_Section.ClientID %>").removeAttr("disabled");
+                $("#<%= User_Type.ClientID %>").removeAttr("disabled");
+
                 $('.datepicker').pickadate({
                     selectMonths: true, // Creates a dropdown to control month
                     selectYears: 150 // Creates a dropdown of 150 years to control year
@@ -66,8 +69,7 @@
 
 
         <asp:ValidationSummary ID="UpadateValidationSummary" ForeColor="Red" Style="list-style-type: upper-roman;" ValidationGroup="UpdateValidationGroup" runat="server" />
-        <div class="row" style="text-align: right;">
-        </div>
+
         <div class="input-field col s6" dir="rtl">
             <asp:TextBox ID="User_First_Name" runat="server" CssClass="e-form"></asp:TextBox>
             <label>
@@ -124,6 +126,12 @@
                 <asp:ListItem Text="בחר אזור/כיתה" Value="-1"></asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfv_User_Section" runat="server" ControlToValidate="User_Section" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" InitialValue="-1" ErrorMessage="בחר כיתה/אזור">*</asp:RequiredFieldValidator>
+        </div>
+        <div class="input-field col" style="direction: rtl;">
+            <asp:DropDownList ID="User_Type" runat="server" CssClass="browser-default e-form" Visible="False">
+                <asp:ListItem Text="בחר הרשאה" Value="-1"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Enabled="False" runat="server" ControlToValidate="User_Type" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" InitialValue="-1" ErrorMessage="בחר הרשאה">*</asp:RequiredFieldValidator>
         </div>
         <div class="file-field input-field col e-form">
             <div class="btn">

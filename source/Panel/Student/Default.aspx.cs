@@ -14,7 +14,7 @@ public partial class InterTrack_Student_Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (MemberService.GetCurrent().Auth != MemberClearance.Student)
+        if (MemberService.GetCurrent().Auth != MemberClearance.Student && MemberService.GetCurrent().Auth != MemberClearance.Parent)
             Response.Redirect("~/");
 
         TimeTableDay.DataSource = LessonService.GetTimeTable(MemberService.GetCurrent().UserID, MemberClearance.Student);

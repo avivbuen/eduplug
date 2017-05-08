@@ -71,6 +71,7 @@ public partial class Admin_Tools_Members : System.Web.UI.Page
             case "a": return "מנהל";
             case "s": return "תלמיד";
             case "t": return "מורה";
+            case "p": return "הורה";
         }
         return "לא ידוע";
     }

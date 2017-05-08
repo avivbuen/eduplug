@@ -1,23 +1,46 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SideNav.ascx.cs" Inherits="Controls_SideNav" %>
 <%@ Import Namespace="Business_Logic.Members" %>
+<%@ Import Namespace="Newtonsoft.Json" %>
 <!-- Side Navigation -->
 <ul id="slide-out" class="side-nav right-aligned right-align">
     <li style="background: #3b6bab; text-align: center;">
-        <img class="background" src="~/Content/graphics/img/logo2.png" runat="server" style="width: 100%; margin-top: 10%;" />
+        <img class="background logoSide" src="~/Content/graphics/img/logo2.png" runat="server" style="width: 100%; margin-top: 10%;" />
+        <span class="white-text"><%= MemberService.GetCurrent().School.Name %></span>
+        <script>
+            if ("<%= MemberService.GetCurrent().School.LogoPath %>" !== "")
+                $(".logoSide").attr("src", "<%= Intel.GetFullRootUrl()%>" + "<%= MemberService.GetCurrent().School.LogoPath %>");
+        </script>
         <!-- Dropdown Trigger -->
         <a class='dropdown-button white-text' href='#' data-activates='dropdown1'><%=EduSysDate.GetYear(DateTime.Now) %></a>
 
         <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content yearsSelectMP' style="width:300px; text-align:center;">
+        <ul id='dropdown1' class='dropdown-content yearsSelectMP' style="width: 300px; text-align: center;">
         </ul>
+        <asp:Panel ID="PanelParrent" runat="server" Visible="False">
+
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-button white-text' href='#' data-activates='dropdown2'><%=MemberService.GetSelectedChild().Name %></a>
+
+            <!-- Dropdown Structure -->
+            <ul id='dropdown2' class='dropdown-content childSelectMP' style="width: 300px; text-align: center;">
+            </ul>
+            
+            <script>
+                var children = <%=JsonConvert.SerializeObject(MemberService.GetChildren(MemberService.GetCurrent().UserID,MemberService.GetCurrent().School.Id))%>;
+                for (var i = 0; i < children.length; i++) {
+                    $(".childSelectMP").append("<li><a href='../../../Panel/SetChild.aspx?cid=" + children[i].UserID + "' style='text-align:center;'>"+children[i].Name+"</a></li>");
+                }
+            </script>
+        </asp:Panel>
         <script>
             var currentTime = new Date();
-            var year = currentTime.getFullYear()+1;
+            var year = currentTime.getFullYear() + 1;
             for (var i = 0; i < 4; i++) {
-                $(".yearsSelectMP").append("<li><a href='../../../Panel/SetYear.aspx?year="+year+"' style='text-align:center;'>"+(year-1)+" - "+year+"</a></li>");
+                $(".yearsSelectMP").append("<li><a href='../../../Panel/SetYear.aspx?year=" + year + "' style='text-align:center;'>" + (year - 1) + " - " + year + "</a></li>");
                 year--;
-            }   
+            }
         </script>
+
     </li>
     <li><a class="waves-effect" id="HomeButton" href="~/" runat="server"><i class="material-icons">home</i>בית</a></li>
     <li class="logout-panel"><a class="waves-effect" id="EditButton" href="~/User/Edit.aspx" runat="server"><i class="material-icons">perm_identity</i>פרופיל</a></li>
@@ -38,7 +61,7 @@
     <li style="display: none" class="student-panel teacher-panel"><a class="waves-effect" href="~/Calendar.aspx" runat="server"><i class="material-icons">calendar</i>מערכת שעות</a></li>
     <%--Student--%>
     <%if (MemberService.GetCurrent().Auth == MemberClearance.Student)
-      { %>
+        { %>
     <li class="student-panel">
         <ul class="collapsible collapsible-accordion">
             <li>
@@ -56,16 +79,14 @@
     <%} %>
     <%--Teacher--%>
     <%if (MemberService.GetCurrent().Auth == MemberClearance.Teacher)
-      { %>
+        { %>
 
 
     <%} %>
     <%--Admin--%>
     <%if (MemberService.GetCurrent().Auth == MemberClearance.Admin)
-      { %>
-    <li class="admin-panel">
-        <a class="collapsible-header waves-effect" href="~/Panel/Admin/AddTeacherGrade.aspx" runat="server">כיתה<i class="material-icons">add</i></a>
-    </li>
+        { %>
+            
     <%} %>
     <li class="logout-panel"><a class="waves-effect" onclick="Logout()" id="LogoutButton"><i class="material-icons">play_for_work</i>צא</a></li>
 </ul>

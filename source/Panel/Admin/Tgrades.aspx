@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <h2 style="text-align: center; direction: rtl">כיתות:</h2>
-    <a href="~/Panel/Admin/AddTeacherGrade.aspx" runat="server">
+    <a href="~/Panel/Admin/AddTgrade.aspx" runat="server">
         <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0; width: 100%; max-width: 200px; max-height: 100px;">
             <div class="collection-header green white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
                 <h4 style="line-height: 90%; margin: 0px 0px 0px 0px; padding: 5px 0px 5px 0px; font-size: 37px;"><i class="material-icons" style="font-size: 40px;">add</i>&nbsp; &nbsp;חדש</h4>

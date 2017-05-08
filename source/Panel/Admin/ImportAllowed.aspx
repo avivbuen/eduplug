@@ -13,19 +13,41 @@
         </ul>
         <a href="../../Content/ipi.xlsx">קובץ דוגמא</a>
         <br /><hr />
-         <b>בחר מספר העמודה המכילה את שם המשפחה!</b>
-        <asp:DropDownList ID="DropDownFam" runat="server" CssClass="browser-default drpdwnFam">
+        <b>אלו הם שמות העמודות הדרושים בסדר הבא!</b>
+        <asp:ListBox ID="ListBoxReq" runat="server" style="display: block">
+            <asp:ListItem Text="שם פרטי" Value="0"></asp:ListItem>
+            <asp:ListItem Text="שם משפחה" Value="1"></asp:ListItem>
+            <asp:ListItem Text="תעודת זהות" Value="2"></asp:ListItem>
+            <asp:ListItem Text="סוג" Value="3"></asp:ListItem>
+            <asp:ListItem Text="כיתה" Value="4"></asp:ListItem>
+            <asp:ListItem Text="פלאפון" Value="5"></asp:ListItem>
+            <asp:ListItem Text="מגדר" Value="6"></asp:ListItem>
+        </asp:ListBox>
+        <br/>
+        סוג: <br/>
+        a- מנהל<br/>
+        t- מורה<br/>
+        s- תלמיד<br/>
+        p- הורה
+        <br/>
+        מגדר: זכר/נקבה
+        <br/>
+        מזהי מגמות: מזהי מגמות יופרד באמצעות פסיק (1,2,3)
+
+<%--         <b>בחר מספר העמודה המכילה את שם המשפחה!</b>--%>
+<%--        <asp:DropDownList ID="DropDownFam" runat="server" CssClass="browser-default drpdwnFam">
              <asp:ListItem Text="בחר מספר עמודה" Value="-1"></asp:ListItem>
             <asp:ListItem Text="1" Value="0"></asp:ListItem>
             <asp:ListItem Text="2" Value="1"></asp:ListItem>
             <asp:ListItem Text="3" Value="2"></asp:ListItem>
-        </asp:DropDownList>
+        </asp:DropDownList>--%>
         <br /><br /><br />
     </div>
     <asp:Panel ID="PanelUpload" runat="server">
         <div class="wrapper" >
             <div class="file-upload">
-                <asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" disabled="disabled" accept=".xlsx" />
+                <input id="fileUploadXL" type="file" accept=".xlsx" class="fileLoader"/>
+                <%--<asp:FileUpload ID="FileUploadExcel" runat="server" CssClass="fileLoader" disabled="disabled" accept=".xlsx" />--%>
                 <span style="font-size: 15px">העלה קובץ אקסל</span>
                 <i class="material-icons text-accent-4" style="font-size: 50px">
                     <asp:Literal ID="LiteralRespIcon" runat="server" Text="file_upload"></asp:Literal></i>

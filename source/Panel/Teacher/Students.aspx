@@ -6,6 +6,7 @@
     <link href="../../Content/css/table.css" rel="stylesheet" />
     <script src="../../Content/js/jquery.dataTables.min.js"></script>
     <div style="text-align: center">
+        <h1>רשימת תלמידים</h1>
         <div id="tableUsers">
             <div class="table-responsive-vertical shadow-z-1" style="direction: rtl">
                 <table id="table" class="datatables-table table table-hover table-mc-light-blue">
@@ -17,6 +18,7 @@
                             <th>מגדר</th>
                             <th>תאריך לידה</th>
                             <th>עיר מגורים</th>
+                            <th>פלאפון</th>
                             <th>פעולות</th>
                         </tr>
                     </thead>
@@ -25,19 +27,20 @@
                             <ItemTemplate>
                                 <tr>
                                     <td data-title="">
-                                        <img src="<%#Eval("nhsPicture")%>" style="width: 70px; height: 70px; border-radius: 50%; text-align: center; margin: 0 auto; display: block; margin-left: auto; margin-right: auto; background: #eaeaea" /></td>
-                                    <td data-title="שם"><span style="white-space: nowrap !important;"><%#Eval("nhsFirstName")%> <%#Eval("nhsLastName")%></span></td>
+                                        <img src="<%#Eval("eduPicture")%>" style="width: 70px; height: 70px; border-radius: 50%; text-align: center; margin: 0 auto; display: block; margin-left: auto; margin-right: auto; background: #eaeaea" /></td>
+                                    <td data-title="שם"><span style="white-space: nowrap !important;"><%#Eval("eduFirstName")%> <%#Eval("eduLastName")%></span></td>
                                     <td data-title="מייל">
-                                        <a href="mailto:<%#Eval("nhsMail") %>"><%#Eval("nhsMail") %></a>
+                                        <a href="mailto:<%#Eval("eduMail") %>"><%#Eval("eduMail") %></a>
                                     </td>
-                                    <td data-title="מגדר"><%#CastGender(Eval("nhsGender")) %></td>
-                                    <td data-title="תאריך לידה"><%#Eval("nhsBorn","{0:dd/MM/yyyy}") %></td>
-                                    <td data-title="עיר מגורים"><%#Eval("nhsCity") %></td>
+                                    <td data-title="מגדר"><%#CastGender(Eval("eduGender")) %></td>
+                                    <td data-title="תאריך לידה"><%#Eval("eduBorn","{0:dd/MM/yyyy}") %></td>
+                                    <td data-title="עיר מגורים"><%#Eval("eduCity") %></td>
+                                    <td data-title="פלאפון"> <a href="tel:<%#Eval("eduPhone") %>"><%#Eval("eduPhone") %></a></td>
                                     <td data-title="">
                                         <asp:LinkButton ID="btnAssessment" runat="server" Style="color: black" CommandName="AssessT"
-                                            CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">assessment</i></asp:LinkButton>
+                                            CommandArgument='<%# (Eval("eduUserID")) %>'><i class="material-icons">assessment</i></asp:LinkButton>
                                         <asp:LinkButton ID="btnAdjust" runat="server" Style="color: black" CommandName="AdjustT"
-                                            CommandArgument='<%# (Eval("nhsUserID")) %>'><i class="material-icons">face</i></asp:LinkButton></td>
+                                            CommandArgument='<%# (Eval("eduUserID")) %>'><i class="material-icons">face</i></asp:LinkButton></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:ListView>

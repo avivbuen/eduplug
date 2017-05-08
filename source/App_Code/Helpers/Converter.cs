@@ -48,6 +48,8 @@ public static class Converter
                 return "t";
             case MemberClearance.Admin:
                 return "a";
+            case MemberClearance.Parent:
+                return "p";
         }
         return "f";
     }

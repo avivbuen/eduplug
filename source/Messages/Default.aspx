@@ -17,8 +17,8 @@
                     </nav>
                     <ul class="tabs tab-demo" style="width: 100%;">
                         <li class="tab col s4"><a href="#out-mailbox" class="blue-grey-text">יוצא</a></li>
-                        <li class="tab col s4"><a href="#in-mailbox" class="blue-grey-text">נכנס</a></li>
-                        <li class="tab col s4"><a href="#main-mailbox" class="active blue-grey-text">הכל</a></li>
+                        <li class="tab col s4"><a href="#in-mailbox" class="active blue-grey-text">נכנס</a></li>
+                        <li class="tab col s4"><a href="#main-mailbox" class="blue-grey-text">הכל</a></li>
                     </ul>
                     <div class="indicator blue-grey" style="right: 853px; left: 0px;"></div>
                 </div>

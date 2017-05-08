@@ -19,26 +19,34 @@ namespace EduPlugWPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+            lblLink.MouseDown += LblLink_MouseDown;
+        }
+
+        private void LblLink_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ConnectPhone form = new ConnectPhone();
+            form.Show();
+            this.Hide();
         }
 
         private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                PerformClick(buttonBox);
+                PerformClick(ButtonBox);
         }
         private void PerformClick(Button btn)
         {
-            btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            btn.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
         }
 
         private void idBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            idBox.Text = "";
+            IdBox.Text = "";
         }
     }
 }

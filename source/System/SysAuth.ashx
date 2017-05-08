@@ -28,22 +28,31 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
             }
             if (context.Request.Form["id"] != null && context.Request.Form["pass"] != null)
             {
-                string id = context.Request.Form["id"].ToString();//Getting the email from the 'POST'
-                string pass = context.Request.Form["pass"].ToString();//Getting the password from the 'POST'
-                if (MemberService.Login(id, pass, true))
+                string id = context.Request.Form["id"];//Getting the email from the 'POST'
+                string pass = context.Request.Form["pass"];//Getting the password from the 'POST'
+                var scid = (context.Request.Form["scid"] != null) ? int.Parse(context.Request.Form["scid"]) : -1;
+                if (scid != -1 && MemberService.Login(id, pass, scid))
                 {
-                    Member m = MemberService.GetCurrent();
-                    //string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'" + MessagesService.GetUnreaed(m.UserID) + "'}";
+                    var m = MemberService.GetCurrent();
                     string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'0'}";
                     context.Response.Write(json.Replace((char)39, (char)34));//Returning json to JavaScript on master page
-                }
-                else
-                {
-                    string emptyJson = "{'fname':'non','lname':'non'}";//Empty json user
-                    context.Response.Write(emptyJson.Replace((char)39, (char)34));//Returning the empty json
-                    //context.Response.End();//Cutting the response and ending it
                     context.ApplicationInstance.CompleteRequest();
+                    return;
                 }
+                if (scid == -1 && MemberService.Login(id, pass, true))
+                {
+                    var m = MemberService.GetCurrent();
+                    string json = "{'fname':'" + m.FirstName + "','lname':'" + m.LastName + "','email':'" + m.Mail + "','pic':'" + m.PicturePath + "', 'clr':'" + ((char)m.Auth) + "','m_count':'0'}";
+                    context.Response.Write(json.Replace((char)39, (char)34));//Returning json to JavaScript on master page
+                    context.ApplicationInstance.CompleteRequest();
+                    return;
+                }
+
+                string emptyJson = "{'fname':'non','lname':'non'}";//Empty json user
+                context.Response.Write(emptyJson.Replace((char)39, (char)34));//Returning the empty 
+                context.ApplicationInstance.CompleteRequest();
+
+
                 return;
             }
             string strTemplate = "{'fname':'{0}','lname':'{1}','email':'{2}','uid':'{3}','pic':'{4}','clr':'{5}','m_count':'{6}','grt':'{7}'}";
@@ -54,7 +63,7 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
             if (ValidateSessions("Member", context))
             {
                 Member m = MemberService.GetCurrent();
-                string[] f = { m.FirstName, m.LastName, m.Mail, m.UserID.ToString(), m.PicturePath, ((char)m.Auth).ToString(), MessagesService.GetUnreaedCount(m.UserID).ToString(), MemberService.GetGreeting(MemberService.GetCurrent()) };
+                string[] f = { m.FirstName, m.LastName, m.Mail, m.UserID.ToString(), m.PicturePath, ((char)m.Auth).ToString(), "0", MemberService.GetGreeting(MemberService.GetCurrent()) };
                 context.Response.Write(FormStr(strTemplate, f).Replace((char)39, (char)34));
                 //context.Response.End();
                 context.ApplicationInstance.CompleteRequest();
@@ -75,7 +84,7 @@ public class Current : IHttpHandler, IReadOnlySessionState, IRequiresSessionStat
         }
         catch (ThreadAbortException ex)
         {
-                ex.HelpLink = "http://avivnet.com";
+            ex.HelpLink = "http://avivnet.com";
             return;
         }
     }

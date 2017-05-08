@@ -12,8 +12,8 @@
     <a href="~/Panel/Admin/Members.aspx" runat="server" class="panelBox teal white-text">
         <h4><i class="material-icons">supervisor_account</i> משתמשים</h4>
     </a>
-    <a href="~/Panel/Admin/EduSense.aspx" runat="server" class="panelBox amber darken-2 white-text">
-        <h4><i class="material-icons">settings_system_daydream</i> מעקב</h4>
+    <a href="~/Panel/Admin/School.aspx" runat="server" class="panelBox amber darken-2 white-text">
+        <h4><i class="material-icons">school</i> הגדרת בית ספר</h4>
     </a>
      <ul class="collection with-header" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 5px 5px; margin-top: 0px; width: 100%; max-width: 500px">
         <li class="collection-header blue-grey white-text" style="border-radius: 0px;">

@@ -35,14 +35,50 @@
                     <asp:CustomValidator ID="cve_User_ID" runat="server" ErrorMessage="תעודת זהות קיימת כבר" OnServerValidate="cve_User_ID_ServerValidate" ForeColor="Red" Display="Dynamic" ValidationGroup="AllowValidationGroup">*</asp:CustomValidator>
                     תעודת זהות</label>
             </div>
-            <div class="input-field col" style="direction: rtl; width: 100%">
+            <div class="input-field col" style="direction: rtl;">
+                <asp:DropDownList ID="User_City" runat="server" CssClass="browser-default e-form">
+                    <asp:ListItem Text="בחר עיר" Value="-1"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfv_User_City" runat="server" ControlToValidate="User_City" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" InitialValue="-1" ErrorMessage="בחר עיר">*</asp:RequiredFieldValidator>
+            </div>
+            <div class="input-field col" style="width: 50%; float: right">
                 <asp:DropDownList ID="User_Section" runat="server" CssClass="browser-default">
+                    <asp:ListItem Text="בחר אזור/כיתה" Value="-1"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="User_Section" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר כיתה/אזור">*</asp:RequiredFieldValidator>
+            </div>
+
+            <div class="input-field col" style="direction: rtl; width: 100%; ">
+                <asp:DropDownList ID="User_Type" runat="server" CssClass="browser-default">
                     <asp:ListItem Text="בחר רמת הרשאות" Value="-1"></asp:ListItem>
                     <asp:ListItem Text="מנהל" Value="a"></asp:ListItem>
                     <asp:ListItem Text="מורה" Value="t"></asp:ListItem>
                     <asp:ListItem Text="תלמיד" Value="s"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfv_User_Section" runat="server" ControlToValidate="User_Section" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר רמת הרשאות">*</asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="rfv_User_Section" runat="server" ControlToValidate="User_Type" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" InitialValue="-1" ErrorMessage="בחר רמת הרשאות">*</asp:RequiredFieldValidator>
+            </div>
+            <div class="input-field col" style="float: right">
+                <span>
+                    <asp:RequiredFieldValidator ID="rfv_User_Gender" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" ControlToValidate="User_Gender" runat="server" ErrorMessage="הכנס מגדר">*</asp:RequiredFieldValidator>
+                    מגדר</span>
+                <asp:RadioButtonList ID="User_Gender" runat="server" RepeatDirection="Vertical" RepeatColumns="2" CssClass="e-form">
+                    <asp:ListItem Text="זכר" Value="m"></asp:ListItem>
+                    <asp:ListItem Text="נקבה" Value="f"></asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+            <p dir="rtl" class="e-form">
+                <asp:CustomValidator ID="cv_User_Majors" runat="server" ErrorMessage="אנא בחר מגמה אחת לפחות" OnServerValidate="cv_User_Majors_OnServerValidate" ForeColor="Red" ValidationGroup="UpdateValidationGroup">*</asp:CustomValidator>
+                <span style="text-align: center;">מגמות</span>
+                <asp:CheckBoxList ID="User_Majors" runat="server" RepeatDirection="Vertical" RepeatColumns="3" CssClass="e-form"></asp:CheckBoxList>
+            </p>
+            <asp:RequiredFieldValidator ID="rfv_User_BornDate" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" ControlToValidate="User_BornDate" runat="server" ErrorMessage="הכנס תאריך לידה">*</asp:RequiredFieldValidator>
+            <div class="col">
+                <asp:TextBox ID="User_BornDate" runat="server" CssClass="datepicker e-form"></asp:TextBox>
+                <label>
+                    <asp:CompareValidator ID="cmv_User_BornDate" runat="server" ControlToValidate="User_BornDate" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" ErrorMessage="גיל לא לא יכול להיות קטן מ - 11 או גדול מהתאריך הנוכחי" Type="Date" Operator="LessThanEqual">*</asp:CompareValidator>
+                    <asp:CompareValidator ID="cmv_User_BornDate_g" runat="server" ControlToValidate="User_BornDate" Display="Dynamic" ForeColor="Red" ValidationGroup="UpdateValidationGroup" ErrorMessage="גיל לא לא יכול להיות גדול מ - 120" Type="Date" Operator="GreaterThanEqual">*</asp:CompareValidator>
+                    תאריך לידה
+                </label>
             </div>
         </div>
         <asp:Button ID="AddButton" CssClass="btn waves-button-input btn-large" runat="server" Text="+" Font-Size="36" OnClick="AddButton_Click" />

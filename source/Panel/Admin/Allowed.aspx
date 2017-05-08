@@ -4,14 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="../../Content/js/jquery.dataTables.min.js"></script>
-    <a href="~/Panel/Admin/AddAllow.aspx" runat="server">
+<%--    <a href="~/Panel/Admin/AddAllow.aspx" runat="server">
         <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0; width: 100%; max-width: 200px; max-height: 100px;">
             <div class="collection-header green white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
                 <h4 style="line-height: 90%; margin: 0px 0px 0px 0px; padding: 5px 0px 5px 0px; font-size: 37px;"><i class="material-icons" style="font-size: 40px;">add</i>&nbsp; &nbsp;חדש</h4>
             </div>
         </div>
-    </a>
-    <a href="~/Panel/Admin/ImportAllowed.aspx" runat="server">
+    </a>--%>
+    <a href="~/Panel/Admin/Import.aspx" runat="server">
         <div class="collection with-header waves-effect" style="direction: rtl; float: right; border: 0px; margin: 0px 20px 0px 0px; padding: 0px 0px 0 0px; width: 100%; max-width: 200px; max-height: 100px;">
             <div class="collection-header orange white-text" style="border-radius: 0px; margin: 0px 0px 0px 0px; padding: 0 0 0 0;">
                 <h4 style="line-height: 90%; margin: 0px 0px 0px 0px; padding: 5px 10px 5px 0px; font-size: 37px;"><i class="material-icons" style="font-size: 40px;">cloud_upload</i>&nbsp; &nbsp;יבא</h4>
@@ -23,20 +23,24 @@
         <br />
         <br />
         <h4>רשימת מוזמנים להרשמה</h4>
-        <asp:GridView ID="GridViewUsers" runat="server"  OnDataBound="GridViewUsers_DataBinding" AutoGenerateColumns="False" OnPageIndexChanging="GridViewUsers_PageIndexChanging" OnRowCommand="GridViewUsers_RowCommand" CssClass="datatables-table table table-hover">
+        <asp:GridView ID="GridViewUsers" runat="server" OnDataBound="GridViewUsers_DataBinding" AutoGenerateColumns="False" OnPageIndexChanging="GridViewUsers_PageIndexChanging" OnRowCommand="GridViewUsers_RowCommand" CssClass="datatables-table table table-hover">
             <Columns>
                 <asp:TemplateField HeaderText="שם">
                     <ItemTemplate>
-                        <span><%#Eval("nhsFirstName")%> <%#Eval("nhsLastName")%></span>
+                        <span><%#Eval("eduFirstName")%> <%#Eval("eduLastName")%></span>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="nhsID" HeaderText="ת.ז"></asp:BoundField>
-                <asp:TemplateField HeaderText="נרשם">
+                <asp:BoundField DataField="eduID" HeaderText="ת.ז"></asp:BoundField>
+                <asp:TemplateField HeaderText="הרשאה">
                     <ItemTemplate>
-                        <%#GetYesNo((bool)Eval("nhsActive")) %>
+                        <%#CastType(Eval("eduType"))%>
                     </ItemTemplate>
                 </asp:TemplateField>
-
+                <asp:TemplateField HeaderText="סיסמה זמנית">
+                    <ItemTemplate>
+                        <%#Eval("Pass")%>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="פעולות">
                     <ItemTemplate>
 

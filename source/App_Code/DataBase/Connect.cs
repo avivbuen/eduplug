@@ -81,8 +81,8 @@ public static class Connect
         catch (Exception ex)
         {
             Problem.Log(ex, sqlQuery);
+            return false;
         }
-        return false;  
     }
     /// <summary>
     /// Executes The SqlQuery And Return's Boolean For Success Of The Query Execution

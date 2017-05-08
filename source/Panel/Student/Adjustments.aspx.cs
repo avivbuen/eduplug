@@ -11,7 +11,7 @@ public partial class Panel_Student_Adjustments : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (MemberService.GetCurrent().Auth != MemberClearance.Student)
+        if (MemberService.GetCurrent().Auth != MemberClearance.Student && MemberService.GetCurrent().Auth != MemberClearance.Parent)
             Response.Redirect("~/");
         Fill();
     }
@@ -20,7 +20,10 @@ public partial class Panel_Student_Adjustments : System.Web.UI.Page
         try
         {
             AdjustmentWS.EduAdjustmentsService ws = new AdjustmentWS.EduAdjustmentsService();
-            GridViewAdjustment.DataSource = ws.GetAdjustmentsStudent(MemberService.GetCurrent().ID);
+            if (MemberService.GetCurrent().Auth == MemberClearance.Student)
+                GridViewAdjustment.DataSource = ws.GetAdjustmentsStudent(MemberService.GetCurrent().ID);
+            else
+                GridViewAdjustment.DataSource = ws.GetAdjustmentsStudent(MemberService.GetSelectedChild().ID);
             GridViewAdjustment.DataBind();
             if (GridViewAdjustment.Rows.Count == 0)
                 LiteralEmptyAdjust.Text = "אין לך התאמות";

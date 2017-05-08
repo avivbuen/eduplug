@@ -8,10 +8,13 @@ $("form").submit(function (event) {
     event.preventDefault();//Preventing Post-Back
     if (Page_ClientValidate("LoginValidationGroup")) {//Validating the basics
         var url = "../../System/SysAuth.ashx";//Server validation page path
+        var sid = -1;
+        if (typeof $("select#User_School option:checked").val() != undefined)
+            sid = $("select#User_School option:checked").val();
         if (navigator.onLine||(!preventLoginOffline)) {
             $.ajax({//Calling the server in order to validate
                 url: url,
-                data: { id: getUserid(), pass: getPass() },//Sending the credentials
+                data: { id: getUserid(), pass: getPass(), scid: sid },//Sending the credentials
                 type: "POST",
                 success: function (data) {//Got response
                     var user = JSON.parse(data);

@@ -14,7 +14,7 @@ public partial class Track_Scores : System.Web.UI.Page
     public bool admin;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (MemberService.GetCurrent().Auth != MemberClearance.Student)
+        if (MemberService.GetCurrent().Auth != MemberClearance.Student && MemberService.GetCurrent().Auth != MemberClearance.Parent)
             Response.Redirect("~/");
         switch (MemberService.GetCurrent().Auth)
         {
@@ -27,6 +27,19 @@ public partial class Track_Scores : System.Web.UI.Page
                 else
                 {
                     DataListScores.DataSource = dt;
+                    DataListScores.DataBind();
+                    LabelError.Text = "";
+                }
+                break;
+            case MemberClearance.Parent:
+                DataTable dt1 = ScoreService.GetAllGrade(MemberService.GetSelectedChild().UserID);
+                if (dt1.Rows.Count == 0)
+                {
+                    LabelError.Text = "טרם הוזנו לך ציונים";
+                }
+                else
+                {
+                    DataListScores.DataSource = dt1;
                     DataListScores.DataBind();
                     LabelError.Text = "";
                 }
