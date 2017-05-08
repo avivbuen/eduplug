@@ -58,7 +58,7 @@
                             <circle class="spin" fill="none" stroke="#3b6bab" stroke-width="4" stroke-miterlimit="10" stroke-dasharray="12.2175,12.2175" cx="80.6" cy="80.6" r="73.9" />
 
                         </svg>
-                        <p class="success">ברוך הבא <span id="username"></span></p>
+                        <p class="success">שלום <span id="username"></span></p>
                     </div>
                 </div>
             </div>

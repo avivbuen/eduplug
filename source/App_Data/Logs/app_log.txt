@@ -1025,3 +1025,8 @@
   :System.NullReferenceException: Object reference not set to an instance of an object.
    at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in c:\Users\Aviv\Documents\Visual Studio 2017\WebSites\EduNet\App_Code\Business_Logic\Members\MembersService.cs:line 697
 -------------------------------
+
+ AVIVNET Log Entry : 00:04:48 יום שלישי 09 מאי 2017
+  :
+  :System.Exception: c:\Users\Aviv\Documents\Visual Studio 2017\WebSites\EduNet\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\607f61a0\93a63192\App_Web_wt2dcz2a.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\607f61a0\93a63192\App_Web_tmleofup.dll' URL:http://localhost:24857/Panel/Admin/Members.aspx
+-------------------------------

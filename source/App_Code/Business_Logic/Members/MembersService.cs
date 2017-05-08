@@ -360,7 +360,7 @@ namespace Business_Logic.Members
 
                 return ((List<Member>)HttpContext.Current.Session["kids"]).First();
             }
-            return new Member();
+            return new Member() {Name = "בחר ילד"};
         }
 
         public static bool SetChildren(int uid, List<int> kidList)
