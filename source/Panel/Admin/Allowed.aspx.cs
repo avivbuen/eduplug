@@ -75,7 +75,7 @@ public partial class Panel_Admin_Allowed : System.Web.UI.Page
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = GridViewUsers.Rows[index];
-            // MemberService(row.Cells[1].Text);
+            MemberService.RemoveFromActive(MemberService.GetUID(row.Cells[1].Text, MemberService.GetCurrent().School.Id));
             Fill();
         }
     }

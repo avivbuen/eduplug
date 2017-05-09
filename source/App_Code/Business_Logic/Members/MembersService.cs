@@ -167,7 +167,7 @@ namespace Business_Logic.Members
         {
             id = id.Replace("'", "");
             pass = pass.Replace("'", "");
-            var dt = Connect.GetData("SELECT * FROM eduMembers WHERE eduID='" + id + "' AND eduActive='Yes'", "eduMembers");//Excuting a query to check up with the data base
+            var dt = Connect.GetData("SELECT * FROM eduMembers WHERE eduID='" + id + "' AND eduActive<>'No'", "eduMembers");//Excuting a query to check up with the data base
             if (dt.Rows.Count == 0) return false;
             var dbHash = dt.Rows[0]["eduPass"].ToString();//Getting dbHash - The encrypted password that came from the data base for that user
             if (!Security.ValidatePassword(pass, dbHash)) return false;
@@ -559,9 +559,8 @@ namespace Business_Logic.Members
         /// </summary>
         /// <param name="uid">User ID</param>
         /// <returns>Action State</returns>
-        public static bool RemoveFromActive(string uid)
+        public static bool RemoveFromActive(int uid)
         {
-            if (int.Parse(uid) == GetCurrent().UserID) HttpContext.Current.Session["Member"] = null;
             return Connect.InsertUpdateDelete("UPDATE eduMembers SET eduActive='No' WHERE eduUserID=" + uid);
         }
         /// <summary>
@@ -952,6 +951,13 @@ namespace Business_Logic.Members
             }
             Connect.InsertUpdateDelete("UPDATE eduMembers SET eduPass='" + Security.CreateHash(strNew) + "' WHERE eduUserID=" + uid);
             return strNew;
+        }
+
+        public static void RemoveFromAllowed(int uid)
+        {
+            Connect.InsertUpdateDelete("DELETE FROM eduMajorsMembers WHERE eduUserID=" + uid);
+            Connect.InsertUpdateDelete("DELETE FROM eduParentMember WHERE eduUserID=" + uid + " OR eduChildID=" + uid);
+            Connect.InsertUpdateDelete("DELETE FROM eduMembers WHERE eduUserID=" + uid);
         }
         /// <summary>
         /// Gets all the allowed to register list
