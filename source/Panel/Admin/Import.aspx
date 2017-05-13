@@ -55,23 +55,12 @@
             </span>
         </div>
     </div>
-            <div class="spinner-layer spinner-white-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-
         <script>
             $(".fileLoader").change(function () { CalluploaderHandler(); });
             function CalluploaderHandler() {
+                AvivnetFramework.toast('מעלה קובץ...', 6000);
                 clearTimeout(serverContact);
-                $('.uploadState').css('display', 'block');
+                //$('.uploadState').css('display', 'block');
                 var files = $("#fileExcel")[0].files;
                 if (files.length > 0) {
                     var formData = new FormData();
@@ -93,12 +82,14 @@
 
             function OnComplete(result) {
                 LoadCurrentUser();
-                $('.uploadState').css('display', 'none');
+                //$('.uploadState').css('display', 'none');
                 if (result === "הועלה")
                     AvivnetFramework.toast('המשתמשים הועלו', 6000);
                 else
                     AvivnetFramework.toast(result, 6000);
                 //$("#fileopen")[0].val("");
+
+                $("#fileopen").replaceWith($("#fileopen").clone());
             }
 
             function OnFail(result) {

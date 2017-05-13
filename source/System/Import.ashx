@@ -70,6 +70,7 @@ public class Import : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
         DateTime dat;
         List<Major> majors = MajorsService.GetAll();
         List<City> cities = CitiesService.GetAll();
+
         foreach (DataRow dr in dt.Rows)
         {
             rowNum++;
@@ -81,30 +82,30 @@ public class Import : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
                     case "שם פרטי":
                         if (rowNum == 1) continue;
                         if (!CheckName(dr[dc].ToString().Replace("`", "").Replace("-", "")))
-                            return new Tuple<string, bool>("שם פרטי באחד או יותר מן הרשומות לא חוקי", false);
+                            return new Tuple<string, bool>("שם פרטי באחד או יותר מן הרשומות לא חוקי"+ " שורה "+(rowNum-1), false);
                         break;
                     case "שם משפחה":
                         if (rowNum == 1) continue;
                         if (!CheckName(dr[dc].ToString().Replace("`", "").Replace("-", "")))
-                            return new Tuple<string, bool>("שם משפחה באחד או יותר מן הרשומות לא חוקי", false);
+                            return new Tuple<string, bool>("שם משפחה באחד או יותר מן הרשומות לא חוקי"+ " שורה "+(rowNum-1), false);
                         break;
                     case "תעודת זהות":
                         if (rowNum == 1) continue;
-                        if (!CheckIDNo(dr[dc].ToString())) return new Tuple<string, bool>("תעודות זהות לא חוקיות קיימות", false);
+                        if (!CheckIDNo(dr[dc].ToString())) return new Tuple<string, bool>("תעודות זהות לא חוקיות קיימות"+ " שורה "+(rowNum-1), false);
                         break;
                     case "סוג":
                         if (rowNum == 1) continue;
-                        if (!CheckType(dr[dc].ToString())) return new Tuple<string, bool>("סוגים לא חוקיים", false);
+                        if (!CheckType(dr[dc].ToString())) return new Tuple<string, bool>("סוגים לא חוקיים"+ " שורה "+(rowNum-1), false);
                         break;
                     case "כיתה":
                         if (rowNum == 1) continue;
                         if (grades.All(x => x.Name != dr[dc].ToString()))
-                            return new Tuple<string, bool>("כיתות לא קיימות", false);
+                            return new Tuple<string, bool>("כיתות לא קיימות"+ " שורה "+(rowNum-1), false);
                         break;
                     case "תאריך לידה":
                         if (rowNum == 1) continue;
                         if (!DateTime.TryParse(dr[dc].ToString(), out dat))
-                            return new Tuple<string, bool>("תאריכי לידה לא תקינים", false);
+                            return new Tuple<string, bool>("תאריכי לידה לא תקינים"+ " שורה "+(rowNum-1), false);
                         break;
                     case "מגדר":
                         if (rowNum == 1) continue;
@@ -115,25 +116,25 @@ public class Import : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
                         string[] idStrings = dr[dc].ToString().Split(',');
                         if (idStrings.Any(s => majors.All(x => x.Id != int.Parse(s))))
                         {
-                            return new Tuple<string, bool>("מזהי מגמות אשר לא קיימות", false);
+                            return new Tuple<string, bool>("מזהי מגמות אשר לא קיימות"+ " שורה "+(rowNum-1), false);
                         }
                         break;
                     case "מזהה עיר":
                         if (rowNum == 1) continue;
-                        if (cities.All(x => x.Id != int.Parse(dr[dc].ToString()))) return new Tuple<string, bool>("מזהה עיר אשר לא קיימ/ת/ות", false);
+                        if (cities.All(x => x.Id != int.Parse(dr[dc].ToString()))) return new Tuple<string, bool>("מזהה עיר אשר לא קיימ/ת/ות"+ " שורה "+(rowNum-1), false);
                         break;
                     case "פלאפון": if (rowNum == 1) continue; break;
                     case "מייל":
                         if (rowNum == 1) continue;
                         if (dr[dc].ToString() == "") continue;
                         if (!ValidateMail(dr[dc].ToString()))
-                            return new Tuple<string, bool>("כתובת אימייל לא תקינה " + dr[dc].ToString(), false);
+                            return new Tuple<string, bool>("כתובת אימייל לא תקינה " + dr[dc].ToString()+ " שורה "+(rowNum-1), false);
                         break;
                     case "אימייל":
                         if (rowNum == 1) continue;
                         if (dr[dc].ToString() == "") continue;
                         if (!ValidateMail(dr[dc].ToString()))
-                            return new Tuple<string, bool>("כתובת אימייל לא תקינה " + dr[dc].ToString(), false);
+                            return new Tuple<string, bool>("כתובת אימייל לא תקינה " + dr[dc].ToString()+ " שורה "+(rowNum-1), false);
                         break;
                     case "ילדים":
                         if (rowNum == 1) continue;
@@ -142,7 +143,7 @@ public class Import : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
                         int a;
                         if (strings.Any(s => s.Length!=9|| !int.TryParse(s,out a) || !CheckIDNo(s)))
                         {
-                            return new Tuple<string, bool>("תעודות זהות של ילד/ים לא תקינות " + dr[dc].ToString(), false);
+                            return new Tuple<string, bool>("תעודות זהות של ילד/ים לא תקינות " + dr[dc].ToString()+ " שורה "+(rowNum-1), false);
                         }
                         break;
                     default:

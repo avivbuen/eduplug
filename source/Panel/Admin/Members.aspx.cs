@@ -99,7 +99,7 @@ public partial class Admin_Tools_Members : System.Web.UI.Page
         if (e.CommandName == "DeleteT")
         {
             int uid = int.Parse(e.CommandArgument.ToString());
-            MemberService.RemoveFromActive(uid.ToString());
+            MemberService.RemoveFromActive(uid);
             Fill();
         }
         if (e.CommandName == "AdjustT")

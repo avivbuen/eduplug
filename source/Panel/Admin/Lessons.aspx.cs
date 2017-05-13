@@ -69,7 +69,7 @@ public partial class Panel_Admin_Lessons : System.Web.UI.Page
         if (Session["ltgCur"] == null) Response.Redirect("~/");
         TeacherGrade tg = (TeacherGrade)Session["ltgCur"];
         Lesson_Hour.Items.Clear();
-        List<int> hours = MemberService.GetFreeHours(tg.TeacherId,int.Parse(Lesson_Day.SelectedValue));
+        List<int> hours = MemberService.GetFreeHours(tg.Id,int.Parse(Lesson_Day.SelectedValue));
         Lesson_Hour.Items.Add(new ListItem("בחר שעה...", "-1"));
         foreach (int hour in hours)
         {

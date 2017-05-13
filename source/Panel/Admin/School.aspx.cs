@@ -13,7 +13,7 @@ public partial class Panel_Admin_School : System.Web.UI.Page
     public string done = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        if (!IsPostBack)
             Fill();
     }
 
@@ -82,11 +82,13 @@ public partial class Panel_Admin_School : System.Web.UI.Page
 
             }
             Member m = (Member)Session["Member"];
-            m.School.LogoPath = school.LogoPath;
+            if (school.LogoPath != null && school.LogoPath.Trim() != "")
+                m.School.LogoPath = school.LogoPath;
             m.School.Name = school.Name;
             Session["Member"] = m;
             SchoolService.Update(school);
-            done = "alert('הפרטים נשמרו.');location='../../'";//Showing message
+            done = "AvivnetFramework.toast('המשתמשים הועלו', 6000);";//Showing message
+            Response.Redirect("~/Panel/Admin/");
         }
     }
 }

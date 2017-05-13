@@ -32,7 +32,7 @@ public partial class Panel_Admin_EditAllowed : System.Web.UI.Page
         Page.Validate();
         if (Page.IsValid)
         {
-            //MemberService.RemoveFromAllowed(User_ID.Text.Trim());
+            MemberService.RemoveFromAllowed(int.Parse(User_ID.Text.Trim()));
             Member m = new Member()
             {
                 FirstName = User_First_Name.Text,

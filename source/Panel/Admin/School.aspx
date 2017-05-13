@@ -22,7 +22,7 @@
                             <img id="PreviewImage" alt="your image" style="display: none; width: 70px; height: 70px; border: 1px solid black; border-radius: 50%;" />
                         </td>
                         <td>
-                            <img src="../Content/graphics/img/remove-icon.png" title="בטל תמונה" id="delPic" onclick="CheckMe1(this);" style="display: none; width: 15px; height: 15px" />
+                            <img src="../../Content/graphics/img/remove-icon.png" title="בטל תמונה" id="delPic" onclick="CheckMe1(this);" style="display: none; width: 15px; height: 15px" />
                         </td>
                     </tr>
                     </tbody>

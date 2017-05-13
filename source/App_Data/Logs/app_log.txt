@@ -1030,3 +1030,31 @@
   :
   :System.Exception: c:\Users\Aviv\Documents\Visual Studio 2017\WebSites\EduNet\MasterPage.master(7): error CS0433: The type 'ASP.controls_intersense_ascx' exists in both 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\607f61a0\93a63192\App_Web_wt2dcz2a.dll' and 'c:\Users\Aviv\AppData\Local\Temp\Temporary ASP.NET Files\vs\607f61a0\93a63192\App_Web_tmleofup.dll' URL:http://localhost:24857/Panel/Admin/Members.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 14:35:09 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/EditAllowed.aspx?uid=325045383
+-------------------------------
+
+ AVIVNET Log Entry : 14:38:16 שבת 13 מאי 2017
+  :
+  :System.NullReferenceException: Object reference not set to an instance of an object.
+   at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in f:\Projects\Project10\source\App_Code\Business_Logic\Members\MembersService.cs:line 814
+-------------------------------
+
+ AVIVNET Log Entry : 14:38:26 שבת 13 מאי 2017
+  :
+  :System.NullReferenceException: Object reference not set to an instance of an object.
+   at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in f:\Projects\Project10\source\App_Code\Business_Logic\Members\MembersService.cs:line 814
+-------------------------------
+
+ AVIVNET Log Entry : 14:38:38 שבת 13 מאי 2017
+  :
+  :System.NullReferenceException: Object reference not set to an instance of an object.
+   at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in f:\Projects\Project10\source\App_Code\Business_Logic\Members\MembersService.cs:line 814
+-------------------------------
+
+ AVIVNET Log Entry : 16:21:13 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Lessons.aspx?tgid=36
+-------------------------------

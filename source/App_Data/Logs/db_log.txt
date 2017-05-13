@@ -820,3 +820,55 @@
    at Business_Logic.Members.MemberService.SetChildren(Int32 uid, List`1 kidList) in c:\Users\Aviv\Documents\Visual Studio 2017\WebSites\EduNet\App_Code\Business_Logic\Members\MembersService.cs:line 375
    at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in c:\Users\Aviv\Documents\Visual Studio 2017\WebSites\EduNet\App_Code\Business_Logic\Members\MembersService.cs:line 845
 -------------------------------
+
+ AVIVNET Log Entry : 12:26:49 שבת 13 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E07): Data type mismatch in criteria expression.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO eduSchools (eduSchoolID,eduSchoolName,eduSchoolLogo,eduOfficial) VALUES (444737,'נחשון למדעים טכנולוגיה ואומנות', '/User/SchoolData/4e4e4e7h3d7h/logo.png','Yes')
+-------------------------------
+
+ AVIVNET Log Entry : 12:28:18 שבת 13 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'eduSchools'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO eduMembers (eduFirstName,eduLastName,eduPass,eduType,eduMail,eduID,eduGender,eduGradeID,eduPicture,eduBorn,eduDateRegister,eduCityID,eduActive,eduSchoolID) VALUES('חניתה','קרשטיין','k7sMzz/fZ/sfTsj3CItdswT9CeE2z/TVr2eWUuzPiIQ=:higAMMx45OtAxkPddsFqoiAQQctwXeaigrV4J67YiafMmyfpPinYGPjUFC0Ay8MK5UjjxFlgFn87m+vn/EOIIg==:/fZ/sfTsj3C','a','','314711045','f','33','/Content/graphics/img/default.png','1968-05-14 0:00:00','2017-05-13 12:28:18',2710,'Yes',444737)
+-------------------------------
+
+ AVIVNET Log Entry : 14:47:13 שבת 13 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'eduCities'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO eduMembers (eduFirstName,eduLastName,eduID,eduActive,eduType) VALUES ('אביב','בר','325130243','Wait','a')
+-------------------------------
+
+ AVIVNET Log Entry : 14:47:21 שבת 13 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): You cannot add or change a record because a related record is required in table 'eduCities'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= INSERT INTO eduMembers (eduFirstName,eduLastName,eduID,eduActive,eduType) VALUES ('אבי','זרדב','318949567','Wait','a')
+-------------------------------

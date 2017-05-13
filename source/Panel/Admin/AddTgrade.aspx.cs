@@ -22,7 +22,7 @@ public partial class InterTrack_Admin_AddTeacherGrade : System.Web.UI.Page
     }
     public void FillData()
     {
-        ListTeachers.DataSource = MemberService.GetNames().Where(x => x.Auth == MemberClearance.Teacher&& x.Active == "Yes");
+        ListTeachers.DataSource = MemberService.GetNames().Where(x => x.Auth == MemberClearance.Teacher&& x.Active != "No");
         ListTeachers.DataTextField = "Name";
         ListTeachers.DataValueField = "UserID";
         ListTeachers.DataBind();

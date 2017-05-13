@@ -29,7 +29,7 @@ namespace Business_Logic.Members
         /// <returns></returns>
         public static Member GetAllowed(string id)
         {
-            var dt = Connect.GetData("SELECT * FROM eduMembers WHERE eduID='" + id + "' AND eduActive=", "eduMembers");
+            var dt = Connect.GetData("SELECT * FROM eduMembers WHERE eduID='" + id + "' AND eduActive='Wait'", "eduMembers");
             if (dt.Rows.Count == 0) return new Member();
             var m = new Member()
             {
@@ -91,6 +91,7 @@ namespace Business_Logic.Members
                         Active = dr["eduActive"].ToString().Trim()
                     }).ToList();
         }
+
         /// <summary>
         /// Gets all the members from the DB
         /// </summary>
@@ -360,7 +361,7 @@ namespace Business_Logic.Members
 
                 return ((List<Member>)HttpContext.Current.Session["kids"]).First();
             }
-            return new Member() {Name = "בחר ילד"};
+            return new Member() { Name = "בחר ילד" };
         }
 
         public static bool SetChildren(int uid, List<int> kidList)
@@ -372,7 +373,7 @@ namespace Business_Logic.Members
             var adp = new OleDbDataAdapter(command);
             foreach (int s in kidList)
             {
-                command = new OleDbCommand("INSERT INTO eduParentMember (eduUserID,eduChildID) VALUES ("+uid+","+s+")",con);
+                command = new OleDbCommand("INSERT INTO eduParentMember (eduUserID,eduChildID) VALUES (" + uid + "," + s + ")", con);
                 command.ExecuteNonQuery();
             }
             con.Close();
@@ -523,7 +524,7 @@ namespace Business_Logic.Members
         /// <returns>State</returns>
         public static bool Update(Member m)
         {
-            int userID = GetUID(m.ID,GetCurrent().School.Id);
+            int userID = GetUID(m.ID, GetCurrent().School.Id);
             Connect.InsertUpdateDelete("DELETE FROM eduMajorsMembers WHERE eduUserID=" + userID);
             var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
             var command = new OleDbCommand("", con);
@@ -532,7 +533,7 @@ namespace Business_Logic.Members
             var ds = new DataSet();
             foreach (Majors.Major maj in m.Majors)
             {
-                command= new OleDbCommand("INSERT INTO eduMajorsMembers (eduUserID,eduMajorID) VALUES (" + userID + "," + maj.Id + ")",con);
+                command = new OleDbCommand("INSERT INTO eduMajorsMembers (eduUserID,eduMajorID) VALUES (" + userID + "," + maj.Id + ")", con);
                 command.ExecuteNonQuery();
             }
             con.Close();
@@ -695,7 +696,7 @@ namespace Business_Logic.Members
                 List<Grade> grades = GradesService.GetAll();
                 List<City> cities = CitiesService.GetAll();
                 int scid = MemberService.GetCurrent().School.Id;
-                Dictionary<string,List<int>> parList = new Dictionary<string, List<int>>();
+                Dictionary<string, List<int>> parList = new Dictionary<string, List<int>>();
                 for (int i = 0; i < dtWs.Rows.Count; i++)
                 {
                     if (i == 0) continue;
@@ -811,9 +812,9 @@ namespace Business_Logic.Members
                         }
                         index++;
                     }
-                    if (member.PicturePath == "")
+                    if (member.PicturePath == null || member.PicturePath.Trim() == "")
                         member.PicturePath = "/Content/graphics/img/default.png";
-                    string sqlQuery = "INSERT INTO eduMembers(eduFirstName,eduLastName,eduID,eduType,eduGradeID,eduPhone,eduBorn,eduGender,eduCityID,eduActive,eduSchoolID) VALUES('" + member.FirstName + "','" + member.LastName + "','" + member.ID + "','" + Converter.GetClearnce(member.Auth) + "'," + member.GradeID + ",'" + member.Phone + "',#" + Converter.GetTimeShortForDataBase(member.BornDate) + "#,'" + Converter.GetGender(member.Gender) + "'," + member.City.Id + ",'Wait'," + MemberService.GetCurrent().School.Id + ")";
+                    string sqlQuery = "INSERT INTO eduMembers(eduFirstName,eduLastName,eduID,eduType,eduGradeID,eduPhone,eduBorn,eduGender,eduCityID,eduActive,eduSchoolID,eduPicture) VALUES('" + member.FirstName + "','" + member.LastName + "','" + member.ID + "','" + Converter.GetClearnce(member.Auth) + "'," + member.GradeID + ",'" + member.Phone + "',#" + Converter.GetTimeShortForDataBase(member.BornDate) + "#,'" + Converter.GetGender(member.Gender) + "'," + member.City.Id + ",'Wait'," + MemberService.GetCurrent().School.Id + ",'" + member.PicturePath + "')";
                     var command = new OleDbCommand(sqlQuery, con);
                     command.ExecuteNonQuery();
                     command = new OleDbCommand("SELECT @@IDENTITY;", con);
@@ -841,7 +842,7 @@ namespace Business_Logic.Members
                 }
                 foreach (KeyValuePair<string, List<int>> pair in parList)
                 {
-                    SetChildren(GetUID(pair.Key,scid), pair.Value);
+                    SetChildren(GetUID(pair.Key, scid), pair.Value);
                 }
                 con.Close();
                 return "";
@@ -984,8 +985,8 @@ namespace Business_Logic.Members
         /// <returns>Greeting for the panel</returns>
         public static string GetGreeting(MemberClearance auth, MemberGender gen)
         {
-            string[] female = { "התלמידה", "המורה", "המנהלת","אמא" };
-            string[] male = { "התלמיד", "המורה", "המנהל","אבא" };
+            string[] female = { "התלמידה", "המורה", "המנהלת", "אמא" };
+            string[] male = { "התלמיד", "המורה", "המנהל", "אבא" };
             switch (auth)
             {
                 case MemberClearance.Student:
@@ -1005,9 +1006,10 @@ namespace Business_Logic.Members
         /// <param name="teacherId"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        public static List<int> GetFreeHours(int teacherId, int day)
+        public static List<int> GetFreeHours(int tgid, int day)
         {
-            var dt = Connect.GetData("SELECT eduHour FROM eduLessons,eduTeacherGrades AS tg WHERE tg.eduTgradeID=eduLessons.eduTgradeID AND tg.eduTeacherID=" + teacherId + " AND eduLessons.eduDay=" + day + "  AND eduActive='" +
+            TeacherGrade tgGrade = TeacherGradeService.Get(tgid);
+            var dt = Connect.GetData("SELECT eduHour FROM eduLessons,eduTeacherGrades AS tg WHERE tg.eduTgradeID=eduLessons.eduTgradeID AND tg.eduTeacherID=" + tgGrade.TeacherId + " AND eduLessons.eduDay=" + day + "  AND eduActive='" +
                                      "Yes" +
                                      "" +
                                      "" +
@@ -1027,6 +1029,21 @@ namespace Business_Logic.Members
                     hours.Remove(givenValue);
                 }
             }
+            var students = TeacherGradeService.GetStudents(tgGrade.Id);
+            foreach (Member studentMember in students)
+            {
+                var dt1 = Connect.GetData(
+                    "SELECT eduHour FROM eduLessons AS les, eduLearnGroups AS lg WHERE les.eduTgradeID=lg.eduTgradeID AND lg.eduStudentID="+studentMember.UserID+" AND eduDay=" + day, "eduLessons");
+                foreach (DataRow dr in dt1.Rows)
+                {
+                    int givenValue = int.Parse(dr["eduHour"].ToString());
+                    if (hours.Contains(givenValue))
+                    {
+                        hours.Remove(givenValue);
+                    }
+                }
+            }
+
             return hours;
         }
         /// <summary>

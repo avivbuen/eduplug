@@ -41,7 +41,7 @@ namespace Business_Logic.Schools
         /// <returns></returns>
         public static bool Update(School school)
         {
-            if(school.LogoPath!=null)
+            if(school.LogoPath!=null&& school.LogoPath.Trim()!="")
             return Connect.InsertUpdateDelete("UPDATE eduSchools SET eduSchoolName='" + school.Name +
                                               "', eduSchoolLogo='" + school.LogoPath + "' WHERE eduSchoolID=" +
                                               school.Id);
@@ -113,12 +113,12 @@ namespace Business_Logic.Schools
         {
             if (school.Id == 0)
                 school.Id = GetNID();
-            string state = "Yes";
+            string state = "YES";
             if (!school.Official)
-                state = "No";
+                state = "NO";
             school.Name = school.Name.Replace("'", "''");
             return Connect.InsertUpdateDelete("INSERT INTO eduSchools (eduSchoolID,eduSchoolName,eduSchoolLogo,eduOfficial) VALUES (" +
-                                       school.Id + ",'" + school.Name + "', '" + school.LogoPath + "','"+state+"')");
+                                       school.Id + ",'" + school.Name + "', '" + school.LogoPath + "',"+state+")");
         }
         /// <summary>
         /// Check if the school exsits
