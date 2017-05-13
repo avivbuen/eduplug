@@ -208,9 +208,24 @@ namespace Business_Logic.Members
 
         public static bool Complete(Member m, string pass)
         {
-            return Connect.InsertUpdateDelete("UPDATE eduMembers SET eduMail='" + m.Mail.Replace("'", "''") +
+            Connect.InsertUpdateDelete("UPDATE eduMembers SET eduMail='" + m.Mail.Replace("'", "''") +
                                               "', eduPass='" + Security.CreateHash(pass) + "',eduPicture='" +
                                               m.PicturePath + "', eduActive='Yes',eduDateRegister=#" + Converter.GetFullTimeReadyForDataBase() + "#  WHERE eduUserID=" + m.UserID);
+            List<Major> majors = MajorsService.GetUserMajors(m.UserID);
+            foreach (Major major in majors)
+            {
+                DataTable dt1 = Connect.GetData(
+                    "SELECT * FROM eduMajorsTgrades WHERE eduMajorID=" + major.Id + " AND eduGradePart='" +
+                    TeacherGradeService.GetParTeacherGrade(GradesService.Get(GetUser(m.UserID).GradeID).Name).Replace("'", "''") +
+                    "'", "eduMajorsTeacherGrades");
+                foreach (DataRow dr in dt1.Rows)
+                {
+                    int tgid = int.Parse(dr["eduTgradeID"].ToString());
+                    TeacherGradeService.AddStudent(tgid, m.UserID);
+                }
+            }
+            return true;
+            //var dt = Connect.GetData("SELECT ed")
         }
         /// <summary>
         /// Login of the user - init for session - The session key is 'Member'

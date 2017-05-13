@@ -105,6 +105,12 @@ public partial class Controls_TimeTableDay : System.Web.UI.UserControl
 
         foreach (Lesson lsn in lsns)
         {
+            if (lsn.Changes == null)
+            {
+                str += lsn.Name + " ";
+                continue;
+            }
+                
             List<LessonChange> changes = lsn.Changes.AsEnumerable().Where(x => x.Date == DateTimeExtensions.StartOfWeek((Session["StartDate1"]), day) && x.LessonId == lsn.Id).ToList();
             if (lsn.Changes != null && lsn.Changes.Count != 0 && changes.Count() == 1)
             {

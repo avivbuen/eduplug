@@ -1058,3 +1058,23 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Admin/Lessons.aspx?tgid=36
 -------------------------------
+
+ AVIVNET Log Entry : 20:08:20 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/User/Activate.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 20:11:39 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/User/Activate.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 20:17:11 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Student/default.aspx
+-------------------------------
+
+ AVIVNET Log Entry : 20:17:53 שבת 13 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:6304/Panel/Student/TimeTable.aspx
+-------------------------------

@@ -13,10 +13,13 @@ public partial class User_Activate : System.Web.UI.Page
     public string done = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        Member mem = MemberService.GetCurrent();
-        if (mem.Auth==MemberClearance.Guest||mem.Active!="Wait")
+        if (!IsPostBack)
         {
-          Response.Redirect("~/");
+            Member mem = MemberService.GetCurrent();
+            if (mem.Auth == MemberClearance.Guest || mem.Active != "Wait")
+            {
+                Response.Redirect("~/");
+            }
         }
 
     }

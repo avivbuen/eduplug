@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using Business_Logic.TeacherGrades;
 using Business_Logic.Members;
@@ -208,8 +209,28 @@ namespace Business_Logic.Lessons
                 for (int j = 0; j < lessons.GetLength(1); j++)
                     lessons[i, j] = null;
             }
+            var con = new OleDbConnection(ConfigurationManager.ConnectionStrings["MainDB"].ConnectionString);
+            con.Open();
             foreach (DataRow dr in dt.Rows)//Array Fill
             {
+                var command = new OleDbCommand("SELECT * FROM eduLessonChanges WHERE eduLessonID=" + int.Parse(dr["LessonID"].ToString()), con);
+                var adp = new OleDbDataAdapter(command);
+                var ds = new DataSet();
+
+                adp.Fill(ds, "eduLessonChanges");
+                List<LessonChange> changeTable = new List<LessonChange>();
+                foreach (DataRow dr1 in ds.Tables[0].Rows)
+                {
+                    LessonChange change = new LessonChange()
+                    {
+                        Id = int.Parse(dr1["eduLessonChangeID"].ToString()),
+                        ChangeType = ((LessonChangeType)(char.Parse(dr1["eduLessonChangeType"].ToString()))),
+                        Date = DateTime.Parse(dr1["eduDate"].ToString().Trim()),
+                        Message = dr1["eduMessage"].ToString().Trim(),
+                        LessonId = int.Parse(dr["LessonID"].ToString())
+                    };
+                    changeTable.Add(change);
+                }
                 Lesson lesson = new Lesson()
                 {
                     Name = dr["LessonName"].ToString(),
@@ -219,7 +240,7 @@ namespace Business_Logic.Lessons
                     TeacherId = int.Parse(dr["TeacherID"].ToString()),
                     Color = dr["cellColor"].ToString(),
                     TeacherGradeId = int.Parse(dr["TeacherGradeID"].ToString()),
-                    Changes = GetChanges(int.Parse(dr["LessonID"].ToString()))
+                    Changes = changeTable
                 };
                 if (int.Parse(dr["eduHour"].ToString()) > (LessonsInDay) || int.Parse(dr["eduHour"].ToString()) <= 0 || int.Parse(dr["eduDay"].ToString()) > DaysInWeek || int.Parse(dr["eduDay"].ToString()) <= 0)
                 {
@@ -231,7 +252,7 @@ namespace Business_Logic.Lessons
                 }
                 lessons[int.Parse(dr["eduHour"].ToString()) - 1, int.Parse(dr["eduDay"].ToString()) - 1].Lessons.Add(lesson);
             }
-
+            con.Close();
             List<LessonGroup[]> lessData = new List<LessonGroup[]>();//Converting the 2D array to a list of 1D arrays(The conversion is made for the datalist)
             for (int i = 0; i < lessons.GetLength(0); i++)
                 lessData.Add(GetRow(lessons, i));//Filling the new struct with the old one

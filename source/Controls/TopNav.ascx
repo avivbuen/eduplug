@@ -28,7 +28,7 @@
             </li>--%>
             <li>
                 <!-- User Dropdown Structure -->
-                <ul id='dropdown-user' class='dropdown-content' style="width: 300px; text-align: center">
+                <ul id='dropdown-user' class='dropdown-content' style="width: 370px; text-align: center">
                     <li style="background-color: #6385b2; text-align: center; " >
                         <img src="#"  class="user-pic-view" onclick="location=host+'/User/Edit.aspx'" style="border-radius: 50%;cursor:pointer; width: 170px; height: 170px; background: #ffffff; margin-top: 30px" /><span style="color: #fff; font-size: 30px" class="user-name-view"></span>
 

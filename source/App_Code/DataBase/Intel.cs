@@ -35,6 +35,10 @@ public static class Intel
     public static void Redirect()
     {
         HttpResponse Response = HttpContext.Current.Response;
+        if (MemberService.GetCurrent().Active == "Wait")
+        {
+            Response.Redirect("~/User/Activate.aspx");
+        }
         switch (MemberService.GetCurrent().Auth)
         {
             case MemberClearance.Guest:

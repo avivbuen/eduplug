@@ -108,6 +108,11 @@ public partial class Controls_TimeTable : System.Web.UI.UserControl
             return "<td" + CastColor(lsns.First().Color) + " " + GetLink(lsns.First(), day) + ">" + lsns.First().Name + "</td>";
         foreach (Lesson lsn in lsns)
         {
+            if (lsn.Changes == null)
+            {
+                str += "-" + lsn.Name + "<br/>";
+                continue;
+            }
             List<LessonChange> changes = lsn.Changes.Where(x => x.Date == DateTimeExtensions.StartOfWeek((Session["StartDate"]), day) && x.LessonId == lsn.Id).ToList();
 
             if (lsn.Changes != null && lsn.Changes.Count != 0 && changes.Count()==1)
