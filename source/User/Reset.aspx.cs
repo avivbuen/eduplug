@@ -36,6 +36,11 @@ public partial class User_Reset : System.Web.UI.Page
                 int code = rnd.Next(9999, 999999);
                 Session["resetCode"] = code;
                 Session["resetMem"] = m;
+                if (m.Mail.Trim() == "")
+                {
+                    SendToUser("לא קיים מייל לאיפוס סיסמה במערכת");
+                    return;
+                }
                 SendMail(m.Mail, code.ToString());
                 PanelStage1.Visible = false;
                 PanelStage2.Visible = true;

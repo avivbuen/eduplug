@@ -872,3 +872,42 @@
    at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
  QUERY= INSERT INTO eduMembers (eduFirstName,eduLastName,eduID,eduActive,eduType) VALUES ('אבי','זרדב','318949567','Wait','a')
 -------------------------------
+
+ AVIVNET Log Entry : 14:04:18 יום ראשון 14 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): The record cannot be deleted or changed because table 'eduMajorsTgrades' includes related records.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduTeacherGrades WHERE eduTgradeID=37
+-------------------------------
+
+ AVIVNET Log Entry : 14:06:32 יום ראשון 14 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E37): The Microsoft Access database engine cannot find the input table or query 'eduTgradesMajors'. Make sure it exists and that its name is spelled correctly.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduTgradesMajors WHERE eduTgradeID=37
+-------------------------------
+
+ AVIVNET Log Entry : 14:06:37 יום ראשון 14 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E37): The Microsoft Access database engine cannot find the input table or query 'eduTgradesMajors'. Make sure it exists and that its name is spelled correctly.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduTgradesMajors WHERE eduTgradeID=37
+-------------------------------

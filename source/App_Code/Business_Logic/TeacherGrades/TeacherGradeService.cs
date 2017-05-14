@@ -35,7 +35,7 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static bool Remove(int tgid)
         {
-            return Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduTeacherGrades WHERE eduTgradeID=" + tgid);
+            return Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid)&& Connect.InsertUpdateDelete("DELETE FROM eduMajorsTgrades WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduTeacherGrades WHERE eduTgradeID=" + tgid);
         }
         /// <summary>
         /// Get id by obj
