@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using Business_Logic.Exams;
 using Business_Logic.Members;
 using Business_Logic.Scores;
 
@@ -35,7 +36,16 @@ namespace Business_Logic.TeacherGrades
         /// <returns></returns>
         public static bool Remove(int tgid)
         {
-            return Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid)&& Connect.InsertUpdateDelete("DELETE FROM eduMajorsTgrades WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduTeacherGrades WHERE eduTgradeID=" + tgid);
+            bool val=true;
+            List<Exam> s = ExamService.GetExamsByTeacherGradeId(tgid);
+            foreach (Exam e in s)
+            {
+                Connect.InsertUpdateDelete("DELETE FROM eduScores WHERE eduExamID="+e.Id);
+            }
+            val &= Connect.InsertUpdateDelete("DELETE FROM eduExams WHERE eduTgradeID=" + tgid);
+            val &= Connect.InsertUpdateDelete("DELETE FROM eduLessons WHERE eduTgradeID=" + tgid);
+
+            return  val && Connect.InsertUpdateDelete("DELETE FROM eduLearnGroups WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduMajorsTgrades WHERE eduTgradeID=" + tgid) && Connect.InsertUpdateDelete("DELETE FROM eduTeacherGrades WHERE eduTgradeID=" + tgid);
         }
         /// <summary>
         /// Get id by obj

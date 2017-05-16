@@ -911,3 +911,146 @@
    at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
  QUERY= DELETE FROM eduTgradesMajors WHERE eduTgradeID=37
 -------------------------------
+
+ AVIVNET Log Entry : 00:08:02 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): The record cannot be deleted or changed because table 'eduScores' includes related records.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduExams WHERE eduTgradeID=34
+-------------------------------
+
+ AVIVNET Log Entry : 00:21:40 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E10): No value given for one or more required parameters.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduScores WHERE eduTgradeID=39
+-------------------------------
+
+ AVIVNET Log Entry : 00:21:45 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E10): No value given for one or more required parameters.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduScores WHERE eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:27:16 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error (missing operator) in query expression 'eduScores.eduExamID=eduExams.eduExamID eduExamID.eduTgradeID=38'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduExams,eduScores WHERE eduScores.eduExamID=eduExams.eduExamID eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:27:21 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error (missing operator) in query expression 'eduScores.eduExamID=eduExams.eduExamID eduExamID.eduTgradeID=38'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduExams,eduScores WHERE eduScores.eduExamID=eduExams.eduExamID eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:28:19 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): Specify the table containing the records you want to delete.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduExams,eduScores WHERE eduScores.eduExamID=eduExams.eduExamID AND eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:32:09 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in FROM clause.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduExams,eduScores INNER JOIN eduScores WHERE eduScores.eduExamID=eduExams.eduExamID AND eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:33:46 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in FROM clause.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE eduExams,eduScores FROM eduExams INNER JOIN eduScores WHERE eduScores.eduExamID=eduExams.eduExamID AND eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:35:07 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error in FROM clause.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE eduExams,eduScores FROM eduExams INNER JOIN eduScores WHERE eduScores.eduExamID=eduExams.eduExamID AND eduExamID.eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:41:51 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): The record cannot be deleted or changed because table 'eduLessons' includes related records.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduTeacherGrades WHERE eduTgradeID=38
+-------------------------------
+
+ AVIVNET Log Entry : 00:42:22 יום שני 15 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80004005): The record cannot be deleted or changed because table 'eduLessons' includes related records.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
+ QUERY= DELETE FROM eduTeacherGrades WHERE eduTgradeID=38
+-------------------------------
