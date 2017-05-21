@@ -157,11 +157,11 @@ public class Import : IHttpHandler, IReadOnlySessionState, IRequiresSessionState
 
     static bool CheckName(string name)
     {
-        if (name.Length < 2)
+        if (name.Length < 1)
             return false;
-        if (name.Length > 32)
+        if (name.Length > 64)
             return false;
-        return name.All(c => c >= 'א' && c <= 'ת');
+        return name.All(c => (c >= 'א' && c <= 'ת')||c==' '||c=='\'');
     }
 
     static bool ValidateMail(string mail)

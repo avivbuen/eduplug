@@ -1054,3 +1054,15 @@
    at Connect.InsertUpdateDelete(String sqlQuery) in f:\Projects\Project10\source\App_Code\DataBase\Connect.cs:line 76
  QUERY= DELETE FROM eduTeacherGrades WHERE eduTgradeID=38
 -------------------------------
+
+ AVIVNET Log Entry : 02:17:14 יום שני 22 מאי 2017
+  :
+  :System.Data.OleDb.OleDbException (0x80040E14): Syntax error (missing operator) in query expression ''ג'קי','דיש','208082107','s',29,'054-4780234',#1999-05-22#,'f',2784,'Wait',444737,'/Content/graphics/img/default.png')'.
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   at System.Data.OleDb.OleDbCommand.ExecuteNonQuery()
+   at Business_Logic.Members.MemberService.AddAllowed(DataTable dt) in f:\Projects\Project10\source\App_Code\Business_Logic\Members\MembersService.cs:line 834
+-------------------------------

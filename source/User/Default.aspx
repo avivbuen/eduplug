@@ -149,6 +149,7 @@
             <script>LoadCurrentUser();</script>
         </form>
     </div>
+    <a style="position: absolute; left: 0; bottom: 0; background: teal; color: #fff; text-decoration: none; padding: 5px;" target="_blank" href="https://github.com/avivbuen/eduplug">הוראות התחברות וקוד בגיטהאב</a>
     <!-- FROM EDUPLUG.CO.IL -->
     <script>
         var timeOutvar;//Storing the time out in order to stop it when its done

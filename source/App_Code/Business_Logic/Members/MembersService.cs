@@ -728,11 +728,11 @@ namespace Business_Logic.Members
                         {
                             case "שם פרטי":
                                 if (i == 0) continue;
-                                member.FirstName = dtWs.Rows[i][dc].ToString();
+                                member.FirstName = dtWs.Rows[i][dc].ToString().Replace("'", "''");
                                 break;
                             case "שם משפחה":
                                 if (i == 0) continue;
-                                member.LastName = dtWs.Rows[i][dc].ToString();
+                                member.LastName = dtWs.Rows[i][dc].ToString().Replace("'","''");
                                 break;
                             case "תעודת זהות":
                                 if (i == 0) continue;
