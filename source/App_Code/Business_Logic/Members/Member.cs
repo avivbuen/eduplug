@@ -40,10 +40,15 @@ namespace Business_Logic.Members
             set
             {
                 string[] val = value.Split(' ');
-                if (val.Length == 2)
+                if (val.Length >= 2)
                 {
                     FirstName = val[0];
-                    LastName = val[1];
+                    string lname = "";
+                    for (int i = 1; i < val.Length; i++)
+                    {
+                        lname += val[i] + " ";
+                    }
+                    LastName = lname.Trim();
                 }
             }
         }
