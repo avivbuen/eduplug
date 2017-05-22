@@ -35,6 +35,10 @@ public partial class Panel_Teacher_Grade : System.Web.UI.Page
             if (Request.QueryString["gid"] == null)
                 Response.Redirect("~/Default.aspx");
             TeacherGrade current = TeacherGradeService.Get(id);
+            if(current.TeacherId!=MemberService.GetCurrent().UserID)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
             Session["tgCur"] = current;
             LabelTitle.Text = current.Name;
             if (current == null)
