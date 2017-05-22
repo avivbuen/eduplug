@@ -17,17 +17,27 @@
                 </span>
                 <table style="margin: 0 auto">
                     <tbody>
-                    <tr>
-                        <td>
-                            <img id="PreviewImage" alt="your image" style="display: none; width: 70px; height: 70px; border: 1px solid black; border-radius: 50%;" />
-                        </td>
-                        <td>
-                            <img src="../../Content/graphics/img/remove-icon.png" title="בטל תמונה" id="delPic" onclick="CheckMe1(this);" style="display: none; width: 15px; height: 15px" />
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <img id="PreviewImage" alt="your image" style="display: none; width: 70px; height: 70px; border: 1px solid black; border-radius: 50%;" />
+                            </td>
+                            <td>
+                                <img src="../../Content/graphics/img/remove-icon.png" title="בטל תמונה" id="delPic" onclick="CheckMe1(this);" style="display: none; width: 15px; height: 15px" />
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <asp:FileUpload ID="FileUploadLogo" runat="server" accept=".png,.jpg" onchange="readURL1(this);" />
+
+                <div class="file-field input-field col e-form">
+                    <div class="btn">
+                        <span>לוגו</span>
+                        <asp:FileUpload ID="FileUploadLogo" runat="server" accept=".png,.jpg,.bmp,.webp,.jpeg" onchange="readURL1(this);" />
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate e-form" type="text" />
+                    </div>
+                </div>
+
 
                 <script>
                     function readURL1(input) {
@@ -64,7 +74,7 @@
         <asp:Button ID="applyBtn" CssClass="btn" runat="server" Text="שמור" OnClick="applyBtn_OnClick" Style="margin-top: 10px; width: 60%;" />
         <asp:ValidationSummary ID="RegisterValidationSummary" CssClass="reg-validate-sum" DisplayMode="BulletList" ForeColor="Red" ValidationGroup="RegisterValidationGroup" runat="server" />
     </div>
-    
+
 
     <script><%= done %></script>
 </asp:Content>

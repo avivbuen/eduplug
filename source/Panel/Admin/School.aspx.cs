@@ -26,7 +26,7 @@ public partial class Panel_Admin_School : System.Web.UI.Page
         if (FileUploadLogo.HasFile)
         {
             string ending = Path.GetExtension(FileUploadLogo.FileName);
-            string[] fileTypes = { ".png", ".bmp", ".jpg" };
+            string[] fileTypes = { ".png", ".bmp", ".jpg",".jpeg",".webp" };
             if (!fileTypes.Contains(ending.ToLower()))
             {
                 args.IsValid = false;
