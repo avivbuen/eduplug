@@ -60,7 +60,7 @@ public partial class Panel_Admin_EditTeacherGrade : System.Web.UI.Page
     {
         if (LisTeacherGrades.SelectedValue != "-1")
         {
-            StudentsToAdd.DataSource = MemberService.GeTeacherGradePart(LisTeacherGrades.SelectedValue.Replace("'", "''"));
+            StudentsToAdd.DataSource = MemberService.GeTeacherGradePart(LisTeacherGrades.SelectedValue.Replace("'", "''")).OrderBy(z => z.FirstName);
             StudentsToAdd.DataTextField = "Name";
             StudentsToAdd.DataValueField = "UserID";
             StudentsToAdd.DataBind();
