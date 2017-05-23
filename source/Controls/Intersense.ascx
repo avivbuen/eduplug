@@ -56,7 +56,7 @@
     ***************************************************
 -->
 <script>
-    console.log("%cEduPlug v1.2 by Ѧ√їṽηℯt LTD", "color: blue; font-size: xx-large");
+    console.log("%cEduPlug v1.2.1 by Ѧ√їṽηℯt LTD", "color: blue; font-size: xx-large");
     console.log("%cStop!", "background: red; color: yellow; font-size: xx-large");
     console.log("%cIf someone told you to paste something here they might be trying to hack your account!", "color: red; font-size: large");
 </script>

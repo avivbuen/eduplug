@@ -45,7 +45,9 @@
                         <span style="text-align: center; width: 100%">תלמידי הכיתה</span>
 
                         <div style="overflow-y: scroll; height: 100px; width: 100%; padding-right: 15px">
-                            <asp:CheckBoxList ID="StudentsToAdd" RepeatColumns="2" runat="server" CssClass="e-form" Visible="false"></asp:CheckBoxList>
+
+                            <asp:CheckBoxList ID="StudentsToAdd" runat="server" CssClass="e-form datatables-table" Visible="false"></asp:CheckBoxList>
+
                             <asp:Label ID="LabelNoStudents" runat="server" Text=""></asp:Label>
                         </div>
                     </asp:Panel>
@@ -68,6 +70,10 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+
+    <script>
+        $('select').material_select();
+    </script>
         <asp:Button ID="AddButton" CssClass="btn waves-button-input btn-large" runat="server" Text="+" Font-Size="36" OnClick="AddButton_Click" />
     </div>
     <%=Script%>

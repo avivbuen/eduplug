@@ -1105,3 +1105,16 @@
   :
   :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:63674/Panel/Admin/School.aspx
 -------------------------------
+
+ AVIVNET Log Entry : 19:14:02 יום שלישי 23 מאי 2017
+  :
+  :System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 80.244.168.44:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at Population.WebServiceCities.GetAllCitiesFromIsrael() in c:\Users\avivb\AppData\Local\Temp\Temporary ASP.NET Files\vs\0f0c60be\484ad84e\App_WebReferences.3_byixi3.1.cs:line 47
+   at Business_Logic.Cities.CitiesService.UpdateDb() in f:\Projects\Project10\source\App_Code\Business_Logic\Cities\CitiesService.cs:line 91
+-------------------------------
