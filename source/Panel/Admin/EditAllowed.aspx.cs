@@ -20,6 +20,8 @@ public partial class Panel_Admin_EditAllowed : System.Web.UI.Page
         if(Request.QueryString["uid"]==null||Request.QueryString["uid"].ToString().Trim()=="")Response.Redirect("~/");
         string s = Request.QueryString["uid"].ToString().Trim();
         Member mem = MemberService.GetAllowed(s);
+        if (mem.FirstName == "")
+            Response.Redirect("~/");
         User_First_Name.Text = mem.FirstName;
         User_Last_Name.Text = mem.LastName;
         User_ID.Text = mem.ID;
