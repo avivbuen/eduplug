@@ -110,4 +110,20 @@ public partial class InterTrack_Admin_AddTeacherGrade : System.Web.UI.Page
     {
             PanelNewMajor.Visible = (ListMajors.SelectedValue == "-1");
     }
+
+    protected void cvMegama_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        if(PanelNewMajor.Visible)
+        {
+            List<Major> majors = MajorsService.GetAll();
+            args.IsValid = (majors.Count(x => x.Title == MajorName.Text.Trim())==0);
+            return;
+        }
+        args.IsValid = true;
+    }
+
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+
+    }
 }

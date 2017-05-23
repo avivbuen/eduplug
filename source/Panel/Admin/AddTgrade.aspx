@@ -58,11 +58,13 @@
                         <div class="input-field col" style="width: 100%;">
                             <asp:TextBox ID="MajorName" runat="server"></asp:TextBox>
                             <label>
+                                <asp:CustomValidator ID="cvMegama" runat="server" ErrorMessage="מגמה קיימת" OnServerValidate="cvMegama_ServerValidate" ForeColor="Red" ValidationGroup="AllowValidationGroup">*</asp:CustomValidator>
                                 <asp:RequiredFieldValidator ID="rfv_MajorName" EnableClientScript="true" Display="Dynamic" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="MajorName" runat="server" ErrorMessage="הכנס שם מגמה">*</asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="refv_MajorName" Display="Dynamic" ValidationExpression="^([\sא-ת]{2,30})$" EnableClientScript="true" ForeColor="Red" ValidationGroup="AllowValidationGroup" ControlToValidate="MajorName" runat="server" ErrorMessage="שם מגמה חייב להיות בעברית בלבד בין 2-30 תווים">*</asp:RegularExpressionValidator>
                                 שם מגמה חדשה</label>
                         </div>
                     </asp:Panel>
+
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
