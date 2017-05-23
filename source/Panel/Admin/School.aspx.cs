@@ -7,12 +7,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business_Logic.Members;
 using Business_Logic.Schools;
+using Business_Logic;
 
 public partial class Panel_Admin_School : System.Web.UI.Page
 {
     public string done = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (MemberService.GetCurrent().Auth != MemberClearance.Admin)
+            Response.Redirect("~/");
         if (!IsPostBack)
             Fill();
     }

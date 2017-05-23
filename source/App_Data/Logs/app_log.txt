@@ -1100,3 +1100,8 @@
   :
   :System.Exception: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. URL:http://localhost:63674/System/Multi.ashx
 -------------------------------
+
+ AVIVNET Log Entry : 13:24:56 יום שלישי 23 מאי 2017
+  :
+  :System.Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown. URL:http://localhost:63674/Panel/Admin/School.aspx
+-------------------------------

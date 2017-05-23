@@ -28,7 +28,7 @@
                     </tbody>
                 </table>
 
-                <div class="file-field input-field col e-form">
+                <div class="file-field input-field" >
                     <div class="btn">
                         <span>לוגו</span>
                         <asp:FileUpload ID="FileUploadLogo" runat="server" accept=".png,.jpg,.bmp,.webp,.jpeg" onchange="readURL1(this);" />
